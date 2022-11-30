@@ -13,5 +13,8 @@
             "email": "mprospero@sii.fr"
         }
     ],
-    "require": {}
+    "require": {
+        "twig/twig": "1.9",
+        "twbs/bootstrap": "5.1.3"
+    }
 }

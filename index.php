@@ -1,9 +1,7 @@
-<html>
-    <header>
-    </header>
-    <body>
 <?php
 require_once("./bootstrap.php");
 ?>
-    </body>
-</html>
+<!DOCTYPE html>
+<?php
+require_once("./bootstrap.php");
+?>
