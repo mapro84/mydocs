@@ -1,13 +1,27 @@
 <?php
 namespace src\classes;
+use src\classes\DB\DB;
+use src\classes\Utils\Debug;
+use \PDO;
 
 class Course{
 
     private $name = '';
 
-    public function __construct(string $name) {
-        echo '<br>Course Name setting<br>';
-        $this->name = $name;
+    public function __construct() {
+    }
+
+    public function getAll(){
+        /*try{
+            $pdo = DB::getInstance();
+        }catch(Exception $e){
+            echo $e->getMessage();
+        }
+        $statement = $pdo->query('SELECT * FROM course');
+        Debug::dump($statement->fetchAll(PDO::FETCH_OBJ));
+        */
+        $query = 'SELECT * FROM course';
+        return DB::query($query);
     }
 
     public function getName(){

@@ -67,7 +67,7 @@
         <ul id="navigation">
         </ul>
 
-        <h1>My Webpage</h1>
+        <h1>My Skills</h1>
 
         <?php
             echo $content;
