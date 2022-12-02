@@ -26,7 +26,7 @@
             <nav id="bs-navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li>
-                <a href="index.php?page=lessons">Lessons</a>
+                <a href="index.php?page=skills">Skills</a>
                 </li>
                 <li>
                 <a href=".">Linux</a>

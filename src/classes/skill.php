@@ -4,7 +4,7 @@ use src\classes\DB\DB;
 use src\classes\Utils\Debug;
 use \PDO;
 
-class Course{
+class Skill{
 
     private $name = '';
 
@@ -12,7 +12,7 @@ class Course{
     }
 
     public function getAll(){
-        $query = 'SELECT * FROM course';
+        $query = 'SELECT * FROM skill';
         return DB::query($query);
     }
 

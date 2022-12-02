@@ -1,13 +1,13 @@
 <div style="background-color: orange">
-    Lessons page
+    My consequent Skills
 <div>
 
 <?php
 
 echo "<ul>";
-foreach($courses as $course):
+foreach($skills as $skill):
 
-    echo "<li>" . $course->title . "</li>";
+    echo "<li>" . $skill->title . "</li>";
 
 endforeach;
 echo "</ul>";
