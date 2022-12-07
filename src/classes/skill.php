@@ -1,13 +1,10 @@
 <?php
 namespace src\classes;
 
-use src\classes\DB\DB;
+class Skill extends Table{
 
-class Skill{
-
-    private $name = '';
+    private $name;
     private $key;
-    private $title;
     private $id;
 
     /**
@@ -24,23 +21,22 @@ class Skill{
     public function __construct() {
     }
 
+    public function get($id){
+    	return parent::find($id);
+    }
+    
     public function getUrl(){
-    	return '<li><a href=index.php?page=skill&skillid='.$this->id.'>'.$this->title.'</a></li>';
+    	Table::getAll();
+    	return '<li><a href=index.php?page=skill&skillid='.$this->id.'>'.$this->name.'</a></li>';
     }
     
-    public function getTitle(){
-    	return $this->title;
-    }
-    
-    public function getSkill($id){
-    	$query = "SELECT * FROM skill WHERE id = ?";
-    	$parameters = [$id];
-    	return DB::prepare($query, $parameters, 'src\classes\Skill',true);
-    }
-    
-    public function getAll(){
-        $query = 'SELECT * FROM skill';
-        return DB::prepare($query, [], 'src\classes\Skill');
+    public function getname(){
+    	return $this->name;
     }
 
+    public function getId(){
+    	return $this->id;
+    }
+    
+    
 }

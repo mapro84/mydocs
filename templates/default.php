@@ -30,31 +30,29 @@
                 <a href="index.php?page=skills">Skills</a>
                 </li>
                 <li>
-                <a href=".">Linux</a>
+                <a href="index.php?skilltitle=PHP">PHP</a>
                 </li>
                 <li>
-                <a href=".">PHP</a>
-                </li>
-                <li>
-                <a href=".">Python</a>
+                <a href="index.php?skilltitle=Python">Python</a>
                 </li>
                 <li class="active">
-                <a href=".">Linux</a>
+                <a href="index.php?skilltitle=Linux">Linux</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    v3.4.1 <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="https://getbootstrap.com/">Latest (4.x)</a></li>
-                    <li><a href="https://v4-alpha.getbootstrap.com/">v4 Alpha 6</a></li>
-                    <li class="divider"></li>
-                    <li class="active"><a href="https://getbootstrap.com/docs/3.4/">v3.4.1</a></li>
-                    <li><a href="https://getbootstrap.com/docs/3.3/">v3.3.7</a></li>
-                    <li><a href="https://getbootstrap.com/2.3.2/">v2.3.2</a></li>
-                </ul>
+                <nav> 
+	                <ul>
+					  <li><a href="index.php?page=factorydemo">Factory Demo</a> </li>
+					  <li><a href="index.php?page=didemo" alt"dependency injection">DI Demo</a></li> 
+					</ul>
+				</nav>
+                    <select name="cars" id="cars">
+					  <option value="volvo"><a href="index.php?skilltitle=Python">Python</a></option>
+					  <option value="saab">Saab</option>
+					  <option value="mercedes">Mercedes</option>
+					  <option value="audi">Audi</option>
+					</select>
                 </li>
                 <li><a href="." onclick="ga('send', 'event', 'Navbar', 'Community links', 'Themes')">Themes</a></li>
                 <li><a href="." onclick="ga('send', 'event', 'Navbar', 'Community links', 'Expo');">Expo</a></li>
@@ -68,7 +66,7 @@
         <ul id="navigation">
         </ul>
 
-        <h1 class="title">My Skills</h1>
+        <h1 class="title">IT Cheat-Sheets</h1>
 
         <?php
             echo $content;

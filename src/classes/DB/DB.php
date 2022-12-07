@@ -1,7 +1,9 @@
 <?php
 namespace src\classes\DB;
+
 use \PDO;
 use \Exception;
+use src\classes\Config;
 
 class DB{
 
@@ -20,8 +22,11 @@ class DB{
     public function clone(){}
 
     private function getPDOConnection(){
+    	
+    	$config = Config::getGenConf();
+    	
         // Display PDO Errors when dev
-        if(ENV === 'dev'){
+    	if($config['ENV'] === 'dev'){
             $options = [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_CASE => PDO::CASE_NATURAL,
@@ -31,9 +36,9 @@ class DB{
             $options = [];
         }
 
-        $dsn = 'mysql:dbname='.DBNAME.';host='.DBHOST;
-        $user = DBUSER;
-        $password = DBPASS;
+        $dsn = 'mysql:dbname='.$config['DBNAME'].';host='.$config['DBHOST'];
+        $user = $config['DBUSER'];
+        $password = $config['DBPASS'];
         $pdoConnection = new PDO($dsn, $user, $password, $options);
 
         return $pdoConnection;
