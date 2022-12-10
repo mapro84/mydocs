@@ -10,7 +10,7 @@ if(!isset($_SESSION['auth'])){
 	header('Location: index.php?page=login');
 }else{
 ?>
-<img src="public/img/delete-icon.png" >
+
 <form class="postform" action="index.php?page=bo&action=boaddskill" method="post">
   <div class="form-group">
     <strong>Add a Skill</strong>
