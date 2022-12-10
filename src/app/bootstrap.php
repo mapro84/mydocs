@@ -1,31 +1,22 @@
 <?php
-use src\app\Skill;
 use src\Core\Utils\Check;
-use src\app\Item;
-use src\app\Demo;
-use src\app\Url;
-use src\app\demos\factory\FactoryPatternDemo;
 use src\Core\Auth\DBAuth;
-
 use src\app\Controller\SkillController;
 use src\app\Controller\UserController;
 use src\app\Controller\ItemController;
 use src\app\Controller\HomeController;
+use src\app\Controller\BOController;
+use src\app\Controller\DemoController;
 
-$DBAuth = new DBAuth();
-$DBAuth->login('admin','admin');
-
-// ob_start();
-$skill = new Skill();
-$item = new Item();
-$demo = new Demo();
-$factorydemo = new FactoryPatternDemo();
-
+// $DBAuth = new DBAuth();
+// $DBAuth->login('admin','admin');
 
 $skillController = new SkillController();
 $itemController = new ItemController();
 $userController = new UserController();
 $homeController = new HomeController();
+$demoController = new DemoController();
+$boController   = new BOController();
 
 
 $page = isset($_GET['page']) ? $_GET['page'] : '';
@@ -35,14 +26,6 @@ switch ($page) {
 		break;
 	case 'skills':
 		$skillController->list();
-// 		if(isset($_GET['action']) && Check::is_safe_string($_GET['action'])){
-// 			echo '';die();
-// 			if(Check::is_safe_string($_POST['action'])){
-				
-// 			}
-// 		}else{
-// 			echo 'NOOOOOO'; die();
-// 		}
 		break;
 	case 'skill':
 		$skill_id = $_GET['skill_id'];
@@ -64,32 +47,17 @@ switch ($page) {
 			$skillController->findByName($skill_name);
 		}
 		break;
-		
-		$skill_name = addslashes($_GET['name']);
-		$oneSkill = $skill->findByName('skill',$skill_name);
-		$skill_id = $oneSkill->id;
-		$demos = $demo->findBy('demo',$skill_id,'skill');
-		$urls = $demo->findBy('url',$skill_id,'skill');
-		require_once('./src/app//view/skill.php');
-		break;
 	case 'bo':
 		$action = isset($_GET['action']) ? addslashes($_GET['action']) : '';
-		require_once('./src/app//view/bo/bo.php');
+		if(Check::is_safe_string($action)) $boController->show($action);
 		break;
 	case 'login':
-		
 		$userController->login();
-		
-// 		require_once('./src/app//view/user/login.php');
 		break;
-	case 'factorydemo':
-		$demo = $factorydemo->demo();
-		require_once('./src/app//view/demos/factory.php');
+	case 'demo':
+		$demo_id = $_GET['demo_id'];
+		if(Check::is_numeric($demo_id)) $demoController->show($demo_id);
 		break;
-	default: require_once('./src/app//view/home.php');
+	default: $homeController->show();
 }
-
-//  $content = ob_get_clean();
-// require_once('./src/app//view/default.php');
-
 ?>

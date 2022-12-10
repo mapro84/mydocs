@@ -3,7 +3,7 @@ namespace src\app\demos\factory;
 
 use src\app\demos\factory\PizzaFactory;
 
-class FactoryPatternDemo {
+class Demo {
 
     private $factory;
 
@@ -137,7 +137,7 @@ namespace src\app\demos\factory;
 use src\app\demos\factory\PizzaFactory;
 use src\Core\Utils\Debug;
 
-class FactoryPatternDemo {
+class Demo {
 
     private $factory;
     

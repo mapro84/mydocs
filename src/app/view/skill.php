@@ -63,7 +63,7 @@ if($numberDemos>0){
 	<ul>
 	<?php
 		foreach($demos as $demo){
-			echo '<li><a href="index.php?page='.$demo->name.'demo" target="_blank">'.ucfirst($demo->name).' Demo</a></li>';
+			echo '<li><a href="index.php?page=demo&demo_id='.$demo->id.'" target="_blank">'.ucfirst($demo->name).' Demo</a></li>';
 		}
 	?>
 	</ul>
