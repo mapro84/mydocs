@@ -1,3 +1,3 @@
-<div style="background-color: yellow">
-    This website describes my skills with detail
+<div class="h2title">
+    <a href="index.php?page=skills">Review or create skills tips or skills cheat-sheets</a>
 </div>

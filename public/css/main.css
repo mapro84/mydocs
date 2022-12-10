@@ -20,3 +20,28 @@ li{
 	margin: 25px 25px;
 	padding: 5px 5px;
 }
+
+pre{
+  text-align:left;
+  margin: 5px 20px;
+  padding: 0 10px;
+}
+
+align-left{
+	text-align: left;
+}
+
+.remove-bullet{
+	list-style: none;
+}
+
+.postform{
+	text-align: left;
+	padding: 35px;
+}
+label{
+	width: 100px;
+}
+button{
+	margin-left: 100px;
+}

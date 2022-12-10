@@ -1,9 +1,9 @@
-<?php
-
-echo "<ul>";
-foreach($skills as $skill):
-    echo $skill->url;
-endforeach;
-echo "</ul>";
-
-?>
+<div class="h2title">
+	<ul>
+		<?php
+		foreach($skills as $skill):
+		    echo "<li>" . $skill->url . "</li>";
+		endforeach;
+		?>
+	</ul>
+</div>
