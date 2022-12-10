@@ -1,10 +1,13 @@
 <div class="h2title">
 	<?php
-	echo $skillname . " : " . $oneItem->name;
+	$item = $entities['item'];
+	$skill_name = $entities['skill_name'];
+	
+	echo $skill_name . " : " . $item->name;
 	echo "<ul>";
-	if(!is_null($oneItem->further)){ echo '<li><a href="./public/doc/'. $oneItem->further . '" target="_blank">' . $oneItem->description . '</a></li>'; }
-	else { echo '<li>' . $oneItem->description . '</li>'; }
-	if(!is_null($oneItem->urls)) echo '<li><a href="'.$oneItem->urls.'" target="_blank">' . $oneItem->urls . '</a></li>';
+	if(!is_null($item->further)){ echo '<li><a href="./public/doc/'. $item->further . '" target="_blank">' . $item->description . '</a></li>'; }
+	else { echo '<li>' . $item->description . '</li>'; }
+	if(!is_null($item->urls)) echo '<li><a href="'.$item->urls.'" target="_blank">' . $item->urls . '</a></li>';
 	echo "</ul>";
 	?>
 </div>

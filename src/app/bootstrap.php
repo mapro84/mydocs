@@ -9,11 +9,13 @@ use src\Core\Auth\DBAuth;
 
 use src\app\Controller\SkillController;
 use src\app\Controller\UserController;
+use src\app\Controller\ItemController;
+use src\app\Controller\HomeController;
 
 $DBAuth = new DBAuth();
 $DBAuth->login('admin','admin');
 
-ob_start();
+// ob_start();
 $skill = new Skill();
 $item = new Item();
 $demo = new Demo();
@@ -21,19 +23,18 @@ $factorydemo = new FactoryPatternDemo();
 
 
 $skillController = new SkillController();
+$itemController = new ItemController();
 $userController = new UserController();
+$homeController = new HomeController();
 
 
 $page = isset($_GET['page']) ? $_GET['page'] : '';
 switch ($page) {
 	case 'home': 
-		require_once('./src/app//view/home.php');
+		$homeController->show();
 		break;
 	case 'skills':
-		
 		$skillController->list();
-		
-// 		$skills = $skill->getAll('skill');
 // 		if(isset($_GET['action']) && Check::is_safe_string($_GET['action'])){
 // 			echo '';die();
 // 			if(Check::is_safe_string($_POST['action'])){
@@ -42,39 +43,30 @@ switch ($page) {
 // 		}else{
 // 			echo 'NOOOOOO'; die();
 // 		}
-//         require_once('./src/app//view/skills.php');
 		break;
 	case 'skill':
-		
-		$skillController->show();
-		
-// 		$skill_id = $_GET['skillid'];
-//         Check::is_numeric($skill_id);
-//     	$oneSkill = $skill->find($skill_id,'skill');
-//     	$demos = $demo->findBy('demo',$skill_id,'skill');
-//     	$urls = $demo->findBy('url',$skill_id,'skill');
-//     	require_once('./src/app//view/skill.php');
+		$skill_id = $_GET['skill_id'];
+        if(Check::is_numeric($skill_id)) $skillController->show($skill_id);
 		break;
 	case 'items':
-		
-		$skillController->itemsList();
-		
-// 		$skill_id = $_GET['skillid'];
-// 		Check::is_numeric($skill_id);
-// 		$skillname = addslashes($_GET['skillname']);
-// 		$items = $item->findBy('item',$skill_id,'skill');
-// 		require_once('./src/app//view/items.php');
+		$skill_id = $_GET['skill_id'];
+		$skill_name = addslashes($_GET['skill_name']);
+		if (Check::is_numeric($skill_id)) $skillController->itemsListBySkill($skill_id,$skill_name);
 		break;
 	case 'item':
 		$itemid = $_GET['itemid'];
-		Check::is_numeric($itemid);
-		$oneItem = $item->find($itemid,'item');
-		$skillname = addslashes($_GET['skillname']);
-		require_once('./src/app//view/item.php');
+		$skill_name = addslashes($_GET['skill_name']);
+		if (Check::is_numeric($itemid)) $itemController->show($itemid, $skill_name);
 		break;
-	case 'skillname':
-		$skillname = addslashes($_GET['name']);
-		$oneSkill = $skill->findByName('skill',$skillname);
+	case 'skill_name':
+		$skill_name = addslashes($_GET['name']);
+		if(Check::is_safe_string($skill_name)){
+			$skillController->findByName($skill_name);
+		}
+		break;
+		
+		$skill_name = addslashes($_GET['name']);
+		$oneSkill = $skill->findByName('skill',$skill_name);
 		$skill_id = $oneSkill->id;
 		$demos = $demo->findBy('demo',$skill_id,'skill');
 		$urls = $demo->findBy('url',$skill_id,'skill');
@@ -97,7 +89,7 @@ switch ($page) {
 	default: require_once('./src/app//view/home.php');
 }
 
-$content = ob_get_clean();
-require_once('./src/app//view/default.php');
+//  $content = ob_get_clean();
+// require_once('./src/app//view/default.php');
 
 ?>

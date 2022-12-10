@@ -16,6 +16,8 @@ class Check {
 		$filteredValue = filter_var($int, FILTER_VALIDATE_INT);
 		if($filteredValue === false) {
 			throw(new \Exception('Exception: This value is not an integer \n'));
+		}else{
+			return true;
 		}
 	}
 	

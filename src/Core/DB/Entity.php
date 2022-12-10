@@ -6,18 +6,18 @@ use src\Core\Utils\Debug;
 
 class Entity{
 
-    public function getAll($table){
+    public static function getAll($table){
     	$query = 'SELECT * FROM ' . strtolower($table);
         return DB::prepare($query, [], get_called_class());
     }
 
-    public function find($id,$table){
+    public static function find($id,$table){
     	$query = "SELECT * FROM ". strtolower($table) ." WHERE id = ?";
     	$parameters = [$id];
     	return DB::prepare($query, $parameters, get_called_class(),true);
     }
 
-    public function findBy($targertTable, $id, $tableCategory){
+    public static function findBy($targertTable, $id, $tableCategory){
     	$query = "SELECT * FROM ".$targertTable." WHERE {$tableCategory}_id = ?";
     	$parameters = [$id];
     	return DB::prepare($query, $parameters, get_called_class());

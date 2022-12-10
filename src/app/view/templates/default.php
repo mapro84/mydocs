@@ -18,13 +18,13 @@
 <a href="index.php?page=skills">Skills</a>
 </li>
 <li>
-<a href="index.php?page=skillname&name=PHP">PHP</a>
+<a href="index.php?page=skill_name&name=PHP">PHP</a>
 </li>
 <li>
-<a href="index.php?page=skillname&name=Python">Python</a>
+<a href="index.php?page=skill_name&name=Python">Python</a>
 </li>
 <li>
-<a href="index.php?page=skillname&name=Linux">Linux</a>
+<a href="index.php?page=skill_name&name=Linux">Linux</a>
 </li>
 <li>
 <a href="index.php?page=bo">BO</a>

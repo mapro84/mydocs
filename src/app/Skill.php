@@ -29,7 +29,7 @@ class Skill extends Entity{
 
     public function getUrl(){
     	Entity::getAll('skill');
-    	return '<a href=index.php?page=skill&skillid='.$this->id.'>'.$this->name.'</a>';
+    	return '<a href=index.php?page=skill&skill_id='.$this->id.'>'.$this->name.'</a>';
     }
     
     public function getname(){
