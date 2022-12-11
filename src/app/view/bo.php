@@ -3,18 +3,15 @@ use src\app\user\AppUser;
 use src\Core\Utils\Debug;
 use src\Core\Config\Config;
 
-$cookie_lifetime = Config::getGenConfKey('cookie_lifetime');
-session_start(['cookie_lifetime' => $cookie_lifetime]);
+$action = $entities['action'];
+$entity = isset($entities['entity']) ? $entities['entity'] : '';
 
-if(!isset($_SESSION['auth'])){
-	header('Location: index.php?page=login');
-}else{
+if($action === 'add' || ($action === 'update' && $entity === 'skill')){
 ?>
-
-<form class="postform" action="index.php?page=bo&action=boaddskill" method="post">
-  <div class="form-group">
-    <strong>Add a Skill</strong>
-  </div>
+<div id="addsection">
+<button type="button" class="collapsible">Add a skill</button>
+<div class="content">
+  <form class="postform" action="index.php?page=bo&action=boaddskill" method="post">
   <div class="form-group">
     <label for="name">Name:</label>
     <input type="text">
@@ -33,11 +30,15 @@ if(!isset($_SESSION['auth'])){
   </div>
   <button type="submit" class="btn btn-default">Submit</button>
 </form> 
-
+</div>
+<br> <!-- ============================================================================ -->
+<?php
+}
+if($action === 'add' || ($action === 'update' && $entity === 'item')){
+?>
+<button type="button" class="collapsible">Add an Item</button>
+<div class="content">
 <form class="postform" action="index.php?page=bo&action=boadditem" method="post">
-  <div class="form-group">
-    <strong>Add a Item</strong>
-  </div>
   <div class="form-group">
     <label for="name">Name:</label>
     <input type="text">
@@ -56,7 +57,14 @@ if(!isset($_SESSION['auth'])){
   </div>
   <button type="submit" class="btn btn-default">Submit</button>
 </form> 
-
+</div>
+<br> <!-- ============================================================================ -->
+<?php
+}
+if($action === 'add' || ($action === 'update' && $entity === 'url')){
+?>
+<button type="button" class="collapsible">Add an Url</button>
+<div class="content">
 <form class="postform" action="index.php?page=bo&action=boaddurl" method="post">
   <div class="form-group">
     <strong>Add an Url</strong>
@@ -83,11 +91,15 @@ if(!isset($_SESSION['auth'])){
   </div>
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
-
+</div>
+<br> <!-- ============================================================================ -->
+<?php
+}
+if($action === 'add' || ($action === 'update' && $entity === 'demo')){
+?>
+<button type="button" class="collapsible">Add a Demo</button>
+<div class="content">
 <form class="postform" action="index.php?page=bo&action=boadddemo" method="post">
-  <div class="form-group">
-    <strong>Add an Demo</strong>
-  </div>
   <div class="form-group">
     <label for="name">Name:</label>
     <input type="text">
@@ -102,6 +114,25 @@ if(!isset($_SESSION['auth'])){
   </div>
   <button type="submit" class="btn btn-default">Submit</button>
 </form> 
+</div>
+</div>
+
 <?php 
 }
 ?>
+
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>

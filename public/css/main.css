@@ -49,9 +49,6 @@ button{
 	padding: 0 5px;
 }
 
-.form-inline{
-	display: inline;
-}
  /* Style buttons */
 .btn {
   background-color: DodgerBlue; /* Blue background */
@@ -61,7 +58,7 @@ button{
   font-size: 13px; /* Set a font size */
   cursor: pointer; /* Mouse pointer on hover */
   height: 30px;
-  float: right;
+  /*float: right;*/
   margin: 2px 10px;
 }
 
@@ -75,6 +72,37 @@ button{
   border: none; /* Remove borders */
   font-size: 13px; /* Set a font size */
   height: 30px;
-  float: right;
   margin: 2px 0 2px 10px;
+}
+/* Form */
+.form-inline{
+	display: inline;
+}
+.form-inline .btn, .form-inline .btn-input{
+	float:right;
+}
+
+/* collapsible */
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 150px;
+  margin: 10px 20px;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
 }

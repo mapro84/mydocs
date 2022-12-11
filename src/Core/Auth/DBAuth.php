@@ -16,6 +16,7 @@ class DBAuth {
 	public static function login(String $username, String $password){
 		$request = "SELECT * FROM appuser WHERE username= ? AND password= ?";
 		$user = DB::prepare($request, [$username,sha1($password)], 'src\\app\\user\\Appuser', true);
+		echo "<br> DBAuth ".__LINE__;var_dump($user);
 		return $user === false ? false : $user;
 	}
 	

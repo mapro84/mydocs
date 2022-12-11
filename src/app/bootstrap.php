@@ -8,9 +8,6 @@ use src\app\Controller\HomeController;
 use src\app\Controller\BOController;
 use src\app\Controller\DemoController;
 
-// $DBAuth = new DBAuth();
-// $DBAuth->login('admin','admin');
-
 $skillController = new SkillController();
 $itemController = new ItemController();
 $userController = new UserController();
@@ -48,8 +45,7 @@ switch ($page) {
 		}
 		break;
 	case 'bo':
-		$action = isset($_GET['action']) ? addslashes($_GET['action']) : '';
-		if(Check::is_safe_string($action)) $boController->show($action);
+		$boController->show('add');
 		break;
 	case 'login':
 		$userController->login();

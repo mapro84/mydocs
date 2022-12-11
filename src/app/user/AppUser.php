@@ -12,10 +12,6 @@ class AppUser {
 		return 'get' . ucFirst($property);
 	}
 	
-	public static function islogged(){
-		return isset($_SESSION['auth']);
-	}
-	
 	public function getId(){
 		return $this->id;
 	}

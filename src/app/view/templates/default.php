@@ -3,8 +3,9 @@
 <head>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<title>IT Cheat-Sheets</title>
+<script type="text/javascript" src="public/js/javascript-utils.js"></script>
 <link rel="stylesheet" href="public/css/main.css" crossorigin="anonymous">
+<title>IT Cheat-Sheets</title>
 </head>
 
 <body>
@@ -27,7 +28,7 @@
 <a href="index.php?page=skill_name&name=Linux">Linux</a>
 </li>
 <li>
-<a href="index.php?page=bo&action=init">BO</a>
+<a href="index.php?page=bo">BO</a>
 </li>
 </ul>
 </div>
