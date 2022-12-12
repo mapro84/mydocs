@@ -16,6 +16,5 @@ class AppController extends Controller {
 		$this->messages['infos'] = [];
 	}
 
-	
 }
 

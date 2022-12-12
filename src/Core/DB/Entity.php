@@ -34,4 +34,10 @@ class Entity{
     	$parameters = [$id];
     	return DB::prepare($query, $parameters, get_called_class());
     }
+    
+    public static function deleteBy($targertTable, $id, $tableCategory){
+    	$query = "DELETE FROM ".$targertTable." WHERE {$tableCategory}_id = ?";
+    	$parameters = [$id];
+    	return DB::prepare($query, $parameters, get_called_class());
+    }
 }

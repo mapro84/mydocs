@@ -3,6 +3,7 @@ namespace src\app\Controller;
 
 use src\app\Skill;
 use src\Core\Utils\Debug;
+use src\Core\Utils\Check;
 
 class SkillController extends AppController{
 	
@@ -17,6 +18,14 @@ class SkillController extends AppController{
 		$urls =  Skill::findBy('url',$skill_id,'skill');
  		$entities = array('skill' => $skill, 'demos' => $demos, 'urls' => $urls);
  		$this->render('skill',$entities);
+	}
+	
+	public function delete($skill_id){
+//  		echo 'ici'; var_dump($skill_id);die();
+		$resQuery['resQuery'] = Skill::delete('skill',$skill_id);
+		array_push($this->messages['infos'],$resQuery);
+		$entities = array('resQuery' => $resQuery);
+		$this->render('home',$entities);
 	}
 	
 	public function findByName($skill_name) {

@@ -18,5 +18,16 @@ class ItemController extends AppController{
  		$entities = array('item' => $item, 'demos' => $demos, 'urls' => $urls, 'skill_name' => $skill_name);
  		$this->render('item',$entities);
 	}
+	
+	public function delete($item_id){
+// 		  		echo 'ici item'; var_dump($item_id);die();
+		array_push($resQuery['resQuery'],Item::deleteBy('demo',$item_id,'item'));
+		array_push($resQuery['resQuery'],Item::deleteBy('url',$item_id,'item'));
+		array_push($resQuery['resQuery'],Item::delete('item',$item_id));
+		array_push($this->messages['infos'],$resQuery);
+		$entities = array('resQuery' => $resQuery);
+		$this->render('home',$entities);
+	}
+	
 }
 

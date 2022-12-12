@@ -13,14 +13,16 @@ class Check {
 	}
 	
 	public static function is_numeric($int){
+		$int = intval($int);
 		$filteredValue = filter_var($int, FILTER_VALIDATE_INT);
+		$filteredValue = (preg_match('/^[0-9\s]+$/', $int));
 		if($filteredValue === false) {
 			throw(new \Exception('Exception: This value is not an integer \n'));
 		}else{
 			return true;
 		}
 	}
-	
+
 	public static function is_safe_string($str,$spaces=false){
 		$check = false;
 		if($spaces === true){

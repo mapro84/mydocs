@@ -7,5 +7,5 @@ const GENCONF = [
 		'DBHOST' => '127.0.0.1',
 		'ENV' => 'dev',
 		'DEBUG' => true,
-		'cookie_lifetime' => 15
+		'cookie_lifetime' => 600
 ];

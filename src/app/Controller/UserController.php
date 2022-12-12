@@ -5,7 +5,7 @@ use src\app\user\AppUser;
 use src\Core\Utils\Check;
 use src\Core\Auth\DBAuth;
 use src\Core\Config\Config;
-use src\app\Controller\BOController;
+use src\Core\Auth\Session\Session;
 
 class UserController extends AppController {
 	
@@ -19,37 +19,67 @@ class UserController extends AppController {
 				$this->providePrivilege($username,$password);
 			}else{
 				array_push($this->messages['errors'], "Seems Malicious Login");
+				$entities = ['messages' => $this->messages];
+				$this->render('user/login',$entities);
 			}
 		}else{
 			$entities = ['messages' => $this->messages];
         	$this->render('user/login',$entities);
 		}
+		
+		return true;
 	}
 	
 	private function providePrivilege($username,$password){
 		$this->user = DBAuth::login($username,$password);
-		//echo "<br>".__LINE__;var_dump($this->user);
 		if($this->user !== false){
 			if($this->user->privilege_id == '1'){
 				$this->logUser();
 				$boController = new BOController();
 				$boController->show('add');
 			}else{
-				array_push($this->messages['errors'], "You are not administrator");
+				array_push($this->messages['infos'], "You are loggued as Invited");
+				array_push($this->messages['infos'], "For more privilege ask your Administrator");
+				$entities = ['messages' => $this->messages];
+				$this->render('user/login',$entities);
 			}
 		}else{
-			array_push($this->messages['errors'], "Incorrect Login");
+			array_push($this->messages['errors'], "Login incorrect");
+			$entities = ['messages' => $this->messages];
+			$this->render('user/login',$entities);
 		}
+		
+		return true;
 	}
 	
 	private function logUser(){
+		//Set the session cookie with SameSite=None
+		$params = session_get_cookie_params();
+		$params['samesite'] = 'None';
+		session_set_cookie_params($params);
+		
+		//Create a session
 		$cookie_lifetime = Config::getGenConfKey('cookie_lifetime');
-		session_start(['cookie_lifetime' => $cookie_lifetime]);
+		if(!isset($_SESSION)) { 
+			session_start(['cookie_lifetime' => $cookie_lifetime]);
+		}
+		
+		//Set the session variable
 		$_SESSION['auth'] = $this->user->id;
+		
+		setcookie('user', $this->user->username, $cookie_lifetime);
+		
+		return true;
+	}
+
+	public function disconnect(){
+		unset($_SESSION['auth']);
+		if(isset($_SESSION)) { session_destroy(); }
+		$this->render('home');
 	}
 	
 	public static function islogged(){
-		return isset($_SESSION['auth']);
+		return isset($_SESSION['auth']) ? $_SESSION['auth'] : NULL;
 	}
 
 }
