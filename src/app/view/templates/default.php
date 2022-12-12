@@ -28,7 +28,7 @@
 <a href="index.php?page=skill_name&name=Linux">Linux</a>
 </li>
 <li>
-<a href="index.php?page=bo">BO</a>
+<a href="index.php?page=bo&action=add">BO</a>
 </li>
 </ul>
 </div>

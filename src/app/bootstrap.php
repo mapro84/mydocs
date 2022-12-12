@@ -45,7 +45,11 @@ switch ($page) {
 		}
 		break;
 	case 'bo':
-		$boController->show('add');
+		if(isset($_GET['action'])){
+			$boController->show($_GET['action']);
+		}else{
+			$boController->show('add');
+		}
 		break;
 	case 'login':
 		$userController->login();
