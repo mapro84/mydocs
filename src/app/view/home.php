@@ -1,7 +1,10 @@
 <?php 
-var_dump($entities);
-?>
+$notes = $entities['notes'];
 
-<div class="h2title">
-    <a href="index.php?page=skills">Review or create skills tips or skills cheat-sheets</a>
-</div>
+echo "<ul>";
+foreach($notes as $note):
+echo '<li><a href="index.php?page=note&noteid='.$note->id.'">'.$note->name.'</a>: '.$note->description.'</li>';
+endforeach;
+echo "</ul>";
+
+?>

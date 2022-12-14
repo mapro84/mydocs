@@ -1,4 +1,3 @@
-<div class="h2title">
 <?php
 $item = $entities['item'];
 $demos = $entities['demos'];
@@ -24,13 +23,8 @@ echo "<hr>";
 echo "<ul>";
 if(!is_null($item->further)){ echo '<li><a href="./public/doc/'. $item->further . '" target="_blank">' . $item->description . '</a></li>'; }
 else { echo '<li>' . $item->description . '</li>'; }
-if(!is_null($item->url)) echo '<li><a href="'.$item->url.'" target="_blank">' . $item->url . '</a></li>';
-if(!is_null($item->urls)) echo '<li><a href="'.$item->urls.'" target="_blank">' . $item->urls . '</a></li>';
 echo "</ul>";
-?>
-</div>
 
-<?php
 $numberDemos = count($demos);
 if($numberDemos>0){
 ?>
@@ -53,7 +47,7 @@ $numberUrls = count($urls);
 if($numberUrls>0){
 ?>
 <ul>
-	<li class="remove-bullet">Further Information</li>
+	<li class="remove-bullet">Related Urls</li>
 	<ul>
 	<?php
 		foreach($urls as $url){

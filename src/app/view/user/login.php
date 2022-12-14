@@ -1,6 +1,5 @@
 <form class="postform" action="index.php?page=login" method="post">
 	<div class="form-group">
-	    <?php var_dump($entities); ?>
 	</div>
 	<div class="form-group">
 		<strong>Login</strong>
