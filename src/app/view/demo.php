@@ -1,7 +1,7 @@
 <?php 
 
 $demoObject = $entities['demo'];
-$demoSample = $entities['sample'];
+// $demoSample = $entities['sample'];
 
 echo strtoupper($demoObject->name);
-echo $demoSample;
+echo $demoObject->description;

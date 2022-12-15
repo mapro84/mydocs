@@ -1,4 +1,6 @@
 <?php
+use src\Core\Utils\Check;
+
 $item = $entities['item'];
 $demos = $entities['demos'];
 $urls = $entities['urls'];
@@ -12,7 +14,7 @@ echo '<form class="form-inline" method="post" action="index.php?page=deleteitem"
 		'<input type="hidden" name="item_id" value='.$item->id.'>' .
 		'<button class="btn" ><i class="fa fa-trash"></i> Delete</button></form>';
 
-echo '<form class="form-inline" method="post" action="index.php?page=items&action=updateitem">'.
+echo '<form class="form-inline" method="post" action="index.php?page=edititem">'.
 		'<input type="hidden" name="item_id" value='.$item->id.'/>' .
 		'<button class="btn"><i class="fa fa-edit"></i> Edit</button></form>';
 
@@ -21,8 +23,9 @@ echo '<form class="form-inline" method="post" action="index.php?page=item&item_i
 
 echo "<hr>";
 echo "<ul>";
-if(!is_null($item->further)){ echo '<li><a href="./public/doc/'. $item->further . '" target="_blank">' . $item->description . '</a></li>'; }
-else { echo '<li>' . $item->description . '</li>'; }
+if    (!is_null($item->further) && Check::isUrl($item->further)){ echo '<li><a href="'.$item->further .'" target="_blank">'.$item->description.'</a></li>'; }
+elseif(!is_null($item->further) && Check::isPdf($item->further)){ echo '<li><a href="./public/doc/'.$item->further.'" target="_blank">'.$item->description.'</a></li>'; }
+else  { echo '<li>' . $item->description . '</li>'; }
 echo "</ul>";
 
 $numberDemos = count($demos);
