@@ -1,9 +1,6 @@
-<html>
-    <header>
-    </header>
-    <body>
 <?php
-require_once("./bootstrap.php");
+const ROOTDIR = __DIR__;
+require_once(ROOTDIR."/vendor/autoload.php");
+require_once(ROOTDIR."/src/app/bootstrap.php");
 ?>
-    </body>
-</html>
+
