@@ -12,6 +12,31 @@ class Check {
 		$this->genconf = Config::getGenConf();
 	}
 	
+	/**
+	 * make secure an array got by $_POST, $_GET ...
+	 * @param array $associativeArray
+	 * @return string[]
+	 */
+	public static function makeSafeAssociativeArray(array $associativeArray){
+		$safeAssociativeArray = [];
+		foreach($associativeArray as $key => $value){
+			if($key === 'url' || $key === 'fuether'){
+				$safeValue = self::isUrl($value,true) ? $value : NULL;
+			}else{
+				$safeValue = self::is_safe_alphanumeric($value,true) ? $value : NULL;
+			}
+			$safeAssociativeArray[$key] = $safeValue;
+		}
+		return $safeAssociativeArray;
+	}
+	
+	function assertValidUTF8($str) {
+		if (strlen($str) AND !preg_match('/^.{1}/us', $str)) {
+			return false;;
+		}
+		return true;
+	}
+	
 	public static function is_numeric($int){
 		$int = intval($int);
 		$filteredValue = filter_var($int, FILTER_VALIDATE_INT);
@@ -26,13 +51,44 @@ class Check {
 	public static function is_safe_string($str,$spaces=false){
 		$check = false;
 		if($spaces === true){
-			if (preg_match('/^[A-Za-z\s]+$/', $string)) {
+			if (preg_match('/^[A-Za-z\s]+$/', $str)) {
 				$check = true;
 			}
 		}else{
 			if (preg_match('/^[a-zA-Z]+$/', $str)) {
 				$check = true;
 			}
+		}
+		return $check;
+	}
+	
+	public static function is_safe_alphanumeric($str,$spaces=false){
+		$check = false;
+		if($spaces === true){
+			if (preg_match('/^[\/À-žA-Za-z0-9\s,.:;*éèàçù!]+$/', $str)) {
+				$check = true;
+			}
+		}else{
+			if (preg_match('/^[a-zA-Z0-9,!]+$/', $str)) {
+				$check = true;
+			}
+		}
+		return $check;
+	}
+	
+	public static function isUrl($str){
+		$check = false;
+		if(preg_match( '/^(http|https):\\/\\/[a-z0-9_]+([\\-\\.]{1}[a-z_0-9]+)*\\.[_a-z]{2,5}'.'((:[0-9]{1,5})?\\/.*)?$/i' ,$str)){
+			//^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$ https://www.regextester.com/94502
+			$check = true; //self::assertValidUTF8($str) === true ? true : false;
+		}
+		return $check;
+	}
+	
+	public static function isPdf($str){
+		$check = false;
+		if(preg_match( '/\.pdf$/i' ,$str)){
+			$check = true;
 		}
 		return $check;
 	}

@@ -5,7 +5,6 @@ use src\app\user\AppUser;
 use src\Core\Utils\Check;
 use src\Core\Auth\DBAuth;
 use src\Core\Config\Config;
-use src\Core\Auth\Session\Session;
 
 class UserController extends AppController {
 	
@@ -73,9 +72,12 @@ class UserController extends AppController {
 	}
 
 	public function disconnect(){
-		unset($_SESSION['auth']);
-		if(isset($_SESSION)) { session_destroy(); }
-		$this->render('home');
+		if(isset($_SESSION)) { 
+			unset($_SESSION['auth']);
+			session_destroy(); 
+		}
+		$homeController = new HomeController();
+		$homeController->show();
 	}
 	
 	public static function islogged(){
