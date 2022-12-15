@@ -29,6 +29,43 @@ class Entity{
     	return DB::prepare($query, $parameters, get_called_class(),true);
     }
     
+    public static function insert($table,$params){
+    	$query = "INSERT INTO ".$table." (";
+    	$interrogationMark = " VALUES (";
+    	$parameters = [];
+    	$sizeParams = count($params);
+    	$i = 0;
+    	foreach ($params as $key => $value){
+    		$i++;
+    		$query .= $key;
+    		$interrogationMark .= '?';
+    		$query .= $i !== $sizeParams ? ',' : '';
+    		$interrogationMark .= $i !== $sizeParams ? ',' : '';
+    		array_push($parameters,$value);
+    	}
+    	$query .= ")";
+    	$interrogationMark .= ")";
+    	$query .= $interrogationMark;
+    	return DB::prepare($query, $parameters, get_called_class(),true);
+    }
+    
+    public static function update($table,$params){
+//     	UPDATE `note` SET `id`='[value-1]',`name`='[value-2]',`description`='[value-3]' WHERE 1
+    	$query = "UPDATE ".$table." SET ";
+    	$parameters = [];
+    	$sizeParams = count($params);
+    	$i = 0;
+    	foreach ($params as $key => $value){
+    		$i++;
+    		if($key === 'id') continue;
+    		$query .= $key."=?";
+    		$query .= $i !== $sizeParams ? ', ' : ' ';
+    		array_push($parameters,$value);
+    	}
+    	$query .= " WHERE id=".$params['id'].';';
+    	return DB::prepare($query, $parameters, get_called_class(),true);
+    }
+    
     public function delete($table,$id){
     	$query = "DELETE FROM ".$table." WHERE id = ?";
     	$parameters = [$id];

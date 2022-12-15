@@ -4,10 +4,13 @@ namespace src\app;
 use src\Core\DB\Entity;
 
 class Skill extends Entity{
-
-    private $name;
+    
+	public $id;
+    public $name;
+    public $logo;    
+    
     private $key;
-    private $id;
+//     private $url;
 
     /**
      * called when classe called with unknown parameter
@@ -27,18 +30,16 @@ class Skill extends Entity{
     	return parent::find($id,'skill');
     }
 
-    public function getUrl(){
-    	Entity::getAll('skill');
-    	return '<a href=index.php?page=skill&skill_id='.$this->id.'>'.$this->name.'</a>';
+    public function getId(){
+    	return $this->id;
     }
     
     public function getname(){
     	return $this->name;
     }
 
-    public function getId(){
-    	return $this->id;
+    public function getLogo(){
+    	return $this->logo;
     }
-    
     
 }

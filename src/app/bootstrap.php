@@ -7,6 +7,7 @@ use src\app\Controller\ItemController;
 use src\app\Controller\HomeController;
 use src\app\Controller\BOController;
 use src\app\Controller\DemoController;
+use src\app\Controller\NoteController;
 
 $skillController = new SkillController();
 $itemController = new ItemController();
@@ -14,7 +15,7 @@ $userController = new UserController();
 $homeController = new HomeController();
 $demoController = new DemoController();
 $boController   = new BOController();
-
+$noteController = new NoteController();
 
 $page = isset($_GET['page']) ? $_GET['page'] : '';
 switch ($page) {
@@ -27,6 +28,9 @@ switch ($page) {
 	case 'skill':
 		$skill_id = $_GET['skill_id'];
 		if(Check::is_numeric($skill_id)) $skillController->show($skill_id);
+		break;
+	case 'addskill':
+		$skillController->add();
 		break;
 	case 'deleteskill':
 		$skill_id = $_POST['skill_id'];
@@ -41,6 +45,23 @@ switch ($page) {
 		$itemid = $_GET['itemid'];
 		$skill_name = addslashes($_GET['skill_name']);
 		if (Check::is_numeric($itemid)) $itemController->show($itemid, $skill_name);
+		break;
+	case 'additem':
+		$itemController->add();
+		break;
+	case 'addurltoitem':
+		$itemController->addUrl();
+		break;
+	case 'adddemotoitem':
+		$itemController->addDemo();
+		break;
+	case 'edititem':
+		$item_id = $_POST['item_id'];
+		if(Check::is_numeric($item_id)) $itemController->edit($item_id);
+		break;
+	case 'updateitem':
+		$item_id = $_POST['id'];
+		if(Check::is_numeric($item_id)) $itemController->update($item_id);
 		break;
 	case 'deleteitem':
 		$item_id = $_POST['item_id'];
@@ -68,6 +89,9 @@ switch ($page) {
 	case 'demo':
 		$demo_id = $_GET['demo_id'];
 		if(Check::is_numeric($demo_id)) $demoController->show($demo_id);
+		break;
+	case 'addnote':
+		$noteController->add();
 		break;
 	default: $homeController->show();
 }
