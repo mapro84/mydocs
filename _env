@@ -1,0 +1,10 @@
+<?php
+putenv('open_api_key=open_api_key');
+putenv('google-api-key=google-api-key');
+putenv('admin=true');
+putenv('DBNAME=DBNAME');
+putenv('DBUSER=DBUSER');
+putenv('DBPASS=DBPASS');
+putenv('DBPORT=DBPORT');
+putenv('DBHOST=DBHOST');
+?>
