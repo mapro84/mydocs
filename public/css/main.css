@@ -1,139 +1,78 @@
-body {
-    display: inline-block;
-    margin: 10px 25px;
-    text-align: center;
-    background-color: #48D1CC;
-}
+  .navbar-brand img{
+    height: 40px;
+    margin: 0 15px 20px 15px;
+  }
 
-li{
-	text-align: left;
-	list-style:none;
-}
+  .icon-link img{
+    height: 40px;
+  }
 
-ul.displaySkills li {
-   display: inline;
-   text-align: center;
-   padding: 2px ;
-   margin: 0;
-   width: 19%;
-   }
+  .demoTitle{
+    background-color: #68c6cb;
+    font-weight: bold;
+    padding: 5px 5px;
+    border-radius: 10px;
+    margin: 0 20px 0 10px;
+    font-size: 16px;
+  }
 
-li img{
-  height: 40px;
-  margin: 5px;
-}
+  .demoBody{
+    background-color: #6bcead;
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 5px 5px;
+  }
 
-.back-office-logo{
-	margin-left: 60px;
-}
+  .demoResult{
+    background-color: #72dbe9;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 3px 10px;
+    margin: 0 0 10px 15px;
+  }
 
-.title{
-	background-color: #FF7F50;
-	margin: 15px 15px;
-	padding: 15px 15px;
-}
+  .demoComment{
+    background-color: #acc552;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 0 10px;
+    margin: 0 0 10px 15px;
+  }
 
-.h2title{
-	background-color: #FFDEAD;
-	margin: 15px 15px;
-	padding: 5px 5px;
-}
+  .demoCode{
+    background-color: #c5c0c0;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 10px 10px 10px 10px;
+    margin: 10px 20px;
+  }
 
-.tipscontent{
-	border-radius: 10px;
-	background-color: #E7E9EB;
-	margin: 25px 30px;
-	padding: 5px 5px;
-}
+  a { text-decoration: none !important; }
 
-pre{
-  text-align:left;
-  margin: 5px 20px;
-  padding: 0 10px;
-}
+  .invisible{
+    display: none;
+  }
+  .spinner-border {
+    font-size: 40px;
+    border-top: .8em solid rgba(218, 219, 223, 1);
+    border-right: .8em solid rgba(218, 219, 223, 1);
+    border-bottom: .8em solid rgba(218, 219, 223, 1);
+    border-left: .8em solid rgba(58, 166, 165, 1);
+  }
 
-.remove-bullet{
-	list-style: none;
-}
+  .form-inline{
+    display: inline;
+  }
 
-.postform{
-	text-align: left;
-	padding: 35px;
-}
+  .text-row{
+    margin-left: 15px;
+    font-size: 18px;
+  }
 
-label{
-	width: 100px;
-}
+  .subtitle{
+    color: rgb(10, 10, 229);
+  }
 
-button{
-	margin-left: 100px;
-}
-
-.icon-float-right{
-	float: right;
-	padding: 0 5px;
-}
-
-.float-right{
-	float:right;
-}
-
- /* Style buttons */
-.btn {
-  background-color: DodgerBlue; /* Blue background */
-  border: none; /* Remove borders */
-  color: white; /* White text */
-  padding: 2px 10px; /* Some padding */
-  font-size: 13px; /* Set a font size */
-  cursor: pointer; /* Mouse pointer on hover */
-  height: 30px;
-  /*float: right;*/
-  margin: 2px 10px;
-}
-
-/* Darker background on mouse-over */
-.btn:hover {
-  background-color: RoyalBlue;
-} 
-
-.btn-input{
-  border-radius: 10px;
-  border: none; /* Remove borders */
-  font-size: 13px; /* Set a font size */
-  height: 30px;
-  margin: 2px 0 2px 10px;
-}
-
-/* ================ Form ====================*/
-.form-inline{
-	display: inline;
-}
-.form-inline .btn, .form-inline .btn-input{
-	float:right;
-}
-/* ========================================= */
-
-/* collapsible */
-.collapsible {
-  border-radius: 10px;
-  background-color: #777;
-  color: white;
-  cursor: pointer;
-  padding: 18px;
-  width: 150px;
-  margin: 10px 20px;
-  border: none;
-  text-align: center;
-  outline: none;
-  font-size: 15px;
-}
-.active, .collapsible:hover {
-  background-color: #555;
-}
-.content {
-  padding: 0 18px;
-  display: none;
-  overflow: hidden;
-  background-color: #f1f1f1;
-}
-/* End collapsible */
+  .hidden{
+    display: none;
+  }

@@ -1,0 +1,163 @@
+body {
+    display: inline-block;
+    margin: 10px 25px;
+    text-align: center;
+    background-color: #48D1CC;
+}
+
+li{
+	text-align: left;
+	list-style:none;
+}
+
+ul.displaySkills li {
+   display: inline;
+   text-align: center;
+   padding: 2px ;
+   margin: 0;
+   width: 19%;
+   }
+
+li img{
+  height: 40px;
+  margin: 5px;
+}
+
+.back-office-logo{
+	margin-left: 60px;
+}
+
+.title{
+	background-color: #FF7F50;
+	margin: 15px 15px;
+	padding: 15px 15px;
+}
+
+.h2title{
+	background-color: #FFDEAD;
+	margin: 15px 15px;
+	padding: 5px 5px;
+}
+
+.tipscontent{
+	border-radius: 10px;
+	background-color: #E7E9EB;
+	margin: 25px 30px;
+	padding: 5px 5px;
+}
+
+pre{
+  text-align:left;
+  margin: 5px 20px;
+  padding: 0 10px;
+}
+
+.remove-bullet{
+	list-style: none;
+}
+
+.postform{
+	text-align: left;
+	padding: 35px;
+}
+
+label{
+	width: 100px;
+}
+
+button{
+	margin-left: 100px;
+}
+
+.icon-float-right{
+	float: right;
+	padding: 0 5px;
+}
+
+.float-right{
+	float:right;
+}
+
+/* To display title on page with over mouse */
+      a.showText {text-decoration: none;}
+	  
+      a.showText:hover {position: relative;}
+	  
+      a.showText span {display: none;}
+	  
+      a.showText:hover span {
+        border: #666 2px solid;
+        padding: 5px 20px 5px 5px;
+        display: block;
+        z-index: 1000;
+        background: #e3e3e3;
+        left: 0px;
+        margin: 15px;
+        width: 200px;
+        position: absolute;
+        top: 15px;
+        text-decoration: none;
+		border-radius:100% 50%;
+		text-align:center;
+		box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);}
+/* ==================================*/
+
+ /* Style buttons */
+.btn {
+  background-color: DodgerBlue; /* Blue background */
+  border: none; /* Remove borders */
+  color: white; /* White text */
+  padding: 2px 10px; /* Some padding */
+  font-size: 13px; /* Set a font size */
+  cursor: pointer; /* Mouse pointer on hover */
+  height: 30px;
+  /*float: right;*/
+  margin: 2px 10px;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: RoyalBlue;
+} 
+
+.btn-input{
+  border-radius: 10px;
+  border: none; /* Remove borders */
+  font-size: 13px; /* Set a font size */
+  height: 30px;
+  margin: 2px 0 2px 10px;
+}
+
+/* ================ Form ====================*/
+.form-inline{
+	display: inline;
+}
+.form-inline .btn, .form-inline .btn-input{
+	float:right;
+}
+/* ========================================= */
+
+/* collapsible */
+.collapsible {
+  border-radius: 10px;
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 150px;
+  margin: 10px 20px;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-size: 15px;
+}
+.active, .collapsible:hover {
+  background-color: #555;
+}
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+/* End collapsible */
