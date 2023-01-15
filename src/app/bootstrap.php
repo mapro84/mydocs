@@ -57,13 +57,16 @@ switch ($page) {
 	case 'addnote':
 		$noteController->add();
 	break;
+	case 'updatenote':
+		$noteController->update();
+	break;
 	case 'deletenote':
 		$note_id = $_POST['note_id'];
 		if(Check::is_numeric($note_id)) $noteController->delete($note_id);
 	break;
 	case 'updateitem':
 		$itemController->update();
-		break;
+	break;
 	case 'deleteitem':
 		$item_id = $_POST['item_id'];
 		if(Check::is_numeric($item_id)) $itemController->delete($item_id);

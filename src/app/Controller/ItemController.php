@@ -78,13 +78,16 @@ class ItemController extends AppController{
 		curl_close($ch);
 
 		$openaiResponse = json_decode($api_response, true);
-    
+
+	  // Debug::dump($openaiResponse);
+
 		if(!empty($openaiResponse['choices'][0]['text'])){
 			$formattedResponse = preg_replace('/[^0-99][^\.\.]\.\s/m', '.<br>', $openaiResponse['choices'][0]['text']);
 		  $formattedResponse = preg_replace('/;/m', ';<br>', $formattedResponse);
 			return $formattedResponse;
 		}else{
-			return '';
+			$separator = ';';
+			return implode($separator, $openaiResponse);
 		}
 		
 	}
@@ -154,7 +157,7 @@ class ItemController extends AppController{
 	public function add(){
 		$parameters = Check::makeSafeAssociativeArray($_POST);
 		Entity::insert('item',$parameters);
-		$this->skillController->show($parameters['skill_id']);
+		$this->showBySkillId($parameters['skill_id']);
 	}
 	
 	public function edit() {
@@ -175,9 +178,8 @@ class ItemController extends AppController{
 	}
 	
 	public function delete($item_id){
-		// TODO check if exists demo & url with item_id
-		//Item::deleteBy('demo',$item_id,'item');
-		//Item::deleteBy('url',$item_id,'item');
+		Item::deleteBy('demo',$item_id,'item');
+		Item::deleteUrlSkillItem($item_id);
 		Item::delete('item',$item_id);
 		$notes = Entity::getAll('note');
 		$entities = ['notes' => $notes];

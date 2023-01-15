@@ -45,4 +45,11 @@ class Item extends Entity{
         return DB::prepare($query, $queryParams);
     }
 
+    public static function deleteUrlSkillItem($item_id){
+      $query = 'DELETE FROM `url_skill_item` WHERE skill_id is NOT NULL AND item_id = ?;';
+      $queryParams = [];
+      array_push($queryParams,$item_id);
+      return DB::prepare($query, $queryParams);    
+    }
+
 }

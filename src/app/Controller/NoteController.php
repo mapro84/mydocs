@@ -16,6 +16,15 @@ class NoteController extends AppController{
 		$this->render('home',$entities);
 	}
 	
+	public function update(){
+		$parameters = Check::makeSafeAssociativeArray($_POST);
+		$resQuery['resQuery'] = Entity::update('note',$parameters);
+		array_push($this->messages['infos'],$resQuery);
+		$notes = Entity::getAll('note');
+		$entities = array('resQuery' => $resQuery, 'notes' => $notes);
+		$this->render('home',$entities);
+	}
+
 	public function delete($note_id){
 		$resQuery['resQuery'] = Entity::delete('note',$note_id);
 		array_push($this->messages['infos'],$resQuery);

@@ -50,25 +50,18 @@ if (!empty($entities['items'])) {
 				data-bs-id="'. $item['id'].'" data-bs-name="'. $itemName.'">'.
 				'<i class="fa fa-edit"></i></button>';
 				echo "<div class='row mb-2, border-bottom'>";
+				echo '<div class="col-4">';
+				echo $admin === 'true' ? $editButton : '';
+				echo $admin === 'true' ? $deleteButton : '';
 					if (!is_null($item['further']) && Check::isUrl($item['further'])) {
-							echo '<div class="col-4">';
-							echo $admin === 'true' ? $editButton : '';
-							echo $admin === 'true' ? $deleteButton : '';
 							echo '<a class="text-row" href="' . $item['further'] . '" target="_blank">' . $itemName . '</a>';
-						echo '</div>';
-						echo '<div class="col-7">' . $item['description'] . '</div>';
 					} elseif (!is_null($item['further']) && Check::isPdf($item['further'])) {
-						echo '<div class="col">';
-						echo $admin === 'true' ? $editButton : '';
-						echo $admin === 'true' ? $deleteButton : '';
-						echo '<a href="./public/doc/' . $item['further'] . '" target="_blank">' . $itemName . '</a></div>';
-						echo '<div class="col-8">' . $item['description'] . '</div>';
+						echo '<a href="./public/doc/' . $item['further'] . '" target="_blank">' . $itemName . '</a>';
 					} else {
-						echo $admin === 'true' ? $editButton : '';
-						echo $admin === 'true' ? $deleteButton : '';
-						echo '<div  class="col">' . $itemName . '</div>';
-						echo '<div class="col-8">' . $item['description'] . '</div>';
+						echo $itemName;
 					}
+					echo '</div>';
+					echo '<div class="col-7">' . $item['description'] . '</div>';
 					echo '<div class="col-1 hidden">';
 						echo '<input type="hidden" id="description'.$item['id'].'" value="'.$item['description'].'">';
 						echo '<input type="hidden" id="further'.$item['id'].'" value="'.$item['further'].'">';
@@ -81,9 +74,6 @@ if (!empty($entities['items'])) {
 </div>
 
 <!-- MODAL -->
-
-<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editModal" data-bs-whatever="@mdo">
-	Open modal for @mdo</button>
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -147,8 +137,6 @@ editModal.addEventListener('show.bs.modal', event => {
 	modalBodyInputFurther.value = further
 })
 </script>
-
-
 
 <?php
 		if (!empty($openaiResponse)) {

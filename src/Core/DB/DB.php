@@ -40,9 +40,9 @@ class DB{
             $options = [];
         }
 
-        $dsn = 'mysql:dbname='.$config['DBNAME'].';host='.$config['DBHOST'];
-        $user = $config['DBUSER'];
-        $password = $config['DBPASS'];
+        $dsn = 'mysql:dbname='.getenv('DBNAME').';host='.getenv('DBHOST');
+        $user = getenv('DBUSER');
+        $password = getenv('DBPASS');
         $pdoConnection = new PDO($dsn, $user, $password, $options);
 
         return $pdoConnection;
