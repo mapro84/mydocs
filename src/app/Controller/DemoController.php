@@ -1,7 +1,7 @@
 <?php
 namespace src\app\Controller;
 
-use src\app\Demo;
+use src\app\Entity\Demo;
 use src\app\Demo\factory\Demo as FactoryDemo;
 use src\app\Demo\fluent\Demo as FluentDemo;
 use src\app\Demo\DIC\Demo as DICDemo;

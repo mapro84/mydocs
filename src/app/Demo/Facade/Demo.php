@@ -18,15 +18,15 @@ class Demo {
 
         $bootstrapHtml = new BootstrapHtml('div','col demoBody', true);
 
-        $title = $bootstrapHtml->addTitle('Class Facade:');
-        $bootstrapHtml->addData($title);
+        $bootstrapHtml->addTitle('Class Facade:');
+        
         $data = htmlspecialchars(file_get_contents('src/app/Demo/Facade/Facade.php'));
         $bootstrapHtml->addDiv();
         $bootstrapHtml->addData($data);
         $bootstrapHtml->endDiv();
 
-        $title = $bootstrapHtml->addTitle('Code Usage:');
-        $bootstrapHtml->addData($title);
+        $bootstrapHtml->addTitle('Code Usage:');
+        
         $data = '
         $args = ["class"];
         Facade::callStatic("get",$args);';
@@ -34,8 +34,8 @@ class Demo {
         $bootstrapHtml->addData($data);
         $bootstrapHtml->endDiv();
 
-        $title = $bootstrapHtml->addTitle('Result:');
-        $bootstrapHtml->addData($title);
+        $bootstrapHtml->addTitle('Result:');
+        
         $bootstrapHtml->addDiv();
         $args = ['class'];
         // $result = Facade::callStatic('get',$args);

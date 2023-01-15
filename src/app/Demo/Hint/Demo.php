@@ -21,16 +21,16 @@ class Demo {
         $class = new Hint();
         $bootstrapHtml = new BootstrapHtml('div','col demoBody', true);
 
-        $title = $bootstrapHtml->addTitle(self::$name.' Class:');
-        $bootstrapHtml->addData($title);
+        $bootstrapHtml->addTitle(self::$name.' Class:');
+        
         $classContent = htmlspecialchars(file_get_contents('src/app/Demo/Hint/Hint.php'));
         $bootstrapHtml->addDiv();
         $bootstrapHtml->addData($classContent);
         $bootstrapHtml->endDiv();
         
         $bootstrapHtml->addLine(1);
-        $title = $bootstrapHtml->addTitle('Usage Code:');
-        $bootstrapHtml->addData($title);
+        $bootstrapHtml->addTitle('Usage Code:');
+        
         $bootstrapHtml->addDiv();
         $bootstrapHtml->addData('$hint->add(5,3);');
         $content = null;

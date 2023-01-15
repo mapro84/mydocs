@@ -9,6 +9,9 @@ use src\Core\Config\Config;
 class UserController extends AppController {
 	
 	private $user;
+	private $id;
+	private $username;
+	private $privilege_id;
 
 	public function login(){
 
@@ -33,10 +36,10 @@ class UserController extends AppController {
 	private function providePrivilege($username,$password){
 		$this->user = DBAuth::login($username,$password);
 		if($this->user !== false){
-			if($this->user->privilege_id == '1'){
+			if($this->privilege_id == '1'){
 				$this->logUser();
 				$boController = new BOController();
-				$boController->show('add');
+				$boController->show();
 			}else{
 				array_push($this->messages['infos'], "You are loggued as Invited");
 				array_push($this->messages['infos'], "For more privilege ask your Administrator");
@@ -65,9 +68,9 @@ class UserController extends AppController {
 		}
 		
 		//Set the session variable
-		$_SESSION['auth'] = $this->user->id;
+		$_SESSION['auth'] = $this->id;
 		
-		setcookie('user', $this->user->username, $cookie_lifetime);
+		setcookie('user', $this->username, $cookie_lifetime);
 		
 		return true;
 	}

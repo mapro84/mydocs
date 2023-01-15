@@ -1,7 +1,7 @@
 <?php
 namespace src\app\Controller;
 
-use src\app\Url;
+use src\app\Entity\Url;
 use src\Core\Utils\Debug;
 use src\Core\Utils\Check;
 use src\Core\DB\Entity;
@@ -56,8 +56,8 @@ class ItemController extends AppController{
 		curl_setopt($ch, CURLOPT_URL, 'https://api.openai.com/v1/completions');
 		curl_setopt($ch, CURLOPT_POST, true);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS, 500);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 500);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS, 5000);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 5000);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 			"Content-type: application/json",
 			"Authorization: Bearer $open_api_key"

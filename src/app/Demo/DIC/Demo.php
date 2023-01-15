@@ -35,27 +35,23 @@ class Demo {
 
         $bootstrapHtml = new BootstrapHtml('div','col demoBody', true);
 
-        $title = $bootstrapHtml->addTitle('DIC Class:');
-        $bootstrapHtml->addData($title);
+        $bootstrapHtml->addTitle('DIC Class:');
         $bootstrapHtml->addDiv();
         $bootstrapHtml->addData($dicClass);
         $bootstrapHtml->endDiv();
 
-        $title = $bootstrapHtml->addTitle('Connection Class:');
-        $bootstrapHtml->addData($title);
+        $bootstrapHtml->addTitle('Connection Class:');
         $bootstrapHtml->addDiv();
         $bootstrapHtml->addData($connectionClass);
         $bootstrapHtml->endDiv();
 
         $bootstrapHtml->addSeparator();
-        $title = $bootstrapHtml->addTitle('Model Class:');
-        $bootstrapHtml->addData($title);
+        $bootstrapHtml->addTitle('Model Class:');
         $bootstrapHtml->addDiv();
         $bootstrapHtml->addData($modelClass);
         $bootstrapHtml->endDiv();
 
-        $title = $bootstrapHtml->addTitle('Usage Code:');
-        $bootstrapHtml->addData($title);
+        $bootstrapHtml->addTitle('Usage Code:');
         $bootstrapHtml->addDiv();
         $bootstrapHtml->addData('$dic = new DIC();
         $connection = new Connection("dbname", "root", "root");
@@ -72,28 +68,26 @@ class Demo {
         $bootstrapHtml->endDiv();
 
         $bootstrapHtml->addSeparator();
-        $title = $bootstrapHtml->addTitle('Results:');
-        $bootstrapHtml->addData($title);
+        $bootstrapHtml->addTitle('Results:');
+        
         $bootstrapHtml->addSeparator();
         
-        $title = $bootstrapHtml->addTitle('Object returned by $dic->get(Connection"):');
-        $bootstrapHtml->addData($title);
+        $bootstrapHtml->addTitle('Object returned by $dic->get(Connection"):');
         $content = print_r($dic->getInstance('Connection'), true);
         $bootstrapHtml->addDiv();
         $bootstrapHtml->addData($content);
         $bootstrapHtml->endDiv();
 
         $bootstrapHtml->addSeparator();
-        $title = $bootstrapHtml->addTitle('Object returned by  $dic->get("Model"):');
-        $bootstrapHtml->addData($title);
+        $bootstrapHtml->addTitle('Object returned by  $dic->get("Model"):');
         $content = print_r($dic->getFactory('Model'), true);
         $bootstrapHtml->addDiv();
         $bootstrapHtml->addData($content);
         $bootstrapHtml->endDiv();
 
         $bootstrapHtml->addSeparator();
-        $title = $bootstrapHtml->addTitle('Object returned by $instance = $dic->get("Connection"):');
-        $bootstrapHtml->addData($title);
+        $bootstrapHtml->addTitle('Object returned by $instance = $dic->get("Connection"):');
+        
         $instance = $dic->getInstance('Connection');
         $content = print_r($instance, true);
         $bootstrapHtml->addDiv();

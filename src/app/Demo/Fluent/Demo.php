@@ -16,22 +16,22 @@ class Demo {
 
         $bootstrapHtml = new BootstrapHtml('div','col demoBody', true);
 
-        $title = $bootstrapHtml->addTitle('Class QueryBuilder:');
-        $bootstrapHtml->addData($title);
+        $bootstrapHtml->addTitle('Class QueryBuilder:');
+        
         $data = htmlspecialchars(file_get_contents('src/app/Demo/Fluent/QueryBuilder.php'));
         $bootstrapHtml->addDiv();
         $bootstrapHtml->addData($data);
         $bootstrapHtml->endDiv();
 
-        $title = $bootstrapHtml->addTitle('Code Usage:');
-        $bootstrapHtml->addData($title);
+        $bootstrapHtml->addTitle('Code Usage:');
+        
         $data = '$queryBuilder->select("id", "name", "description")->from("skill", "capability")->where("capability.name = "PHP"")->where("capability.logo = "php.png");';
         $bootstrapHtml->addDiv();
         $bootstrapHtml->addData($data);
         $bootstrapHtml->endDiv();
 
-        $title = $bootstrapHtml->addTitle('Result:');
-        $bootstrapHtml->addData($title);
+        $bootstrapHtml->addTitle('Result:');
+        
         $bootstrapHtml->addDiv();
         $queryBuilder = new QueryBuilder();
         $queryBuilder->select('id', 'name', 'description')->from('skill', 'capability')->where('capability.name = "PHP"')->where('capability.logo = "php.png"');

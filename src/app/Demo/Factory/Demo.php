@@ -20,43 +20,43 @@ class Demo {
 
         $bootstrapHtml = new BootstrapHtml('div','col demoBody', true);
 
-        $title = $bootstrapHtml->addTitle('Interface:');
-        $bootstrapHtml->addData($title);
+        $bootstrapHtml->addTitle('Interface:');
+        
         $data = htmlspecialchars(file_get_contents('src/app/Demo/Factory/Pizza.php'));
         $bootstrapHtml->addDiv();
         $bootstrapHtml->addData($data);
         $bootstrapHtml->endDiv();
 
-        $title = $bootstrapHtml->addTitle('Pizza3Cheese:');
-        $bootstrapHtml->addData($title);
+        $bootstrapHtml->addTitle('Pizza3Cheese:');
+        
         $data = htmlspecialchars(file_get_contents('src/app/Demo/Factory/Pizza3Cheese.php'));
         $bootstrapHtml->addDiv();
         $bootstrapHtml->addData($data);
         $bootstrapHtml->endDiv();
 
-        $title = $bootstrapHtml->addTitle('PizzaMargherita:');
-        $bootstrapHtml->addData($title);
+        $bootstrapHtml->addTitle('PizzaMargherita:');
+        
         $data = htmlspecialchars(file_get_contents('src/app/Demo/Factory/PizzaMargherita.php'));
         $bootstrapHtml->addDiv();
         $bootstrapHtml->addData($data);
         $bootstrapHtml->endDiv();
 
-        $title = $bootstrapHtml->addTitle('PizzaChorizo:');
-        $bootstrapHtml->addData($title);
+        $bootstrapHtml->addTitle('PizzaChorizo:');
+        
         $data = htmlspecialchars(file_get_contents('src/app/Demo/Factory/PizzaChorizo.php'));
         $bootstrapHtml->addDiv();
         $bootstrapHtml->addData($data);
         $bootstrapHtml->endDiv();
 
-        $title = $bootstrapHtml->addTitle('PizzaFactory:');
-        $bootstrapHtml->addData($title);
+        $bootstrapHtml->addTitle('PizzaFactory:');
+        
         $data = htmlspecialchars(file_get_contents('src/app/Demo/Factory/PizzaFactory.php'));
         $bootstrapHtml->addDiv();
         $bootstrapHtml->addData($data);
         $bootstrapHtml->endDiv();
 
-        $title = $bootstrapHtml->addTitle('Usage Code:');
-        $bootstrapHtml->addData($title);
+        $bootstrapHtml->addTitle('Usage Code:');
+        
         $data = '
         //get an object of Circle and call its draw method.
         $pizza1 = $this->factory->getPizza("chorizo");
@@ -72,12 +72,12 @@ class Demo {
         $bootstrapHtml->endDiv();
 
         $bootstrapHtml->addSeparator();
-        $title = $bootstrapHtml->addTitle('Usage Code:');
-        $bootstrapHtml->addData($title);
+        $bootstrapHtml->addTitle('Usage Code:');
+        
         $bootstrapHtml->addSeparator();
 
-        $title = $bootstrapHtml->addTitle('Get Chorizo Pizza');
-        $bootstrapHtml->addData($title);
+        $bootstrapHtml->addTitle('Get Chorizo Pizza');
+        
         $data = '
         $pizza1 = $this->factory->getPizza("chorizo");
         $res1 = $pizza1->made();';
@@ -89,8 +89,8 @@ class Demo {
         $bootstrapHtml->addData($bootstrapHtml->addResult($result));
         $bootstrapHtml->endDiv();
 
-        $title = $bootstrapHtml->addTitle('Get Margherita Pizza');
-        $bootstrapHtml->addData($title);
+        $bootstrapHtml->addTitle('Get Margherita Pizza');
+        
         $data = '
         $object = $this->factory->getPizza("margherita");
         $result = $pizza1->made();';
@@ -102,8 +102,8 @@ class Demo {
         $bootstrapHtml->addData($bootstrapHtml->addResult($result));
         $bootstrapHtml->endDiv();
 
-        $title = $bootstrapHtml->addTitle('Get 3Cheese Pizza');
-        $bootstrapHtml->addData($title);
+        $bootstrapHtml->addTitle('Get 3Cheese Pizza');
+        
         $data = '
         $object = $this->factory->getPizza("3Cheese");
         $result = $pizza1->made();';
