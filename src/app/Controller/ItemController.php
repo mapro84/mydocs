@@ -1,11 +1,11 @@
 <?php
 namespace src\app\Controller;
 
-use src\app\Item;
 use src\app\Url;
 use src\Core\Utils\Debug;
 use src\Core\Utils\Check;
 use src\Core\DB\Entity;
+use src\app\Entity\Item;
 
 class ItemController extends AppController{
 	
@@ -86,8 +86,7 @@ class ItemController extends AppController{
 		  $formattedResponse = preg_replace('/;/m', ';<br>', $formattedResponse);
 			return $formattedResponse;
 		}else{
-			$separator = ';';
-			return implode($separator, $openaiResponse);
+			return 'NO Result';
 		}
 		
 	}
@@ -171,10 +170,12 @@ class ItemController extends AppController{
 		$item_id = $parameters['id'];
 		Entity::update('item',$parameters);
 		$item = Item::find($item_id,'item');
-		$skill = Entity::find($item->skill_id,'skill');
-		$items = Entity::findBy('item',$item->skill_id,'skill');
-		$entities = array('skill' => $skill, 'items' => $items);
-		$this->render('skill',$entities);
+		$this->showBySkillId($item->skill_id);
+		// $item = Item::find($item_id,'item');
+		// $skill = Entity::find($item->skill_id,'skill');
+		// $items = Entity::findBy('item',$item->skill_id,'skill');
+		// $entities = array('skill' => $skill, 'items' => $items);
+		// $this->render('skill',$entities);
 	}
 	
 	public function delete($item_id){

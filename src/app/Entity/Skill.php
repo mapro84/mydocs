@@ -1,5 +1,5 @@
 <?php
-namespace src\app;
+namespace src\app\Entity;
 
 use src\Core\DB\Entity;
 

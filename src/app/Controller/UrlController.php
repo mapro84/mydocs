@@ -3,7 +3,7 @@ namespace src\app\Controller;
 
 use src\Core\Utils\Debug;
 use src\Core\Utils\Check;
-use src\app\Url;
+use src\app\Entity\Url;
 
 class UrlController extends AppController
 {

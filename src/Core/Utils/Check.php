@@ -68,11 +68,11 @@ class Check {
 	public static function is_safe_alphanumeric($str,$spaces=false){
 		$check = false;
 		if($spaces === true){
-			if (preg_match('/^[-&\/À-žA-Za-z0-9<>\s,.:-;*é&èàçù!]+$/', $str)) {
+			if (preg_match('/^[-\'&\/À-žA-Za-z0-9<>\s,.:-;*é&èàçù!]+$/', $str)) {
 				$check = true;
 			}
 		}else{
-			if (preg_match('/^[-&\/À-žA-Za-z0-9<>,.:-;*éè&àçù!]+$/', $str)) {
+			if (preg_match('/^[-&\'\/À-žA-Za-z0-9<>,.:-;*éè&àçù!]+$/', $str)) {
 				$check = true;
 			}
 		}

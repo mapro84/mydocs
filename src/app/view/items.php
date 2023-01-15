@@ -56,9 +56,9 @@ if (!empty($entities['items'])) {
 					if (!is_null($item['further']) && Check::isUrl($item['further'])) {
 							echo '<a class="text-row" href="' . $item['further'] . '" target="_blank">' . $itemName . '</a>';
 					} elseif (!is_null($item['further']) && Check::isPdf($item['further'])) {
-						echo '<a href="./public/doc/' . $item['further'] . '" target="_blank">' . $itemName . '</a>';
+						echo '<a class="text-row" href="./public/doc/' . $item['further'] . '" target="_blank">' . $itemName . '</a>';
 					} else {
-						echo $itemName;
+						echo '<span class="text-row">'.$itemName.'</span>';
 					}
 					echo '</div>';
 					echo '<div class="col-7">' . $item['description'] . '</div>';

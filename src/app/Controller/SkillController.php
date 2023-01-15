@@ -1,12 +1,12 @@
 <?php
 namespace src\app\Controller;
 
-use src\app\Skill;
+use src\app\Entity\Skill;
 use src\Core\Utils\Debug;
 use src\Core\Utils\Check;
 use src\Core\DB\Entity;
-use src\app\Demo;
-use src\app\Url;
+use src\app\Entity\Demo;
+use src\app\Entity\Url;
 use src\app\Controller\ItemController;
 
 class SkillController extends AppController{
