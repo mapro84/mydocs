@@ -11,9 +11,10 @@ class UserController extends AppController {
 	private $user;
 
 	public function login(){
+
 		if(isset($_POST['username']) && isset($_POST['password'])){
-			$username = $_POST['username'];
-			$password = $_POST['password'];
+			$username = addslashes($_POST['username']);
+			$password = addslashes($_POST['password']);
 			if(Check::is_safe_string($username)  && Check::is_safe_password($password)){
 				$this->providePrivilege($username,$password);
 			}else{

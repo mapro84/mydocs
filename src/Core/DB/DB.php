@@ -8,21 +8,24 @@ use src\Core\Utils\Debug;
 
 class DB{
 
-	
-	// TODO pour eviter injections SQL
-	// Requetes préparées :  $post = $db->prepare('SELECT * from skills where id = ?', [$param1, $param2 ...]); // tableau de params
-	
     private static $instance = null;
     private $id;
+    private $key;
     private function __construct(){}
 
-    public static function getInstance(){
+    public function __get(string $property): string{
+    	$method = 'get' . ucfirst($property);
+    	$this->key = $this->$method();
+    	return $this->key;
+    }
+
+     public static function getInstance(){
         return is_null(self::$instance) ? self::getPDOConnection() : self::$instance;
     }
 
     public function clone(){}
 
-    private function getPDOConnection(){
+    private static function getPDOConnection(){
     	
     	$config = Config::getGenConf();
     	
@@ -70,22 +73,27 @@ class DB{
     }
 
     /**
-     * 
-     * @param String $request = SQL request
-     * @param array $parameters prepared request avoid SQL injections
-     * @param mixed $class = class we want to implement automatically
-     * @param boolean $one = number of record in return
-     * @return array of classe one or several record(s)
+     * Summary of prepare
+     * @param mixed $request
+     * @param array $parameters
+     * @param mixed $class
+     * @param mixed $one
+     * @return mixed
      */
-    public static function prepare(String $request, array $parameters, $class, $one = false){
-    	$statement = self::getInstance()->prepare($request, $parameters);
+    public static function prepare($request, array $parameters = [], $class=false, $one = false){
+    	$statement = self::getInstance()->prepare($request, $parameters);  
     	$statement->execute($parameters);
-    	$statement->setFetchMode(PDO::FETCH_CLASS, $class);
+        if ($class === false) {
+            $statement->setFetchMode(PDO::FETCH_ASSOC);
+        }else{
+            $statement->setFetchMode(PDO::FETCH_CLASS, $class);
+        }
     	if($one){
     		$datas = $statement->fetch();
     	}else{
     		$datas = $statement->fetchAll();
     	}
+        
     	return $datas;
     }
     

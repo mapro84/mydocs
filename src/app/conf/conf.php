@@ -1,6 +1,6 @@
 <?php
 const GENCONF = [
-		'DBNAME' => 'itcheatsheets',
+		'DBNAME' => 'skills',
 		'DBUSER' => 'root',
 		'DBPASS' => 'mysql',
 		'DBPORT' =>  3306,

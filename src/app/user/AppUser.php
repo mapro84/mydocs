@@ -21,7 +21,7 @@ class AppUser {
 	}
 	
 	public function getUsername(){
-		return $this->$username;
+		return $this->username;
 	}
 	
 	public function getPassword(){

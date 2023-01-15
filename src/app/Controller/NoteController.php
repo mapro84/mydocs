@@ -8,7 +8,7 @@ use src\Core\DB\Entity;
 class NoteController extends AppController{
 	
 	public function add(){
-		$parameters = Check::makeSafeAssociativeArray($_POST,true);
+		$parameters = Check::makeSafeAssociativeArray($_POST);
 		$resQuery['resQuery'] = Entity::insert('note',$parameters);
 		array_push($this->messages['infos'],$resQuery);
 		$notes = Entity::getAll('note');
@@ -16,12 +16,12 @@ class NoteController extends AppController{
 		$this->render('home',$entities);
 	}
 	
-	public function delete($skill_id){
-		$resQuery['resQuery'] = Entity::delete('skill',$skill_id);
+	public function delete($note_id){
+		$resQuery['resQuery'] = Entity::delete('note',$note_id);
 		array_push($this->messages['infos'],$resQuery);
-		$entities = array('resQuery' => $resQuery);
+		$notes = Entity::getAll('note');
+		$entities = array('resQuery' => $resQuery, 'notes' => $notes);
 		$this->render('home',$entities);
 	}
-	
 
 }

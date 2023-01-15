@@ -10,7 +10,8 @@ class Skill extends Entity{
     public $logo;    
     
     private $key;
-//     private $url;
+    public $further;
+    public $skill_id;
 
     /**
      * called when classe called with unknown parameter

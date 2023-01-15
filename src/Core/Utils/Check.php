@@ -12,6 +12,8 @@ class Check {
 		$this->genconf = Config::getGenConf();
 	}
 	
+	// TODO check enter : Type, length, remove cotes, html, scripts; spaces or not authorized
+	
 	/**
 	 * make secure an array got by $_POST, $_GET ...
 	 * @param array $associativeArray
@@ -20,11 +22,12 @@ class Check {
 	public static function makeSafeAssociativeArray(array $associativeArray){
 		$safeAssociativeArray = [];
 		foreach($associativeArray as $key => $value){
-			if($key === 'url' || $key === 'fuether'){
-				$safeValue = self::isUrl($value,true) ? $value : NULL;
+			if($key === 'url' || $key === 'further'){
+				$safeValue = self::isUrl($value) ? $value : NULL;
 			}else{
 				$safeValue = self::is_safe_alphanumeric($value,true) ? $value : NULL;
 			}
+			//$safeValue = $value;
 			$safeAssociativeArray[$key] = $safeValue;
 		}
 		return $safeAssociativeArray;
@@ -32,7 +35,7 @@ class Check {
 	
 	function assertValidUTF8($str) {
 		if (strlen($str) AND !preg_match('/^.{1}/us', $str)) {
-			return false;;
+			return false;
 		}
 		return true;
 	}
@@ -65,11 +68,11 @@ class Check {
 	public static function is_safe_alphanumeric($str,$spaces=false){
 		$check = false;
 		if($spaces === true){
-			if (preg_match('/^[\/À-žA-Za-z0-9\s,.:;*éèàçù!]+$/', $str)) {
+			if (preg_match('/^[-\/À-žA-Za-z0-9<>\s,.:-;*éèàçù!]+$/', $str)) {
 				$check = true;
 			}
 		}else{
-			if (preg_match('/^[a-zA-Z0-9,!]+$/', $str)) {
+			if (preg_match('/^[-\/À-žA-Za-z0-9<>,.:-;*éèàçù!]+$/', $str)) {
 				$check = true;
 			}
 		}
@@ -94,9 +97,9 @@ class Check {
 	}
 	
 	/**
-	 * Password preg_match with letters and at least 1 special character, 1 integer and an uppercase letter 
-	 * @param String $password
-	 * @return boolean
+	 * Summary of is_safe_password
+	 * @param string $password
+	 * @return bool
 	 */
 	public static function is_safe_password(String $password){
 		$match = '/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,12}$/';

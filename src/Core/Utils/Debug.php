@@ -19,4 +19,20 @@ class Debug{
         echo "</pre></strong>";
     }
 
+    public static function phpExtensionExists(string $needed_extensions): bool
+    {
+        return (extension_loaded($needed_extensions));
+    }
+    
+    public static function replacePointInLineBreak($string){
+        $result = preg_replace_callback('/[^\d]\./m', function ($matches) {
+            if(preg_match('/\d\./', $matches[0])){
+                return $matches[0];
+            }else{
+                return $matches[0].'<br>';
+            }
+        }, $string);
+        return $result;
+    }
+
 }
