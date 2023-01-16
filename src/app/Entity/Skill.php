@@ -38,9 +38,5 @@ class Skill extends Entity{
     public function getname(){
     	return $this->name;
     }
-
-    public function getLogo(){
-    	return $this->logo;
-    }
     
 }

@@ -115,9 +115,10 @@ class ItemController extends AppController{
 
   public function getRelatedUrls(mixed $items): array{
 		$relatedUrls = [];
+		//Debug::dump($items);
 		foreach($items as $item){
 			if(!empty($item['urlname'])){
-				$url = array('urlname' => $item['urlname'],'url' => $item['url']);
+				$url = array('urlname' => $item['urlname'],'url' => $item['url'],'id' => $item['url_id']);
 			  array_push($relatedUrls, $url);
 			}
 		}

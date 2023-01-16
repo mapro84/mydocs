@@ -9,7 +9,7 @@ class Debug{
         self::$separation = $separation;
     }
 
-    public static function dump($value, string $name = null){
+    public static function dump($value, string $name = null, $die = false){
         self::setSeparation("===============================================================================");
         echo "<strong><pre style='background-color:orange'>";
         echo self::$separation;
@@ -17,6 +17,7 @@ class Debug{
         var_dump( $value);
         echo self::$separation;
         echo "</pre></strong>";
+        $die ?? die();
     }
 
     public static function phpExtensionExists(string $needed_extensions): bool

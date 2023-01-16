@@ -18,18 +18,26 @@ class Url extends Entity
     public static function addUrl($parameters)
     {
         $query = 'INSERT INTO `url`(`name`, `url`) VALUES (?,?)';
-        $urlParameters = array($parameters['name'], $parameters['name']);
+        $urlParameters = array($parameters['name'], $parameters['url']);
         DB::prepare($query, $urlParameters);
 
         $query = 'SELECT max(id) FROM url';
         $lastInsertId = DB::prepare($query);
-        Debug::dump($lastInsertId[0]["max(id)"]);
         $skill_id = $parameters['skill_id'];
         $item_id = $parameters['item_id'];
 
         $urlSkillItemParameters = array($lastInsertId[0]["max(id)"], $skill_id, $item_id);
         $query = 'INSERT INTO `url_skill_item`(`url_id`, `skill_id`, `item_id`) VALUES (?,?,?)';
         return DB::prepare($query, $urlSkillItemParameters);
+    }
+
+    public static function deleteUrl($parameters)
+    {
+        $urlParameter = array($parameters['id']);
+        $query = 'DELETE FROM `url_skill_item` WHERE url_id = ?;';
+        DB::prepare($query, $urlParameter);
+        $query = 'DELETE FROM `url` WHERE id = ?;';
+        return DB::prepare($query, $urlParameter);
     }
 
 }

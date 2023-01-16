@@ -1,12 +1,13 @@
 <?php
 namespace src\app\Controller;
 
-use src\app\Entity\Skill;
-use src\Core\Utils\Debug;
-use src\Core\Utils\Check;
+use src\app\Entity\Url;
 use src\Core\DB\Entity;
 use src\app\Entity\Demo;
-use src\app\Entity\Url;
+use src\app\Entity\Item;
+use src\app\Entity\Skill;
+use src\Core\Utils\Check;
+use src\Core\Utils\Debug;
 use src\app\Controller\ItemController;
 
 class SkillController extends AppController{
@@ -18,16 +19,7 @@ class SkillController extends AppController{
 		$entities = array('infos' => $this->messages['infos'],'errors' => $this->messages['errors'],'skills'=>$skills);
 		$this->render('skills',$entities);
 	}
-	
-	// public function show($skill_id) {
-	// 	$skill = Skill::find($skill_id,'skill');
-	// 	$items = Skill::findBy('item',$skill_id,'skill');
-	// 	$relatedUrls = Url::findUrlsBy($skill_id,'skill');
-	// 	$demos = $this->getDemosBySkillId($skill_id);
-	// 	$entities = array('skill' => $skill, 'items' => $items, 'demos' => $demos,'urls'=>$relatedUrls);
- 	// 	$this->render('skill',$entities);
-	// }
-	
+
 	public function getDemosBySkillId($skill_id){
 		return Demo::getDemosBySkillId($skill_id);
 	}
@@ -42,8 +34,10 @@ class SkillController extends AppController{
 		$this->render('skills',$entities);
 	}
 
-	public function delete($skill_id){
-		$resQuery['resQuery'] = Skill::delete('skill',$skill_id);
+	public function delete(){
+		$parameters = Check::makeSafeAssociativeArray($_POST);
+		$resQuery['resQueryDelItems'] = Item::deleteItemsBySkillId($parameters['id']);
+		$resQuery['resQueryDelSkill'] = Skill::delete('skill',$parameters['id']);
 		array_push($this->messages['infos'],$resQuery);
 		$this->list();
 	}
@@ -53,11 +47,6 @@ class SkillController extends AppController{
 		$skill_id = $skill->id;
 		$itemController = new ItemController();
 		$itemController->showBySkillId($skill_id);
-		// $items = Entity::findBy('item',$skill_id,'skill');
-		// $urls = Url::findUrlsBy($skill_id,'skill');
-		// $demos = $this->getDemosBySkillId($skill_id);
-		// $entities = array('skill' => $skill, 'items' => $items,'demos' => $demos,'urls'=>$urls);
-		// $this->render('skill',$entities);
 	}
 	
 	public function itemsListBySkill($skill_id,$skill_name) {

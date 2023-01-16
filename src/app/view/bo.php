@@ -6,7 +6,10 @@ use src\Core\Config\Config;
 if(getenv('admin') !== 'true'){
   echo 'NOT AUTHORIZED';
 } else {
-  ?>
+  
+  $skills = $entities['skills']?? null;
+  $items = $entities['items']?? null;
+?>
 
 <div class="container px-4 py-5" id="featured-2">
 <div class="row g-4 py-5 row-cols-1 row-cols-lg-2">
@@ -33,10 +36,10 @@ if(getenv('admin') !== 'true'){
 <div class="col">
   <button type="button" class="collapsible btn btn-primary" id="boAddItemButton">Add Item to Skill</button>
   <div class="content">
-    <form class="postform" action="index.php?page=additem" method="post">
+    <form class="postform" action="index.php?page=additem" method="post" class="was-validated">
     <div class="form-group">
       <label for="name">Name</label>
-      <input type="text" class="form-control" name="name" value="name" id="name" aria-describedby="name" placeholder="Enter name">
+      <input type="text" class="form-control" name="name" value="name" id="name" aria-describedby="name" minlength="3">
     </div>
     <div class="form-group">
       <label for="description">Description</label>
@@ -47,8 +50,14 @@ if(getenv('admin') !== 'true'){
       <input type="text" class="form-control" name="further" id="further" placeholder="further">
     </div>
     <div class="form-group">
-      <label for="skill_id">Skill_id</label>
-      <input type="text" class="form-control" name="skill_id" value="1" id="skill_id" placeholder="skill_id" pattern="[0-9]{1,3}">
+    <label for="skill_id">Skill_id</label>
+    <select name="skill_id" placeholder="skill_id" class="form-control" id="skill_id">
+        <?php
+        foreach($skills as $skill){
+          echo "<option value={$skill->id}>{$skill->name}</option>";
+        }
+        ?>
+    </select>
     </div>
     <div class="form-check">
     </div>

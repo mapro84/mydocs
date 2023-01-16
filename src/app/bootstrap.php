@@ -35,8 +35,7 @@ switch ($page) {
 		$skillController->add();
 		break;
 	case 'deleteskill':
-		$skill_id = $_POST['skill_id'];
-		if(Check::is_numeric($skill_id)) $skillController->delete($skill_id);
+		$skillController->delete();
 		break;
 	case 'items':
 		$skill_id = $_GET['skill_id'];
@@ -51,9 +50,12 @@ switch ($page) {
 	case 'additem':
 		$itemController->add();
 		break;
+	case 'deleteurl':
+		$urlController->delete();
+	break;
 	case 'addurltoitem':
 		$urlController->add();
-		break;
+	break;
 	case 'addnote':
 		$noteController->add();
 	break;

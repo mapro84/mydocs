@@ -19,9 +19,15 @@ if (!empty($entities['items'])) {
 <ul class="navbar-nav mr-auto">
 <?php
 		foreach ($skillLogos as $skillid => $logo) {
-			echo '<li class="navbar-brand">
-	<a href="index.php?page=skill&skill_id=' . $skillid . '"><img src="./public/img/' . $logo . '"></a>
-	</li>';
+			echo '<a href="index.php?page=skill&skill_id=' . 
+			$skillid . '"><img class="logo" src="./public/img/' . $logo . '"></a>';
+			if(count($skillLogos) === 1){
+				$skill_name = preg_replace('/\..*$/', '', $logo);
+				echo '<form class="form-inline" method="post" action="index.php?page=deleteskill" ' .
+				'onsubmit="return confirm(\'Do you confirm to delete ' . $skill_name. ' skill?\');">' .
+				'<input type="hidden" name="id" value='.$skillid.'>' . 
+				'<button class="btn"><i class="fa fa-trash"></i></button></form>';
+			}
 		}
 		?>
 </ul>
@@ -160,8 +166,17 @@ editModal.addEventListener('show.bs.modal', event => {
 	<li class="remove-bullet">Related urls</li>
 	<ul>
 	<?php
+			$idsArray = [];
 			foreach ($relatedUrls as $url) {
-				echo '<li><a href="' . $url['url'] . '" target="_blank">' . $url['urlname'] . '</a></li>';
+				if (in_array($url['id'], $idsArray)) {
+					continue;
+				}
+				array_push($idsArray, $url['id']);
+				echo '<li><form class="form-inline" method="post" action="index.php?page=deleteurl" ' .
+				'onsubmit="return confirm(\'Do you confirm to delete ' . $url['urlname']. ' url?\');">' .
+				'<input type="hidden" name="id" value='.$url['id'].'>' . 
+				'<button class="btn"><i class="fa fa-trash"></i></button></form>';
+				echo '<a href="' . $url['url'] . '" target="_blank">' . $url['urlname'] . '</a></li>';
 			}
 			?>
 </ul>
@@ -181,6 +196,10 @@ editModal.addEventListener('show.bs.modal', event => {
 	<ul>
 	<?php
 			foreach ($demos as $demo) {
+				if (in_array($demo['did'], $idsArray)) {
+					continue;
+				}
+				array_push($idsArray, $demo['did']);
 				echo '<li><a href="index.php?page=demo&demo_id=' . $demo['did'] . '" target="_blank">' . $demo['dname'] . '</a></li>';
 			}
 			?>
