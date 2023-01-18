@@ -14,9 +14,8 @@ class SkillController extends AppController{
 	
 	public function list() {
 		$skills = Skill::getAll('skill');
-		$this->messages['infos'] = $skills  !== false ? 'Skill got successfully' : '';
-		$this->messages['errors'] = $skills  === false ? 'Request to get skills failed' : '';
-		$entities = array('infos' => $this->messages['infos'],'errors' => $this->messages['errors'],'skills'=>$skills);
+		$this->messages['error'] = $skills  === false ? 'Request to get skills failed' : '';
+		$entities = array('messages' => $this->messages,'skills'=>$skills);
 		$this->render('skills',$entities);
 	}
 
@@ -26,12 +25,11 @@ class SkillController extends AppController{
 	
 	public function add(){
     $parameters = Check::makeSafeAssociativeArray($_POST);
-		$resQuery['resQuery'] = Skill::insert('skill',$parameters);
-		$this->messages['infos'] = $resQuery['resQuery']  !== false ? 'Skill added successfully' : '';
-		$this->messages['errors'] = $resQuery['resQuery']  === false ? 'Skill not added' : '';
-		$skills = Skill::getAll('skill');
-		$entities = array('infos' => $this->messages['infos'],'errors' => $this->messages['errors'],'skills'=>$skills);
-		$this->render('skills',$entities);
+		$result = Skill::insert('skill',$parameters);
+		$this->messages['info'] = $result  === false ? 'Skill added successfully' : '';
+		$this->messages['error'] = $result  !== false ? 'Error: Skill not added' : '';
+		$boController = new BOController();
+		$boController->show($this->messages);
 	}
 
 	public function delete(){
@@ -49,9 +47,9 @@ class SkillController extends AppController{
 		$itemController->showBySkillId($skill_id);
 	}
 	
-	public function itemsListBySkill($skill_id,$skill_name) {
+	public function itemsListBySkill($skill_id,$skill_name,array $messages=[]) {
 		$items = Skill::findBy('item',$skill_id,'skill');
-		$entities = array('items' => $items, 'skill_name' => $skill_name);
+		$entities = array('items' => $items, 'skill_name' => $skill_name, 'messages' => $messages);
 		$this->render('items',$entities);
 	}
 }

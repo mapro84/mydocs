@@ -2,10 +2,11 @@
 namespace src\app\Controller;
 
 use src\app\Entity\Url;
-use src\Core\Utils\Debug;
-use src\Core\Utils\Check;
 use src\Core\DB\Entity;
 use src\app\Entity\Item;
+use src\Core\Utils\Check;
+use src\Core\Utils\Debug;
+use src\app\Controller\BOController;
 
 class ItemController extends AppController{
 	
@@ -115,10 +116,9 @@ class ItemController extends AppController{
 
   public function getRelatedUrls(mixed $items): array{
 		$relatedUrls = [];
-		//Debug::dump($items);
 		foreach($items as $item){
 			if(!empty($item['urlname'])){
-				$url = array('urlname' => $item['urlname'],'url' => $item['url'],'id' => $item['url_id']);
+				$url = array('urlname' => $item['urlname'],'url' => $item['url'],'id' => $item['url_id'],'skill_id' => $item['skillid']);
 			  array_push($relatedUrls, $url);
 			}
 		}
@@ -156,8 +156,11 @@ class ItemController extends AppController{
 
 	public function add(){
 		$parameters = Check::makeSafeAssociativeArray($_POST);
-		Entity::insert('item',$parameters);
-		$this->showBySkillId($parameters['skill_id']);
+		$result = Entity::insert('item',$parameters);
+		$this->messages['info'] = $result  === false ? 'Item added successfully' : '';
+		$this->messages['error'] = $result  !== false ? 'Error: Item not added' : '';
+		$boController = new BOController();
+		$boController->show($this->messages);
 	}
 	
 	public function edit() {
@@ -172,11 +175,6 @@ class ItemController extends AppController{
 		Entity::update('item',$parameters);
 		$item = Item::find($item_id,'item');
 		$this->showBySkillId($item->skill_id);
-		// $item = Item::find($item_id,'item');
-		// $skill = Entity::find($item->skill_id,'skill');
-		// $items = Entity::findBy('item',$item->skill_id,'skill');
-		// $entities = array('skill' => $skill, 'items' => $items);
-		// $this->render('skill',$entities);
 	}
 	
 	public function delete($item_id){

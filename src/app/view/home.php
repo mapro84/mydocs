@@ -1,28 +1,45 @@
-<div class="container px-4 py-5" id="featured-3">
-<div class="row g-4 py-5 row-cols-1 row-cols-lg-12">
-
 <?php
 $admin = getenv('admin');
 
 use src\Core\Utils\Debug;
 
 $notes = $entities['notes'];
-foreach ($notes as $note):
-echo '<div class="col">';
-$deleteButton = '<form class="form-inline" method="post" action="index.php?page=deletenote" ' .
-'onsubmit="return confirm(\'Do you confirm to delete ' . $note->name. ' note?\');">' .
-'<input type="hidden" name="note_id" value='.$note->id.'>' . 
-'<button class="btn" ><i class="fa fa-trash fa-2xs"></i></button></form>';
-$editButton = '<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editModal" 
-data-bs-id="' . $note->id . '" data-bs-name="' . $note->name . '" data-bs-description="' . $note->description . '">'.
-'<i class="fa fa-edit"></i></button>';
-echo $admin === 'true' ? $editButton : '';
-echo $admin === 'true' ? $deleteButton : '';
-echo '<span class="text-row" >';
-echo '<span class="subtitle">'.$note->name.': </span>';
-echo $note->description;
-echo '</span></div>';
-endforeach;
+$messages = $entities['messages']?? null;
+?>
+
+<div class="container px-4 py-5" id="featured-3">
+  <?php if(!empty($messages['info'])){ ?>
+    <div class="alert alert-success" role="alert">
+    <?php
+          echo $messages['info'];
+    ?>
+    </div>
+    <?php }elseif(!empty($messages['error'])){ ?>
+    <div class="alert alert-danger" role="alert">
+    <?php
+          echo $messages['error'];
+          ?>
+    </div>
+  <?php } ?>
+<div class="row g-4 py-5 row-cols-1 row-cols-lg-12">
+
+<?php
+foreach ($notes as $note){
+  echo '<div class="col">';
+  $deleteButton = '<form class="form-inline" method="post" action="index.php?page=deletenote" ' .
+  'onsubmit="return confirm(\'Do you confirm to delete ' . $note->name. ' note?\');">' .
+  '<input type="hidden" name="note_id" value='.$note->id.'>' . 
+  '<button class="btn" ><i class="fa fa-trash fa-2xs"></i></button></form>';
+  $editButton = '<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editModal" 
+  data-bs-id="' . $note->id . '" data-bs-name="' . $note->name . '" data-bs-description="' . $note->description . '">'.
+  '<i class="fa fa-edit"></i></button>';
+  echo $admin === 'true' ? $editButton : '';
+  echo $admin === 'true' ? $deleteButton : '';
+  echo '<span class="text-row" >';
+  echo '<span class="subtitle">'.$note->name.': </span>';
+  echo $note->description;
+  echo '</span></div>';
+}
 ?>
 </div>
 </div>

@@ -4,8 +4,8 @@ use src\Core\Utils\Check;
 
 $admin = getenv('admin');
 
-if (!empty($entities['items'])) {
-	$items = $entities['items'];
+if (!empty($entities)) {
+	$items = $entities['items'] ?? [];
 	$demos = $entities['demos'] ?? [];
 	$relatedUrls = $entities['relatedUrls'] ?? [];
 	$openaiResponse = $entities['openaiResponse'] ?? [];
@@ -39,7 +39,9 @@ if (!empty($entities['items'])) {
 <div class="container">
 <?php
 		$idsArray = [];
+		
 		foreach ($items as $item) {
+			$item = array($item);Debug::dump($item);
 			if (in_array($item['id'], $idsArray)) {
 				continue;
 			}
@@ -175,6 +177,7 @@ editModal.addEventListener('show.bs.modal', event => {
 				echo '<li><form class="form-inline" method="post" action="index.php?page=deleteurl" ' .
 				'onsubmit="return confirm(\'Do you confirm to delete ' . $url['urlname']. ' url?\');">' .
 				'<input type="hidden" name="id" value='.$url['id'].'>' . 
+				'<input type="hidden" name="skill_id" value='.$url['skill_id'].'>' . 
 				'<button class="btn"><i class="fa fa-trash"></i></button></form>';
 				echo '<a href="' . $url['url'] . '" target="_blank">' . $url['urlname'] . '</a></li>';
 			}
@@ -212,7 +215,7 @@ editModal.addEventListener('show.bs.modal', event => {
 <?php
 }else{
 	echo '<div class="container px-4 py-5" id="featured-3">';
-	echo '<h1>No datas</h1>';
+	echo '<h1>No data</h1>';
 	echo '</div>';
 }
 ?>

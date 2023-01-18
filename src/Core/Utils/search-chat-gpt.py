@@ -18,6 +18,7 @@ params = {
     "max_tokens": 500,
 }
 
+
 # Add the API key to the headers
 headers = {"Content-Type": "application/json", "Authorization": f"Bearer {api_key}"}
 

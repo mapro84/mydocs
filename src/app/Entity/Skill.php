@@ -24,9 +24,6 @@ class Skill extends Entity{
     	return $this->key;
     }
     
-    public function __construct() {
-    }
-
     public function get($id){
     	return parent::find($id,'skill');
     }
