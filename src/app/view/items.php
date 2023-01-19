@@ -7,12 +7,26 @@ $admin = getenv('admin');
 if (!empty($entities)) {
 	$items = $entities['items'] ?? [];
 	$demos = $entities['demos'] ?? [];
+	$messages = $entities['messages']?? [];
 	$relatedUrls = $entities['relatedUrls'] ?? [];
 	$openaiResponse = $entities['openaiResponse'] ?? [];
 	$skillLogos = $entities['skillLogos'] ?? [];
 	?>
 
 <div class="container">
+<?php if(!empty($messages['info'])){ ?>
+  <div class="alert alert-success" role="alert">
+  <?php
+				echo $messages['info'];
+				?>
+  </div>
+  <?php }elseif(!empty($messages['error'])){ ?>
+  <div class="alert alert-danger" role="alert">
+  <?php
+				echo $messages['error'];
+				?>
+  </div>
+  <?php } ?>
 <div class="row py-4 row-cols-1 row-cols-lg-3">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 <div class="head-menu collapse navbar-collapse" id="navbarSupportedContent">
@@ -41,7 +55,6 @@ if (!empty($entities)) {
 		$idsArray = [];
 		
 		foreach ($items as $item) {
-			$item = array($item);Debug::dump($item);
 			if (in_array($item['id'], $idsArray)) {
 				continue;
 			}
@@ -52,6 +65,7 @@ if (!empty($entities)) {
 				$deleteButton = '<form class="form-inline" method="post" action="index.php?page=deleteitem" ' .
 				'onsubmit="return confirm(\'Do you confirm to delete ' . $itemName. ' item?\');">' .
 				'<input type="hidden" name="item_id" value='.$item['id'].'>' . 
+				'<input type="hidden" name="item_id" value='.$item['skill_id'].'>' . 
 				'<button class="btn"><i class="fa fa-trash"></i></button></form>';
 				$editButton = '
 				<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editModal" 

@@ -17,13 +17,13 @@ class ItemController extends AppController{
 		$this->skillController = new SkillController();
 	}
 
-	public function showBySkillId($skill_id) {
+	public function showByskillid($skill_id, array $messages = []) {
 		$parameters = Check::makeSafeAssociativeArray($_POST);
-		$items = Item::searchBySkillId($skill_id);
+		$items = Item::searchByskillid($skill_id);
 		$relatedUrls = $this->getRelatedUrls($items);
 		$demos = $this->getDemos($items);
 		$skillLogos = $this->getLogos($items);
-		$entities = array('items' => $items,'demos' => $demos, 'skillLogos'=>$skillLogos,'relatedUrls'=>$relatedUrls);
+		$entities = array('items' => $items,'demos' => $demos, 'skillLogos'=>$skillLogos,'relatedUrls'=>$relatedUrls,'messages' => $messages);
 		if(empty($entities['openaiResponse']) && empty($entities['items'])){
 			$entities = [];
 		}
@@ -118,7 +118,7 @@ class ItemController extends AppController{
 		$relatedUrls = [];
 		foreach($items as $item){
 			if(!empty($item['urlname'])){
-				$url = array('urlname' => $item['urlname'],'url' => $item['url'],'id' => $item['url_id'],'skill_id' => $item['skillid']);
+				$url = array('urlname' => $item['urlname'],'url' => $item['url'],'id' => $item['url_id'],'skill_id' => $item['skill_id']);
 			  array_push($relatedUrls, $url);
 			}
 		}
@@ -139,8 +139,8 @@ class ItemController extends AppController{
 	public function getLogos(mixed $items): array{
 		$logos = [];
 		foreach($items as $item){
-			if(!empty($item['skillid']) && !isset($logos[$item['skillid']])){
-			  $logos[$item['skillid']]= $item['logo'];
+			if(!empty($item['skill_id']) && !isset($logos[$item['skill_id']])){
+			  $logos[$item['skill_id']]= $item['logo'];
 			}
 		}
 		return $logos;
@@ -163,27 +163,25 @@ class ItemController extends AppController{
 		$boController->show($this->messages);
 	}
 	
-	public function edit() {
-
-		echo 'edit item';
-		var_dump($_POST);
-	}
-	
 	public function update() {
 		$parameters = Check::makeSafeAssociativeArray($_POST);
 		$item_id = $parameters['id'];
-		Entity::update('item',$parameters);
+		$result = Entity::update('item',$parameters);
+		$this->messages['info'] = $result  === false ? 'Item updated successfully' : '';
+		$this->messages['error'] = $result  !== false ? 'Error: Item not updated' : '';
 		$item = Item::find($item_id,'item');
-		$this->showBySkillId($item->skill_id);
+		$this->showByskillid($item->skill_id, $this->messages);
 	}
 	
 	public function delete($item_id){
 		Item::deleteBy('demo',$item_id,'item');
 		Item::deleteUrlSkillItem($item_id);
-		Item::delete('item',$item_id);
-		$notes = Entity::getAll('note');
-		$entities = ['notes' => $notes];
-		$this->render('home',$entities);
+		$result = Item::delete('item',$item_id);
+		$this->messages['info'] = $result  === false ? 'Item updated successfully' : '';
+		$this->messages['error'] = $result  !== false ? 'Error: Item not updated' : '';
+
+		$item = Item::find($item_id,'item');
+		$this->showByskillid($item->skill_id, $this->messages);
 	}
 	
 }

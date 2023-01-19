@@ -6,10 +6,10 @@ use src\Core\Config\Config;
 if(getenv('admin') !== 'true'){
   echo 'NOT AUTHORIZED';
 } else {
-  Debug::dump($entities['messages']);
+  // Debug::dump($entities['messages']);
   $skills = $entities['skills']?? null;
   $items = $entities['items']?? null;
-  $messages = $entities['messages']?? null;
+  $messages = $entities['messages']?? [];
 ?>
 
 <div class="container px-4 py-5" id="featured-2">

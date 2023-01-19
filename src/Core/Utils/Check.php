@@ -27,7 +27,7 @@ class Check {
 			}else{
 				$safeValue = self::is_safe_alphanumeric($value,true) ? $value : NULL;
 			}
-			//$safeValue = $value;
+			$safeValue = $value;
 			$safeAssociativeArray[$key] = $safeValue;
 		}
 		return $safeAssociativeArray;

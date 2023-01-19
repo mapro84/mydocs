@@ -16,9 +16,8 @@ class UrlController extends AppController
   {
     $parameters = Check::makeSafeAssociativeArray($_POST);
     $arrayResult = Url::addUrl($parameters);
-    $result = empty($arrayResult) ? false : true;
-		$this->messages['info'] = $result  === false ? 'Url added successfully' : '';
-		$this->messages['error'] = $result  !== false ? 'Error: Url not added' : '';
+		$this->messages['info'] = empty($result) ? 'Url added successfully' : '';
+		$this->messages['error'] = !empty($result) ? 'Error: Url not added' : '';
 		$boController = new BOController();
 		$boController->show($this->messages);
   }
@@ -27,12 +26,12 @@ class UrlController extends AppController
   {
     $parameters = Check::makeSafeAssociativeArray($_POST);
 		$result = Url::deleteUrl($parameters);
-		$this->messages['info'] = $result  === false ? 'Url deleted successfully' : '';
-		$this->messages['error'] = $result  !== false ? 'Error: Url not deleted' : '';
+    Debug::dump($result);
+		$this->messages['info'] = empty($result) ? 'Url deleted successfully' : '';
+		$this->messages['error'] = !empty($result) ? 'Error: Url not deleted' : '';
     $skill_id = $parameters['skill_id'];
-    $skill = Entity::find($skill_id, 'skill');
-    $skillController = new SkillController();
-    $skillController->itemsListBySkill($skill_id, $skill->name,$this->messages);
+    $itemController = new ItemController();
+    $itemController->showByskillid($skill_id, $this->messages);
   }
 
 }

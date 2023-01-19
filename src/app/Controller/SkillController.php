@@ -19,8 +19,8 @@ class SkillController extends AppController{
 		$this->render('skills',$entities);
 	}
 
-	public function getDemosBySkillId($skill_id){
-		return Demo::getDemosBySkillId($skill_id);
+	public function getDemosByskill_id($skill_id){
+		return Demo::getDemosByskill_id($skill_id);
 	}
 	
 	public function add(){
@@ -34,7 +34,7 @@ class SkillController extends AppController{
 
 	public function delete(){
 		$parameters = Check::makeSafeAssociativeArray($_POST);
-		$resQuery['resQueryDelItems'] = Item::deleteItemsBySkillId($parameters['id']);
+		$resQuery['resQueryDelItems'] = Item::deleteItemsByskill_id($parameters['id']);
 		$resQuery['resQueryDelSkill'] = Skill::delete('skill',$parameters['id']);
 		array_push($this->messages['infos'],$resQuery);
 		$this->list();
@@ -44,7 +44,7 @@ class SkillController extends AppController{
 		$skill = Skill::findByName('skill',$skill_name);
 		$skill_id = $skill->id;
 		$itemController = new ItemController();
-		$itemController->showBySkillId($skill_id);
+		$itemController->showByskill_id($skill_id);
 	}
 	
 	public function itemsListBySkill($skill_id,$skill_name,array $messages=[]) {
