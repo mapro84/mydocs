@@ -24,8 +24,10 @@ class ItemController extends AppController{
 		$demos = $this->getDemos($items);
 		$skillLogos = $this->getLogos($items);
 		$entities = array('items' => $items,'demos' => $demos, 'skillLogos'=>$skillLogos,'relatedUrls'=>$relatedUrls,'messages' => $messages);
-		if(empty($entities['openaiResponse']) && empty($entities['items'])){
-			$entities = [];
+		if(empty($skillLogos)){
+			$skill = Entity::find($skill_id,'skill');
+			$skillLogos[$skill->id] = $skill->logo;
+		 	$entities = ['skillLogos' => $skillLogos];
 		}
 		$this->render('items',$entities);
 	}
@@ -41,9 +43,9 @@ class ItemController extends AppController{
 		// Debug::dump($openaiResponse);
 		$entities = array('items' => $items,'demos' => $demos, 'openaiResponse' => $openaiResponse,
 		                  'googleApiResponse' => $googleApiResponse, 'skillLogos'=>$skillLogos,'relatedUrls'=>$relatedUrls);
-		if(empty($entities['openaiResponse']) && empty($entities['items'])){
-			$entities = [];
-		}
+		// if(empty($entities['openaiResponse']) && empty($entities['items'])){
+		// 	$entities = [];
+		// }
 		$this->render('items',$entities);
 	}
 
@@ -140,7 +142,7 @@ class ItemController extends AppController{
 		$logos = [];
 		foreach($items as $item){
 			if(!empty($item['skill_id']) && !isset($logos[$item['skill_id']])){
-			  $logos[$item['skill_id']]= $item['logo'];
+			  $logos[$item['skill_id']] = $item['logo'];
 			}
 		}
 		return $logos;

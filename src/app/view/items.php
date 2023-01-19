@@ -4,14 +4,13 @@ use src\Core\Utils\Check;
 
 $admin = getenv('admin');
 
-if (!empty($entities)) {
-	$items = $entities['items'] ?? [];
-	$demos = $entities['demos'] ?? [];
-	$messages = $entities['messages']?? [];
-	$relatedUrls = $entities['relatedUrls'] ?? [];
-	$openaiResponse = $entities['openaiResponse'] ?? [];
-	$skillLogos = $entities['skillLogos'] ?? [];
-	?>
+$items = $entities['items'] ?? [];
+$demos = $entities['demos'] ?? [];
+$messages = $entities['messages']?? [];
+$relatedUrls = $entities['relatedUrls'] ?? [];
+$openaiResponse = $entities['openaiResponse'] ?? [];
+$skillLogos = $entities['skillLogos'] ?? [];
+?>
 
 <div class="container">
 <?php if(!empty($messages['info'])){ ?>
@@ -32,15 +31,21 @@ if (!empty($entities)) {
 <div class="head-menu collapse navbar-collapse" id="navbarSupportedContent">
 <ul class="navbar-nav mr-auto">
 <?php
-		foreach ($skillLogos as $skillid => $logo) {
+		foreach ($skillLogos as $skill_id => $logo) {
 			echo '<a href="index.php?page=skill&skill_id=' . 
-			$skillid . '"><img class="logo" src="./public/img/' . $logo . '"></a>';
+			$skill_id . '"><img class="logo" src="./public/img/' . $logo . '"></a>';
 			if(count($skillLogos) === 1){
 				$skill_name = preg_replace('/\..*$/', '', $logo);
-				echo '<form class="form-inline" method="post" action="index.php?page=deleteskill" ' .
+				$editButton = '
+				<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editSkill" 
+				data-bs-id="'. $skill_id.'" data-bs-name="'. $skill_name.'">'.
+				'<i class="fa fa-edit"></i></button>';
+				$deleteButton =  '<form class="form-inline" method="post" action="index.php?page=deleteskill" ' .
 				'onsubmit="return confirm(\'Do you confirm to delete ' . $skill_name. ' skill?\');">' .
-				'<input type="hidden" name="id" value='.$skillid.'>' . 
+				'<input type="hidden" name="id" value='.$skill_id.'>' . 
 				'<button class="btn"><i class="fa fa-trash"></i></button></form>';
+				echo $admin === 'true' ? $editButton : '';
+				echo $admin === 'true' ? $deleteButton : '';
 			}
 		}
 		?>
@@ -52,6 +57,8 @@ if (!empty($entities)) {
 
 <div class="container">
 <?php
+  if (!empty($items)) {
+
 		$idsArray = [];
 		
 		foreach ($items as $item) {
@@ -68,7 +75,7 @@ if (!empty($entities)) {
 				'<input type="hidden" name="item_id" value='.$item['skill_id'].'>' . 
 				'<button class="btn"><i class="fa fa-trash"></i></button></form>';
 				$editButton = '
-				<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editModal" 
+				<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editItem" 
 				data-bs-id="'. $item['id'].'" data-bs-name="'. $itemName.'">'.
 				'<i class="fa fa-edit"></i></button>';
 				echo "<div class='row mb-2, border-bottom'>";
@@ -95,71 +102,6 @@ if (!empty($entities)) {
 		?>
 </div>
 
-<!-- MODAL -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="editModalLabel">Edit Item</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form method="post" action="index.php?page=updateitem">
-				  <input type="hidden" name="id" id="id" value=''>
-          <div class="mb-3">
-            <label for="name" class="col-form-label">Name:</label>
-            <input name="name" type="text" class="form-control" id="name">
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Description:</label>
-            <textarea name="description" id="description" class="form-control"></textarea>
-          </div>
-					<div class="mb-3">
-            <label for="message-text" class="col-form-label">Further:</label>
-            <textarea name="further" id="further" class="form-control"></textarea>
-          </div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-						<button type="submit" class="btn btn-primary">Update Item</button>
-					</div>
-        </form>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<script>
-const editModal = document.getElementById('editModal')
-editModal.addEventListener('show.bs.modal', event => {
-  // Button that triggered the modal
-  const button = event.relatedTarget
-  // Extract info from data-bs-* attributes
-	const id = button.getAttribute('data-bs-id')
-  const name = button.getAttribute('data-bs-name')
-	const title = name.substring(0,15)+'...'
-	const descriptionId = 'description'+id;
-	const description = document.getElementById(descriptionId).value
-	const furtherId = 'further'+id;
-	const further = document.getElementById(furtherId).value
-  // If necessary, you could initiate an AJAX request here
-  // and then do the updating in a callback.
-
-  // Update the modal's content.
-  const modalTitle = editModal.querySelector('.modal-title')
-	const modalBodyInputId = editModal.querySelector('.modal-body #id')
-	const modalBodyInputName = editModal.querySelector('.modal-body #name')
-	const modalBodyInputDescription = editModal.querySelector('.modal-body #description')
-	const modalBodyInputFurther = editModal.querySelector('.modal-body #further')
-
-  modalTitle.textContent = `Edit item ${title}`
-	modalBodyInputId.value = id
-  modalBodyInputName.value = name
-	modalBodyInputDescription.value = description
-	modalBodyInputFurther.value = further
-})
-</script>
-
 <?php
 		if (!empty($openaiResponse)) {
 			?>
@@ -179,7 +121,7 @@ editModal.addEventListener('show.bs.modal', event => {
 		if ($numberUrls > 0) {
 			?>
 <ul>
-	<li class="remove-bullet">Related urls</li>
+	<li>Related urls</li>
 	<ul>
 	<?php
 			$idsArray = [];
@@ -188,11 +130,17 @@ editModal.addEventListener('show.bs.modal', event => {
 					continue;
 				}
 				array_push($idsArray, $url['id']);
-				echo '<li><form class="form-inline" method="post" action="index.php?page=deleteurl" ' .
+				$editButton = '
+				<li class="list-unstyled"><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editUrlModal" 
+				data-bs-id="' . 'test_id' . '" data-bs-name="' . 'test_name' . '">' .
+						'<i class="fa fa-edit"></i></button>';
+				$deleteButton = '<form class="form-inline" method="post" action="index.php?page=deleteurl" ' .
 				'onsubmit="return confirm(\'Do you confirm to delete ' . $url['urlname']. ' url?\');">' .
 				'<input type="hidden" name="id" value='.$url['id'].'>' . 
 				'<input type="hidden" name="skill_id" value='.$url['skill_id'].'>' . 
 				'<button class="btn"><i class="fa fa-trash"></i></button></form>';
+				echo $admin === 'true' ? $editButton : '';
+				echo $admin === 'true' ? $deleteButton : '';
 				echo '<a href="' . $url['url'] . '" target="_blank">' . $url['urlname'] . '</a></li>';
 			}
 			?>
@@ -231,5 +179,197 @@ editModal.addEventListener('show.bs.modal', event => {
 	echo '<div class="container px-4 py-5" id="featured-3">';
 	echo '<h1>No data</h1>';
 	echo '</div>';
+}
+
+if (!empty($entities['items'])) {
+?>
+<!-- Skill MODAL -->
+<div class="modal fade" id="editSkill" tabindex="-1" aria-labelledby="editSkillLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editSkillLabel">Edit Url</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="index.php?page=updateitem">
+				  <input type="hidden" name="id" id="id" value=''>
+          <div class="mb-3">
+            <label for="name" class="col-form-label">Name:</label>
+            <input name="name" type="text" class="form-control" id="name">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Description:</label>
+            <textarea name="description" id="description" class="form-control"></textarea>
+          </div>
+					<div class="mb-3">
+            <label for="message-text" class="col-form-label">Further:</label>
+            <textarea name="further" id="further" class="form-control"></textarea>
+          </div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">Update Item</button>
+					</div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script>
+const editSkill = document.getElementById('editSkillModal')
+editSkill.addEventListener('show.bs.modal', event => {
+  // Button that triggered the modal
+  const button = event.relatedTarget
+  // Extract info from data-bs-* attributes
+	const id = button.getAttribute('data-bs-id')
+  const name = button.getAttribute('data-bs-name')
+	const title = name.substring(0,15)+'...'
+	const descriptionId = 'description'+id;
+	const description = document.getElementById(descriptionId).value
+	const furtherId = 'further'+id;
+	const further = document.getElementById(furtherId).value
+  // AJAX request here and then updating in callback
+  // Update the modal's content.
+  const modalTitle = editSkill.querySelector('.modal-title')
+	const modalBodyInputId = editSkill.querySelector('.modal-body #id')
+	const modalBodyInputName = editSkill.querySelector('.modal-body #name')
+	const modalBodyInputDescription = editSkill.querySelector('.modal-body #description')
+	const modalBodyInputFurther = editSkill.querySelector('.modal-body #further')
+  modalTitle.textContent = `Edit item ${title}`
+	modalBodyInputId.value = id
+  modalBodyInputName.value = name
+	modalBodyInputDescription.value = description
+	modalBodyInputFurther.value = further
+})
+</script>
+<!-- End Skill MODAL -->
+
+<!-- Item MODAL -->
+<div class="modal fade" id="editItem" tabindex="-1" aria-labelledby="editItemLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editItemLabel">Edit Item</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="index.php?page=updateitem">
+				  <input type="hidden" name="id" id="id" value=''>
+          <div class="mb-3">
+            <label for="name" class="col-form-label">Name:</label>
+            <input name="name" type="text" class="form-control" id="name">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Description:</label>
+            <textarea name="description" id="description" class="form-control"></textarea>
+          </div>
+					<div class="mb-3">
+            <label for="message-text" class="col-form-label">Further:</label>
+            <textarea name="further" id="further" class="form-control"></textarea>
+          </div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">Update Item</button>
+					</div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script>
+const editItem = document.getElementById('editItem')
+editItem.addEventListener('show.bs.modal', event => {
+  // Button that triggered the modal
+  const button = event.relatedTarget
+  // Extract info from data-bs-* attributes
+	const id = button.getAttribute('data-bs-id')
+  const name = button.getAttribute('data-bs-name')
+	const title = name.substring(0,15)+'...'
+	const descriptionId = 'description'+id;
+	const description = document.getElementById(descriptionId).value
+	const furtherId = 'further'+id;
+	const further = document.getElementById(furtherId).value
+  // AJAX request here and then updating in callback
+  // Update the modal's content.
+  const modalTitle = editItem.querySelector('.modal-title')
+	const modalBodyInputId = editItem.querySelector('.modal-body #id')
+	const modalBodyInputName = editItem.querySelector('.modal-body #name')
+	const modalBodyInputDescription = editItem.querySelector('.modal-body #description')
+	const modalBodyInputFurther = editItem.querySelector('.modal-body #further')
+  modalTitle.textContent = `Edit item ${title}`
+	modalBodyInputId.value = id
+  modalBodyInputName.value = name
+	modalBodyInputDescription.value = description
+	modalBodyInputFurther.value = further
+})
+</script>
+<!-- End Item MODAL -->
+
+<!-- Url MODAL -->
+<div class="modal fade" id="editUrlModal" tabindex="-1" aria-labelledby="editUrlLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editUrlLabel">Edit Url</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="index.php?page=updateitem">
+				  <input type="hidden" name="id" id="id" value=''>
+          <div class="mb-3">
+            <label for="name" class="col-form-label">Name:</label>
+            <input name="name" type="text" class="form-control" id="name">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Description:</label>
+            <textarea name="description" id="description" class="form-control"></textarea>
+          </div>
+					<div class="mb-3">
+            <label for="message-text" class="col-form-label">Further:</label>
+            <textarea name="further" id="further" class="form-control"></textarea>
+          </div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">Update Item</button>
+					</div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+const editUrl = document.getElementById('editUrlModal')
+editUrl.addEventListener('show.bs.modal', event => {
+  // Button that triggered the modal
+  const button = event.relatedTarget
+  // Extract info from data-bs-* attributes
+	const id = button.getAttribute('data-bs-id')
+  const name = button.getAttribute('data-bs-name')
+	const title = name.substring(0,15)+'...'
+	const descriptionId = 'description'+id;
+	const description = document.getElementById(descriptionId).value
+	const furtherId = 'further'+id;
+	const further = document.getElementById(furtherId).value
+  // AJAX request here and then updating in callback
+  // Update the modal's content.
+  const modalTitle = editUrl.querySelector('.modal-title')
+	const modalBodyInputId = editUrl.querySelector('.modal-body #id')
+	const modalBodyInputName = editUrl.querySelector('.modal-body #name')
+	const modalBodyInputDescription = editUrl.querySelector('.modal-body #description')
+	const modalBodyInputFurther = editUrl.querySelector('.modal-body #further')
+  modalTitle.textContent = `Edit item ${title}`
+	modalBodyInputId.value = id
+  modalBodyInputName.value = name
+	modalBodyInputDescription.value = description
+	modalBodyInputFurther.value = further
+})
+</script>
+<!-- End Url MODAL -->
+
+<?php
 }
 ?>
