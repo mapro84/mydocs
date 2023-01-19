@@ -22,13 +22,8 @@ class ItemController extends AppController{
 		$items = Item::searchByskillid($skill_id);
 		$relatedUrls = $this->getRelatedUrls($items);
 		$demos = $this->getDemos($items);
-		$skillLogos = $this->getLogos($items);
-		$entities = array('items' => $items,'demos' => $demos, 'skillLogos'=>$skillLogos,'relatedUrls'=>$relatedUrls,'messages' => $messages);
-		if(empty($skillLogos)){
-			$skill = Entity::find($skill_id,'skill');
-			$skillLogos[$skill->id] = $skill->logo;
-		 	$entities = ['skillLogos' => $skillLogos];
-		}
+		$skill = $this->getSkills(null, $skill_id);
+		$entities = array('items' => $items,'demos' => $demos, 'skills'=>$skill, 'relatedUrls'=>$relatedUrls,'messages' => $messages);
 		$this->render('items',$entities);
 	}
 
@@ -37,12 +32,12 @@ class ItemController extends AppController{
 		$items = Item::search($parameters);
 		$relatedUrls = $this->getRelatedUrls($items);
 		$demos = $this->getDemos($items);
-		$skillLogos = $this->getLogos($items);
+		$skills = $this->getSkills($items);
 		$openaiResponse = array_key_exists("openaiResearch",$parameters) ? $this->getOpenaiResponse($parameters) : '';
 		$googleApiResponse = ''; // array_key_exists("googleResearch",$parameters) ? $this->getGoogleResponse($parameters) : '';
 		// Debug::dump($openaiResponse);
 		$entities = array('items' => $items,'demos' => $demos, 'openaiResponse' => $openaiResponse,
-		                  'googleApiResponse' => $googleApiResponse, 'skillLogos'=>$skillLogos,'relatedUrls'=>$relatedUrls);
+		                  'googleApiResponse' => $googleApiResponse, 'skills'=>$skills,'relatedUrls'=>$relatedUrls);
 		// if(empty($entities['openaiResponse']) && empty($entities['items'])){
 		// 	$entities = [];
 		// }
@@ -120,7 +115,7 @@ class ItemController extends AppController{
 		$relatedUrls = [];
 		foreach($items as $item){
 			if(!empty($item['urlname'])){
-				$url = array('urlname' => $item['urlname'],'url' => $item['url'],'id' => $item['url_id'],'skill_id' => $item['skill_id']);
+				$url = array('name' => $item['urlname'],'url' => $item['url'],'id' => $item['url_id'],'skill_id' => $item['skill_id']);
 			  array_push($relatedUrls, $url);
 			}
 		}
@@ -138,14 +133,25 @@ class ItemController extends AppController{
 		return $demos;
 	}
 
-	public function getLogos(mixed $items): array{
-		$logos = [];
-		foreach($items as $item){
-			if(!empty($item['skill_id']) && !isset($logos[$item['skill_id']])){
-			  $logos[$item['skill_id']] = $item['logo'];
+	public function getSkills(mixed $items = null, int $skill_id = null): array{
+		$skills = [];
+		if(\is_array($items)){
+			foreach($items as $item){
+				if(!empty($item['skill_id'])){
+					$skill = Entity::find($item['skill_id'],'skill');
+				}
+				$skills[$skill->id]['logo']  = $skill->logo;
+				$skills[$skill->id]['name']  = $skill->name;
+				$skills[$skill->id]['id']    = $skill->id;
 			}
+		}elseif($skill_id){
+			$skill = Entity::find($skill_id,'skill');
+			$skills[$skill->id]['logo']  = $skill->logo;
+			$skills[$skill->id]['name']  = $skill->name;
+			$skills[$skill->id]['id']    = $skill->id;
 		}
-		return $logos;
+
+		return $skills;
 	}
 
 	public function show($item_id,$skill_name) {

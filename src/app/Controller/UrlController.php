@@ -26,10 +26,22 @@ class UrlController extends AppController
   {
     $parameters = Check::makeSafeAssociativeArray($_POST);
 		$result = Url::deleteUrl($parameters);
-    Debug::dump($result);
 		$this->messages['info'] = empty($result) ? 'Url deleted successfully' : '';
 		$this->messages['error'] = !empty($result) ? 'Error: Url not deleted' : '';
     $skill_id = $parameters['skill_id'];
+    $itemController = new ItemController();
+    $itemController->showByskillid($skill_id, $this->messages);
+  }
+
+  public function update()
+  {
+    $parameters = Check::makeSafeAssociativeArray($_POST);
+    
+    $skill_id = $parameters['skill_id'];
+    unset($parameters['skill_id']);
+		$result = Url::update('url',$parameters);
+		$this->messages['info'] = empty($result) ? 'Url updated successfully' : '';
+		$this->messages['error'] = !empty($result) ? 'Error: Url not updated' : '';
     $itemController = new ItemController();
     $itemController->showByskillid($skill_id, $this->messages);
   }

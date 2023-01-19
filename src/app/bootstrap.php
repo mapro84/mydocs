@@ -23,33 +23,38 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
 switch ($page) {
 	case 'home': 
 		$homeController->show();
-		break;
+	break;
 	case 'skills':
 		$skillController->list();
 		break;
 	case 'skill':
 		$skill_id = $_GET['skill_id'];
 		if(Check::is_numeric($skill_id)) $itemController->showBySkillId($skill_id);
-		break;
+	break;
 	case 'addskill':
 		$skillController->add();
-		break;
+	break;
+	case 'updateskill':
+		$skillController->update();
+	break;
 	case 'deleteskill':
 		$skillController->delete();
 		break;
 	case 'items':
 		$skill_id = $_GET['skill_id'];
-		$skill_name = addslashes($_GET['skill_name']);
-		if (Check::is_numeric($skill_id)) $skillController->itemsListBySkill($skill_id,$skill_name);
-		break;
+		if (Check::is_numeric($skill_id)) $skillController->itemsListBySkill($skill_id);
+	break;
 	case 'item':
 		$itemid = $_GET['itemid'];
 		$skill_name = addslashes($_GET['skill_name']);
 		if (Check::is_numeric($itemid)) $itemController->show($itemid, $skill_name);
-		break;
+	break;
 	case 'additem':
 		$itemController->add();
-		break;
+	break;
+	case 'updateurl':
+		$urlController->update();
+	break;
 	case 'deleteurl':
 		$urlController->delete();
 	break;

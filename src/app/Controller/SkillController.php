@@ -8,14 +8,24 @@ use src\app\Entity\Item;
 use src\app\Entity\Skill;
 use src\Core\Utils\Check;
 use src\Core\Utils\Debug;
+use src\app\Controller\BOController;
+use src\app\Controller\AppController;
 use src\app\Controller\ItemController;
 
 class SkillController extends AppController{
-	
-	public function list() {
+
+  private $boController;
+	private $itemController;
+
+  public function __construct(){
+		parent::__construct();
+		//$this->boController = new BOController();
+    //$this->itemController = new ItemController();
+	}
+
+	public function list(array $messages = []) {
 		$skills = Skill::getAll('skill');
-		$this->messages['error'] = $skills  === false ? 'Request to get skills failed' : '';
-		$entities = array('messages' => $this->messages,'skills'=>$skills);
+		$entities = array('messages' => $messages, 'skills'=>$skills);
 		$this->render('skills',$entities);
 	}
 
@@ -28,29 +38,41 @@ class SkillController extends AppController{
 		$result = Skill::insert('skill',$parameters);
 		$this->messages['info'] = $result  === false ? 'Skill added successfully' : '';
 		$this->messages['error'] = $result  !== false ? 'Error: Skill not added' : '';
-		$boController = new BOController();
-		$boController->show($this->messages);
+		$this->boController = new BOController();
+		$this->boController->show($this->messages);
+	}
+
+	public function update(){
+    $parameters = Check::makeSafeAssociativeArray($_POST);
+		$result = Skill::update('skill',$parameters);
+		$this->messages['info'] = $result  === false ? 'Skill added successfully' : '';
+		$this->messages['error'] = $result  !== false ? 'Error: Skill not added' : '';
+		$this->itemController = new ItemController();
+		$this->itemController->showByskillid($parameters['id'], $this->messages); 
 	}
 
 	public function delete(){
 		$parameters = Check::makeSafeAssociativeArray($_POST);
-		$resQuery['resQueryDelItems'] = Item::deleteItemsByskillid($parameters['id']);
-		$resQuery['resQueryDelSkill'] = Skill::delete('skill',$parameters['id']);
-		array_push($this->messages['infos'],$resQuery);
-		$this->list();
+		Item::deleteItemsByskillid($parameters['id']);
+		$result = Skill::delete('skill',$parameters['id']);
+		$this->messages['info'] = empty($result)  === true ? 'Skill deleted successfully' : '';
+		$this->messages['error'] = empty($result)  === false ? 'Error: Skill not deleted' : '';
+		$this->list($this->messages);
 	}
 	
 	public function findByName($skill_name) {
 		$skill = Skill::findByName('skill',$skill_name);
 		$skill_id = $skill->id;
-		$itemController = new ItemController();
-		$itemController->showByskillid($skill_id);
+		$this->itemController = new ItemController();
+		$this->itemController->showByskillid($skill_id);
 	}
 	
-	public function itemsListBySkill($skill_id,$skill_name,array $messages=[]) {
-		$items = Skill::findBy('item',$skill_id,'skill');
-		$entities = array('items' => $items, 'skill_name' => $skill_name, 'messages' => $messages);
-		$this->render('items',$entities);
-	}
+	// public function itemsListBySkill($skill_id, array $messages=[]) {
+	// 	$skill = Skill::find($skill_id,'skill');
+	// 	$items = Skill::findBy('item',$skill_id,'skill');
+	// 	$entities = array('items' => $items, 'skills' => $skill, 'messages' => $messages);
+	// 	Debug::dump($entities);
+	// 	$this->render('items',$entities);
+	// }
 }
 
