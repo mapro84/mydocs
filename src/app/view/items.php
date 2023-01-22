@@ -67,7 +67,7 @@ $skills = $entities['skills'] ?? [];
 				continue;
 			}
 			array_push($idsArray, $item['id']);
-			if (!empty($item['name'])) {
+			if (!empty($item['name']) && $item['name'] !== 'IT: All') {
 				$match = "/^([a-zA-Z]+:\s)(.*$)/";
 				$itemName = preg_replace($match, "$2", $item['name']);
 				$deleteButton = '<form class="form-inline" method="post" action="index.php?page=deleteitem" ' .

@@ -81,3 +81,7 @@
     height: 40px;
     margin-right: 20px;
   }
+
+  img[alt]{
+    color: blue;
+  }

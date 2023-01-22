@@ -21,12 +21,14 @@ class Item extends Entity{
          s.name as skillname, s.logo, s.id as skill_id
         FROM item as i 
         LEFT OUTER JOIN url_skill_item as link ON i.id = link.item_id 
-        LEFT OUTER JOIN url as u ON u.id = link.url_id
+        LEFT OUTER JOIN url as u ON link.url_id = u.id
         LEFT OUTER JOIN demo as d ON i.id = d.item_id
         LEFT OUTER JOIN skill as s ON i.skill_id = s.id
-        WHERE MATCH(i.name,i.description,i.further) against(?);';
-        $queryParams = [];
-        array_push($queryParams,$search);
+        WHERE MATCH(i.name,i.description,i.further) against(?)
+        OR MATCH(u.name) against(?)
+        OR MATCH(s.name) against(?)
+        OR MATCH(d.name) against(?);';
+        $queryParams = [$search, $search, $search, $search];
         return DB::prepare($query, $queryParams);
     }
 

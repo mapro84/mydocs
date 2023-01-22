@@ -139,10 +139,10 @@ class ItemController extends AppController{
 			foreach($items as $item){
 				if(!empty($item['skill_id'])){
 					$skill = Entity::find($item['skill_id'],'skill');
+					$skills[$skill->id]['logo']  = $skill->logo;
+					$skills[$skill->id]['name']  = $skill->name;
+					$skills[$skill->id]['id']    = $skill->id;
 				}
-				$skills[$skill->id]['logo']  = $skill->logo;
-				$skills[$skill->id]['name']  = $skill->name;
-				$skills[$skill->id]['id']    = $skill->id;
 			}
 		}elseif($skill_id){
 			$skill = Entity::find($skill_id,'skill');

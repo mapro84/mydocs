@@ -98,7 +98,7 @@ if(getenv('admin') !== 'true'){
       <label for="item_id">Item</label>
       <select name="item_id" class="form-control">
           <?php
-          echo "<option></option>";
+          echo "<option value=''></option>";
           foreach($items as $item){
             echo "<option value={$item->id}>{$item->name}</option>";
           }
