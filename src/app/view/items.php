@@ -73,7 +73,7 @@ $skills = $entities['skills'] ?? [];
 				$deleteButton = '<form class="form-inline" method="post" action="index.php?page=deleteitem" ' .
 				'onsubmit="return confirm(\'Do you confirm to delete ' . $itemName. ' item?\');">' .
 				'<input type="hidden" name="item_id" value='.$item['id'].'>' . 
-				'<input type="hidden" name="item_id" value='.$item['skill_id'].'>' . 
+				'<input type="hidden" name="skill_id" value='.$item['skill_id'].'>' . 
 				'<button class="btn"><i class="fa fa-trash"></i></button></form>';
 				$editButton = '
 				<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editItem" 
