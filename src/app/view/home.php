@@ -40,6 +40,17 @@ foreach ($notes as $note){
   echo $note->description;
   echo '</span></div>';
 }
+
+//scandir(string $directory, int $sorting_order = SCANDIR_SORT_ASCENDING, ?resource $context = null): array|false
+// TESTS
+echo get_current_user();
+$administrativeFolders = scandir('public/doc/test/');
+foreach($administrativeFolders as $folder) {
+  echo $folder;
+}
+
+
+
 ?>
 </div>
 </div>

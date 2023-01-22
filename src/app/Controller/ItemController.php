@@ -181,16 +181,15 @@ class ItemController extends AppController{
 		$this->showByskillid($item->skill_id, $this->messages);
 	}
 	
-	public function delete($item_id){
+	public function delete(int $item_id){
+		$item = Item::find($item_id,'item');
+		$skill_id = $item->skill_id;
 		Item::deleteBy('demo',$item_id,'item');
 		Item::deleteUrlSkillItem($item_id);
 		$result = Item::delete('item',$item_id);
-		$this->messages['info'] = $result  === false ? 'Item updated successfully' : '';
-		$this->messages['error'] = $result  !== false ? 'Error: Item not updated' : '';
-
-		$item = Item::find($item_id,'item');
-		$this->showByskillid($item->skill_id, $this->messages);
+		$this->messages['info'] = $result  !== false ? 'Item deleted successfully' : '';
+		$this->messages['error'] = $result  === false ? 'Error: Item not deleted' : '';
+		$this->showByskillid($skill_id, $this->messages);
 	}
 	
 }
-
