@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 12, 2023 at 10:42 PM
+-- Generation Time: Jan 22, 2023 at 09:18 PM
 -- Server version: 8.0.31-0ubuntu0.22.04.1
 -- PHP Version: 8.2.1
 
@@ -62,7 +62,6 @@ CREATE TABLE `demo` (
 INSERT INTO `demo` (`id`, `name`, `description`, `item_id`) VALUES
 (8, 'Factory', 'Design pattern', 8),
 (12, 'DIC', 'Dependency Injection Container Pattern\'', 69),
-(13, 'Hint', 'The type hints ensure that PHP will check the type of a value at the call time and throw a TypeError if there is a mismatch.', 76),
 (14, 'Fluent', 'A fluent interface provides an easy-readable. Using this pattern results in code that can be read nearly as human language.', 55),
 (15, 'Facade', 'Facade is a structural design pattern that provides a simplified interface to a library, a framework, or any other complex set of classes.', 77),
 (16, 'Closure', 'Anonymous functions yield objects of this type. This class has methods that allow further control of the anonymous function after it has been created. ', 78),
@@ -88,7 +87,7 @@ CREATE TABLE `item` (
 --
 
 INSERT INTO `item` (`id`, `name`, `description`, `further`, `skill_id`) VALUES
-(4, 'SQL: Foreign key', 'ALTER TABLE urls ADD CONSTRAINT fk_urls_skill_id FOREIGN KEY (skill_id) REFERENCES skill(id);', 'https://www.w3schools.com/sql/sql_ref_foreign_key.asp', 5),
+(4, 'Foreign key', 'ALTER TABLE urls ADD CONSTRAINT fk_urls_skill_id FOREIGN KEY (skill_id) REFERENCES skill(id);', 'https://www.w3schools.com/sql/sql_ref_foreign_key.asp', 5),
 (8, 'OOP: Factory Design pattern', 'The Factory Design Pattern provides a way to create objects.<br> The factory has a method that receives parameters and returns a class.', 'https://refactoring.guru/design-patterns/factory-method/php/example#lang-features', 4),
 (11, 'PHP: PDF Cheat-Sheet', '', 'php-cheat-sheet.pdf', 1),
 (16, 'SQL: Rename Table', 'RENAME TABLE old_table TO new_table;', 'https://mariadb.com/kb/en/rename-table/', 5),
@@ -123,26 +122,23 @@ INSERT INTO `item` (`id`, `name`, `description`, `further`, `skill_id`) VALUES
 (55, 'OOP: Fluent Design Pattern', 'The Builder design pattern is not the same as the Fluent Interface idiom (that relies on method chaining), although Rust developers sometimes use those terms interchangeably.\r\nFluent Interface is a way to chain methods for constructing or modifying an object. \r\nWhile the Builder pattern also suggests constructing object step by step, it also lets you build different types of products using the same construction process.\r\n', 'https://designpatternsphp.readthedocs.io/en/latest/Structural/FluentInterface/README.html', 4),
 (56, 'IT: Alwasdata', 'Web Hosting, Administration, Api', 'https://admin.alwaysdata.com/', 36),
 (58, 'IT: Reqbin.com', 'Curl, Rest & SOAP API Online, Python, PHP, Javascript, Java, Xml, Json', 'https://reqbin.com/curl', 36),
-(59, 'IT: API Httpie', 'Api Test', 'https://httpie.io/', 36),
-(61, 'PHP: PHP Curl', 'Curl Tutorial', 'https://analyse-innovation-solution.fr/publication/fr/php/curl-post-get-proxy-https', 1),
 (62, 'PHP: packagist.org Curl', 'Php Curl', 'https://packagist.org/packages/curl/curl', 1),
 (63, 'IT: OpenClassRoom', 'Api Tutorial', 'https://openclassrooms.com/fr/courses/6573181-adoptez-les-api-rest-pour-vos-projets-web', 36),
-(64, 'Linux: Switch to a different PHP version', 'sudo a2dismod php8.1;\r\n<br>sudo a2enmod php8.2;', '', 3),
+(64, 'PHP: PHP version Switching', 'sudo a2dismod php8.1;\r\n<br>sudo a2enmod php8.2;', NULL, 3),
 (66, 'PHP: waytolearnx', 'Rest Api Tutorial', 'https://waytolearnx.com/2019/07/creer-et-utiliser-une-api-rest-en-php.html', 1),
 (67, 'PHP: waytolearnx', 'PHP Curl Tutorial', 'https://waytolearnx.com/2020/01/tutoriel-curl-en-php.html', 1),
 (69, 'OOP: Dependency Injection', 'High-level classes shouldn’t depend on low-level classes. Both should depend on abstractions. ', 'https://php.developpez.com/tutoriels/php-la-bonne-pratique/?page=injection-de-dependances', 4),
 (70, 'Linux: Chmod', 'Online Chmod Calculator', 'https://chmod-calculator.com/', 3),
-(71, 'Linux: Chown', 'Chown', 'https://www.computerhope.com/unix/uchown.htm\r\n', 3),
+(71, 'Chown', 'Chown marcus myfile.txt', 'https://www.computerhope.com/unix/uchown.htm\r\n', 3),
 (72, 'PHP: Diplay errors', 'Diplay PHP errors', 'https://stackify.com/display-php-errors/', 1),
 (73, 'Apache: Enable or disable an apache Module', 'a2enmod, a2dismod - enable or disable an apache2 module', 'https://manpages.ubuntu.com/manpages/trusty/man8/a2enmod.8.html', 44),
 (74, 'PHP: PHP8 News', 'What\'s new in PHP8', 'https://kinsta.com/fr/blog/php-8', 1),
 (75, 'PHP: mixed type', 'All of these types: object|resource|array|string|int|float|bool|null\r\nThe mixed type accepts every value. (equivalent to the union type) object|resource|array|string|float|int|bool|null. Available as of PHP 8.0.0. ', 'https://www.php.net/manual/en/language.types.mixed.php', 1),
-(76, 'PHP: Hint', 'The type hints ensure that PHP will check the type of a value at the call time and throw a TypeError if there is a mismatch.', 'https://www.phptutorial.net/php-tutorial/php-type-hints/', 1),
 (77, 'OOP: Facade Design Pattern', 'Facade is a structural design pattern that provides a simplified interface to a library, a framework, or any other complex set of classes.', 'https://refactoring.guru/design-patterns/facade/php/example', 4),
 (78, 'OOP: Closure', 'Anonymous functions yield objects of this type. This class has methods that allow further control of the anonymous function after it has been created. ', 'https://www.php.net/manual/en/class.closure.php', 4),
 (79, 'SQL: INNER JOIN', 'SELECT * FROM orders ON orders.customer_id=customers.id;', 'https://www.w3schools.com/sql/sql_join_inner.asp', 5),
 (80, 'PHP: PHP Sandbox', 'Behavior looks like vscode environment ', 'https://phpsandbox.io/n/aqua-dorme-gtob0', 1),
-(82, 'PHP: PHP7.2 News', 'What\'s new in php7.2', 'https://kinsta.com/fr/blog/php-7-2', 1),
+(82, 'PHP7.2 News', 'What\'s new in PHP7.2', 'https://kinsta.com/fr/blog/php-7-2', 1),
 (83, 'PHP: PHP7.4 News', 'What\'s new in php7.4', 'https://kinsta.com/fr/blog/php-7-4', 1),
 (84, 'SQL: Optimization', 'optimization with Explain. Check also size, type and encoding of indexes. Should be equal. ', 'https://gafish.fr/explain-optimisation-de-requetes-mysql/', 5),
 (85, 'SQL: Character_set_server', 'show variables like \'character_set_server\'; ', 'https://www.youtube.com/watch?v=kbevrZZpu1w', 5),
@@ -151,10 +147,10 @@ INSERT INTO `item` (`id`, `name`, `description`, `further`, `skill_id`) VALUES
 (88, 'SQL: Workbench', 'If the following error appears when trying to connect to Mysql:<br>\r\n\"mysql workbench an apparmor policy prevents this sender [...]\"<br>\r\nRun following commands:<br>\r\n# snap connect mysql-workbench-community:password-manager-service<br>\r\n# snap connect mysql-workbench-community:ssh-keys<br>', 'https://linuxhint.com/installing_mysql_workbench_ubuntu/', 5),
 (89, 'SQL: Collate', 'Set how to compare strings and in what order they will be displayed:<br>\r\n. \'é\' must appear before or after \'e\'?<br>\r\n. Upper characters must be treated in the same way than lower characters?', 'https://apical.xyz/fiches/jeux_de_caracteres_et_interclassements_collations/Qu_est-ce_qu_un_interclassement_collation', 5),
 (90, 'SQL: Tutorial', 'W3Schools Mysql Learning', 'https://www.w3schools.com/sql/default.asp', 5),
-(91, 'SQL: Fulltext index on 2 fields (research on 2 fields)', 'alter table `item` add FULLTEXT(name,description);', 'https://grafikart.fr/tutoriels/mysql-fulltext-2009', 5),
+(91, 'SQL: Fulltext index on 2 fields', 'ALTER TABLE `item` ADD FULLTEXT KEY `name_3` (`name`,`description`,`further`);', 'https://grafikart.fr/tutoriels/mysql-fulltext-2009', 5),
 (92, 'SQL: Fulltext research', 'SELECT *, MATCH(name, description) against(\'tutorial\') as score FROM item<br>\r\nWHERE MATCH(name, description) against(\'tutorial\') ORDER BY `score` ASC; ', 'https://grafikart.fr/tutoriels/mysql-fulltext-2009', 5),
 (93, 'SQL: Mysql: Users', 'Creation, Grant, Revoke', 'https://www.youtube.com/watch?v=VlF-XG1vVPU', 5),
-(96, 'Linux: Symlink', 'A symbolic link points to another file or directory<br>\r\n. ln -s /mnt/my_drive/movies ~/my_movies', 'https://linuxize.com/post/how-to-create-symbolic-links-in-linux-using-the-ln-command/', 3),
+(96, 'Linux: Symlink', 'A symbolic link points to another file or directory<br>\r\nln -s /mnt/my_drive/movies ~/my_movies', 'https://linuxize.com/post/how-to-create-symbolic-links-in-linux-using-the-ln-command/', 3),
 (97, 'Linux: Disable a keyboard key on Ubuntu', '. xev -event keyboard<br>\r\n. Tip the key. Search and keep the keycode value displayed<br>\r\n. xmodmap -e \'keycode [keyboard_value]=NoSymbol\'', 'https://superuser.com/questions/775785/how-to-disable-a-keyboard-key-in-linux-ubuntu', 3),
 (98, 'SQL: Equijointures', 'This type of join frequently involves the use of primary and foreign keys.<br> They are called simple joints or internal joints.<br>\n. SELECT s.name, i.name from item as i, skill as s WHERE i.skill_id = s.id;', 'https://www.abetari.com/les-jointures-sql/', 5),
 (99, 'IT: Regex', 'Online Regex Match. Below PHP Example<br>\r\n$match = \"/^([a-zA-Z]+:\\s)(.*$)/m\";<br>\r\n$input = \'PHP: Amazing PHP\';<br>\r\n$res = preg_replace($match, \"idx0: $0 | idx1: $1 | idx2: $2;\", $input);<br>\r\n<u>idx0:</u> PHP: Amazing PHP | <u>idx1:</u> PHP: | <u>idx2:</u> Amazing PHP;', 'https://regex101.com/', 36),
@@ -181,7 +177,20 @@ INSERT INTO `item` (`id`, `name`, `description`, `further`, `skill_id`) VALUES
 (120, 'Linux: Replace string into vi', ':%s/FindMe/ReplaceME/g', 'https://www.cyberciti.biz/faq/linux-unix-vim-find-replace-text-string-words/', 3),
 (121, 'PHP: Get apt-get libraries', 'apt-cache search curl | grep php<br>\r\napt-cache search php-curl<br>\r\nphp -m | grep curl<br>\r\n\r\n\r\n\r\n', NULL, 1),
 (122, 'AI: ChatGpt', 'Interactive chat taking account of history conversations', 'https://chat.openai.com/chat', 6),
-(123, 'Docker: Cheat-sheet', 'PDF Cheat-sheet', 'docker-cheat-sheet.pdf', 47);
+(123, 'Docker: Cheat-sheet', 'PDF Cheat-sheet', 'docker-cheat-sheet.pdf', 47),
+(124, 'AI: Creative tools', 'Artificially intelligent tools for naturally creative humans', 'https://deepai.org/', 6),
+(125, 'Linux: find file containing a particular string', 'grep -w -R \'getMyData()\' ~/projects/', 'https://www.cyberciti.biz/faq/howto-search-find-file-for-text-string/', 3),
+(143, 'IT: All', 'All Items', '', 36),
+(145, 'Tools: Enhance resolution image', 'AI Image Enlarger & Enhancer Tools', 'https://imglarger.com/', 76),
+(146, 'Remove Watermarks Images', 'Get rid of the watermarks from images using AI technology', 'https://www.watermarkremover.io/', 76),
+(147, 'Remove video background', '', 'https://www.unscreen.com/', 76),
+(148, 'Rmv unwanted items img', 'Remove unwanted things', 'https://magicstudio.com/magiceraser', 76),
+(149, 'Windows: check disc', 'chkdsk c:', '', 78),
+(150, 'Windows: remove malwares', 'mrt', '', 78),
+(151, 'Tips: Generate images', 'AI Images generator from text', 'https://openai.com/dall-e-2/', 76),
+(152, 'Microsoft: Microsoft learning', 'Microsoft learning', 'https://learn.microsoft.com/en-us/training/', 78),
+(153, 'Tips: Get Books freely', 'Get Books freely', 'https://zlibrary.to', 76),
+(154, 'Tips: Review text with better syntax', 'Pdf to Text, Text manipulation, Translation', 'https://smodin.io/chat', 76);
 
 -- --------------------------------------------------------
 
@@ -255,7 +264,11 @@ INSERT INTO `skill` (`id`, `name`, `logo`) VALUES
 (40, 'Excel', 'excel.png'),
 (44, 'Apache', 'apache.png'),
 (45, 'GIT', 'git.png'),
-(47, 'Docker', 'docker.png');
+(47, 'Docker', 'docker.png'),
+(69, 'testmario23', 'test.png'),
+(76, 'Tips', 'tips.png'),
+(77, 'Tools', 'tools.png'),
+(78, 'Microsoft', 'microsoft.png');
 
 -- --------------------------------------------------------
 
@@ -284,8 +297,16 @@ INSERT INTO `url` (`id`, `name`, `url`) VALUES
 (8, 'Tutorial', 'https://apical.xyz/formations/le_systeme_de_gestion_de_bases_de_donnees_mysql'),
 (9, 'Foreign Key', 'https://www.dynamic-mess.com/sql/les-clefs-etrangeres-avec-mysql/'),
 (10, 'Memcached', 'https://www.malekal.com/comment-installer-et-configurer-memcached/#Utiliser_memcached_avec_WordPress'),
-(11, 'BIDON', 'https://bidon.com'),
-(12, 'Docker cheat-sheet Online', 'https://collabnix.com/docker-cheatsheet/');
+(12, 'Docker cheat-sheet Online', 'https://collabnix.com/docker-cheatsheet/'),
+(13, 'Docker cheatsheet', 'https://collabnix.com/docker-cheatsheet/'),
+(27, 'name', 'name'),
+(40, 'OOP: Dependency Injection Yii Framework', 'https://www.yiiframework.com/doc/guide/2.0/fr/concept-di-container'),
+(41, 'Service Locator Yii Framework', 'https://www.yiiframework.com/doc/guide/2.0/fr/concept-service-locator'),
+(42, 'Service Locator Yii Framework', 'https://www.yiiframework.com/doc/guide/2.0/fr/concept-service-locator'),
+(43, 'Dependency Injection and service locator article', 'https://martinfowler.com/articles/injection.html'),
+(44, 'Java: Java Sandbox', 'https://www.tutorialspoint.com/online_java_compiler.php'),
+(45, 'Java: Java Sandbox', 'https://www.tutorialspoint.com/online_java_compiler.php'),
+(46, 'Inversion des conteneurs de contrôle et du modèle d\'injection de dépendance', 'public/doc/Inversion_of_Control_Containers_and_DI_pattern_fr.pdf');
 
 -- --------------------------------------------------------
 
@@ -317,8 +338,13 @@ INSERT INTO `url_skill_item` (`id`, `url_id`, `skill_id`, `item_id`) VALUES
 (12, 8, 5, NULL),
 (13, 9, 5, 4),
 (14, 10, 1, 100),
-(15, 11, 5, 4),
-(17, 12, 47, NULL);
+(17, 12, 47, NULL),
+(18, 13, 47, 123),
+(36, 40, 1, 8),
+(37, 42, 1, 8),
+(38, 43, 4, 8),
+(39, 45, 37, 143),
+(40, 46, 4, 8);
 
 --
 -- Indexes for dumped tables
@@ -338,6 +364,7 @@ ALTER TABLE `appuser`
 ALTER TABLE `demo`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_demo_item_id` (`item_id`);
+ALTER TABLE `demo` ADD FULLTEXT KEY `name` (`name`);
 
 --
 -- Indexes for table `item`
@@ -368,12 +395,14 @@ ALTER TABLE `privilege`
 --
 ALTER TABLE `skill`
   ADD PRIMARY KEY (`id`);
+ALTER TABLE `skill` ADD FULLTEXT KEY `name` (`name`);
 
 --
 -- Indexes for table `url`
 --
 ALTER TABLE `url`
   ADD PRIMARY KEY (`id`);
+ALTER TABLE `url` ADD FULLTEXT KEY `name` (`name`);
 
 --
 -- Indexes for table `url_skill_item`
@@ -404,13 +433,13 @@ ALTER TABLE `demo`
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=156;
 
 --
 -- AUTO_INCREMENT for table `note`
 --
 ALTER TABLE `note`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `privilege`
@@ -422,19 +451,19 @@ ALTER TABLE `privilege`
 -- AUTO_INCREMENT for table `skill`
 --
 ALTER TABLE `skill`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT for table `url`
 --
 ALTER TABLE `url`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `url_skill_item`
 --
 ALTER TABLE `url_skill_item`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- Constraints for dumped tables
