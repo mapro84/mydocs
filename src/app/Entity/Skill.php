@@ -4,14 +4,20 @@ namespace src\app\Entity;
 use src\Core\DB\Entity;
 
 class Skill extends Entity{
-    
-	public $id;
+
+    public $id;
     public $name;
-    public $logo;    
-    
+    public $logo;
+
     private $key;
     public $further;
     public $skill_id;
+
+    public static function insert($table,$params){
+        $query = "INSERT INTO ".$table." (`name`, `logo`) VALUES (?,?);";
+        $parameters = [$params['name'],$params['name'].'png'];
+        return DB::prepare($query, $parameters, get_called_class(),true);
+    }
 
     /**
      * called when classe called with unknown parameter
