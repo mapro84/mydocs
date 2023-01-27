@@ -41,11 +41,11 @@
         <li>
         <a class="navbar-brand" href="index.php?page=skill_name&name=HTML"><img src="public/img/html-logo.svg" title="Html"></a>
         </li>
-        <?php if(getenv('admin') === 'true') { ?>
+        <?php //if(getenv('admin') === 'true') { ?>
         <li class="back-office-logo">
         <a class="navbar-brand" href="index.php?page=bo&action=add"><img src="public/img/back-office.png" title="Back-office"></a>
         </li>   
-        <?php } ?> 
+        <?php //} ?> 
       </ul>
     </div>
     <form method="post" id="frmSearch" name="frmSearch" role="form" class="was-validated" action="index.php?page=search">
