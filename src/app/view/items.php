@@ -123,7 +123,6 @@ $skills = $entities['skills'] ?? [];
 			?>
 <ul>
 	<li>Related urls</li>
-	<ul>
 	<?php
 			$idsArray = [];
 			foreach ($relatedUrls as $url) {
@@ -132,20 +131,22 @@ $skills = $entities['skills'] ?? [];
 				}
 				array_push($idsArray, $url['id']);
 				$editButton = '
-				<li class="list-unstyled"><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editUrlModal" 
+				<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editUrlModal" 
 				data-bs-id="' . $url['id'] . '" data-bs-name="' . $url['name']. '" data-bs-url="' . $url['url']. '" data-bs-skill_id="' . $url['skill_id']. '">' .
 						'<i class="fa fa-edit"></i></button>';
-				$deleteButton = '<form class="form-inline" method="post" action="index.php?page=deleteurl" ' .
+				$deleteButton = '
+				<form class="form-inline" method="post" action="index.php?page=deleteurl" ' .
 				'onsubmit="return confirm(\'Do you confirm to delete ' . $url['name']. ' url?\');">' .
 				'<input type="hidden" name="id" value='.$url['id'].'>' . 
 				'<input type="hidden" name="skill_id" value='.$url['skill_id'].'>' . 
 				'<button class="btn"><i class="fa fa-trash"></i></button></form>';
+                echo '<ul><li>';
 				echo $admin === 'true' ? $editButton : '';
 				echo $admin === 'true' ? $deleteButton : '';
-				echo '<a href="' . $url['url'] . '" target="_blank">' . $url['name'] . '</a></li>';
+				echo '<a href="' . $url['url'] . '" target="_blank">' . $url['name'] . '</a>';
+                echo '</li></ul>';
 			}
 			?>
-</ul>
 </ul>
 <?php
 		}
@@ -154,22 +155,22 @@ $skills = $entities['skills'] ?? [];
 
 <div class="container">
 <?php
-		$numberDemos = count($demos);
-		if ($numberDemos > 0) {
-			?>
+$numberDemos = count($demos);
+if ($numberDemos > 0) {
+?>
 <ul>
-	<li class="remove-bullet">Related Demos</li>
-	<ul>
-	<?php
-			foreach ($demos as $demo) {
-				if (in_array($demo['did'], $idsArray)) {
-					continue;
-				}
-				array_push($idsArray, $demo['did']);
-				echo '<li><a href="index.php?page=demo&demo_id=' . $demo['did'] . '" target="_blank">' . $demo['dname'] . '</a></li>';
-			}
-			?>
-	</ul>
+    <li class="remove-bullet">Related Demos</li>
+    <ul>
+    <?php
+        foreach ($demos as $demo) {
+            if (in_array($demo['did'], $idsArray)) {
+                continue;
+            }
+            array_push($idsArray, $demo['did']);
+            echo '<li><a href="index.php?page=demo&demo_id=' . $demo['did'] . '" target="_blank">' . $demo['dname'] . '</a></li>';
+        }
+    ?>
+    </ul>
 </ul>
 <?php
 		}
