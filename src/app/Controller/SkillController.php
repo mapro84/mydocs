@@ -11,6 +11,7 @@ use src\Core\Utils\Debug;
 use src\app\Controller\BOController;
 use src\app\Controller\AppController;
 use src\app\Controller\ItemController;
+use src\Core\Image\Image;
 
 class SkillController extends AppController{
 
@@ -36,6 +37,7 @@ class SkillController extends AppController{
 	public function add(){
     $parameters = Check::makeSafeAssociativeArray($_POST);
 		$result = Skill::insert('skill',$parameters);
+        Image::add($parameters['name']);
 		$this->messages['info'] = $result  === false ? 'Skill added successfully' : '';
 		$this->messages['error'] = $result  !== false ? 'Error: Skill not added' : '';
 		$this->boController = new BOController();
