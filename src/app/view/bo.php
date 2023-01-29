@@ -28,8 +28,6 @@ if(getenv('admin') !== 'true'){
   <?php } ?>
 <div class="row g-4 py-5 row-cols-1 row-cols-lg-2">
 
-
-
 <div class="col">
   <button type="button" class="collapsible btn btn-primary" id="boAddSkillButton">Add skill</button>
   <div class="content">
@@ -37,10 +35,6 @@ if(getenv('admin') !== 'true'){
     <div class="form-group">
       <label for="name">Name</label>
       <input type="text" class="form-control" name="name" aria-describedby="name" placeholder="Enter name" minlength="3" required>
-    </div>
-    <div class="form-group">
-      <label for="logo">Logo</label>
-      <input type="text" class="form-control" name="logo" minlength="5" placeholder="logo" required>
     </div>
     <div class="form-check">
     </div>

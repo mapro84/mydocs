@@ -11,12 +11,9 @@ use src\Core\Utils\Debug;
 use src\app\Controller\BOController;
 use src\app\Controller\AppController;
 use src\app\Controller\ItemController;
-use src\Core\Image\Image;
+use src\Core\Image\AppImage;
 
 class SkillController extends AppController{
-
-  private $boController;
-	private $itemController;
 
   public function __construct(){
 		parent::__construct();
@@ -37,39 +34,11 @@ class SkillController extends AppController{
 	public function add(){
     $parameters = Check::makeSafeAssociativeArray($_POST);
 		$result = Skill::insert('skill',$parameters);
-        Image::add($parameters['name']);
+        //AppImage::add($parameters['name']);
 		$this->messages['info'] = $result  === false ? 'Skill added successfully' : '';
 		$this->messages['error'] = $result  !== false ? 'Error: Skill not added' : '';
-		$this->boController = new BOController();
-		$this->boController->show($this->messages);
-
-
-
-		// function file_get_contents_curl($url) {
-		// 	$ch = curl_init();
-		
-		// 	curl_setopt($ch, CURLOPT_HEADER, 0);
-		// 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		// 	curl_setopt($ch, CURLOPT_URL, $url);
-		
-		// 	$data = curl_exec($ch);
-		// 	curl_close($ch);
-		
-		// 	return $data;
-		// }
-		
-		// $data = file_get_contents_curl(
-		// 'https://media.geeksforgeeks.org/wp-content/uploads/geeksforgeeks-6-1.png');
-		
-		// $fp = 'logo-1.png';
-		
-		// file_put_contents( $fp, $data );
-		// echo "File downloaded!";
-		
-
-
-
-
+		$boController = new BOController();
+		$boController->show($this->messages);
 	}
 
 	public function update(){

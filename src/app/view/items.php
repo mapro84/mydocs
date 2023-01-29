@@ -32,10 +32,10 @@ $skills = $entities['skills'] ?? [];
 <ul class="navbar-nav mr-auto">
 <?php
 		foreach ($skills as $skill) {
-			echo '<a href="index.php?page=skill&skill_id=' . 
-			$skill['id'] . '"><img class="logo" src="./public/img/' . $skill['logo'] . '"></a>';
+			echo '<a href="index.php?page=skill&skill_id=' . $skill['id'] . '">';
+            echo file_exists('public/img/'.$skill['logo'] ) ? '<img class="logo" src="public/img/'.$skill['logo'] .'" title="'.$skill['name'] . '">' : strtoupper($skill['name']);
+            echo '</a>';
 			if(count($skills) === 1) {
-		// Debug::dump($skills);
 				$editButton = '
 				<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editSkill" 
 				data-bs-id="'. $skill['id'] .'" data-bs-name="'. $skill['name'] .'" data-bs-logo="'. $skill['logo'] .'">'.
@@ -46,7 +46,6 @@ $skills = $entities['skills'] ?? [];
 				'<button class="btn"><i class="fa fa-trash"></i></button></form>';
 				echo $admin === 'true' ? $editButton : '';
 				echo $admin === 'true' ? $deleteButton : '';
-		// echo 'id:' . $skill_id . ' name: ' . $skill_name . ' logo: ' . $logo;
 			}
 		}
 		?>

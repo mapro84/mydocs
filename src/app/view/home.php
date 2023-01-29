@@ -3,7 +3,7 @@ $admin = getenv('admin');
 
 use src\Core\Utils\Debug;
 
-$notes = $entities['notes'];
+$notes = $entities['notes']?? null;
 $messages = $entities['messages']?? null;
 ?>
 
