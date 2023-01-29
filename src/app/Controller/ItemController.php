@@ -21,8 +21,8 @@ class ItemController extends AppController{
 	public function showBySkillId($skill_id, array $messages = []) {
 		$parameters = Check::makeSafeAssociativeArray($_POST);
 		$items = Item::searchByskillid($skill_id);
-		$relatedUrls = $this->getRelatedUrls($items);
-		$demos = Item::getDemosBySkillId($skill_id);
+		$relatedUrls = Url::findUrlsBy($skill_id,'skill');
+		$demos = Demo::getDemosBySkillId($skill_id);
 		$skill = $this->getSkills(null, $skill_id);
 		$entities = array('items' => $items,'demos' => $demos, 'skills'=>$skill, 'relatedUrls'=>$relatedUrls,'messages' => $messages);
 		$this->render('items',$entities);
