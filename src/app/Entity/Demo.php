@@ -14,5 +14,13 @@ class Demo extends Entity{
 		$parameters = [$skill_id];
 		return DB::prepare($query, $parameters, get_called_class());
 	}
+
+    public static function search($keyword)
+    {
+        $pattern = '%' . $keyword . '%';
+        $query = "SELECT * FROM demo as d WHERE d.name LIKE :pattern OR d.description LIKE :pattern; ";
+        $parameters = [':pattern' => $pattern];
+        return DB::prepare($query, $parameters);
+    }
 	
 }

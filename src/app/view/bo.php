@@ -6,7 +6,6 @@ use src\Core\Config\Config;
 if(getenv('admin') !== 'true'){
   echo 'NOT AUTHORIZED';
 } else {
-  // Debug::dump($entities['messages']);
   $skills = $entities['skills']?? null;
   $items = $entities['items']?? null;
   $messages = $entities['messages']?? [];
@@ -16,14 +15,14 @@ if(getenv('admin') !== 'true'){
   <?php if(!empty($messages['info'])){ ?>
   <div class="alert alert-success" role="alert">
   <?php
-				echo $messages['info'];
-				?>
+    echo $messages['info'];
+  ?>
   </div>
   <?php }elseif(!empty($messages['error'])){ ?>
   <div class="alert alert-danger" role="alert">
   <?php
-				echo $messages['error'];
-				?>
+    echo $messages['error'];
+  ?>
   </div>
   <?php } ?>
 <div class="row g-4 py-5 row-cols-1 row-cols-lg-2">

@@ -6,3 +6,4 @@ composer.phar
 .env
 .vscode
 .idea
+.php*

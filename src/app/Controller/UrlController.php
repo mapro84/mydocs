@@ -30,7 +30,7 @@ class UrlController extends AppController
 		$this->messages['error'] = !empty($result) ? 'Error: Url not deleted' : '';
     $skill_id = $parameters['skill_id'];
     $itemController = new ItemController();
-    $itemController->showByskillid($skill_id, $this->messages);
+    $itemController->showBySkillId($skill_id, $this->messages);
   }
 
   public function update()
@@ -43,7 +43,7 @@ class UrlController extends AppController
 		$this->messages['info'] = empty($result) ? 'Url updated successfully' : '';
 		$this->messages['error'] = !empty($result) ? 'Error: Url not updated' : '';
     $itemController = new ItemController();
-    $itemController->showByskillid($skill_id, $this->messages);
+    $itemController->showBySkillId($skill_id, $this->messages);
   }
 
 }

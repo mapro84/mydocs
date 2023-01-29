@@ -16,7 +16,6 @@ class Skill extends Entity{
     public $skill_id;
 
     public static function insert($table,$params){
-        Debug::Dump($params);
         $query = "INSERT INTO ".$table." (`name`, `logo`) VALUES (?,?);";
         $parameters = [$params['name'],strtolower($params['name']).'.png'];
         return DB::prepare($query, $parameters, get_called_class(),true);

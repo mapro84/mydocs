@@ -15,6 +15,14 @@ class Url extends Entity
         return DB::prepare($query, $parameters, get_called_class());
     }
 
+    public static function search($keyword)
+    {
+        $pattern = '%' . $keyword . '%';
+        $query = "SELECT * FROM url as u WHERE u.name LIKE :pattern OR u.url LIKE :pattern; ";
+        $parameters = [':pattern' => $pattern];
+        return DB::prepare($query, $parameters);
+    }
+
     public static function addUrl($parameters)
     {
         $query = 'INSERT INTO `url`(`name`, `url`) VALUES (?,?)';
