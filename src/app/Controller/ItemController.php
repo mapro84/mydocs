@@ -2,6 +2,7 @@
 namespace src\app\Controller;
 
 use src\app\Entity\Url;
+use src\app\Entity\Demo;
 use src\Core\DB\Entity;
 use src\app\Entity\Item;
 use src\Core\Utils\Check;
@@ -17,11 +18,11 @@ class ItemController extends AppController{
 		$this->skillController = new SkillController();
 	}
 
-	public function showByskillid($skill_id, array $messages = []) {
+	public function showBySkillId($skill_id, array $messages = []) {
 		$parameters = Check::makeSafeAssociativeArray($_POST);
 		$items = Item::searchByskillid($skill_id);
-		$relatedUrls = $this->getRelatedUrls($items);
-		$demos = $this->getDemos($items);
+		$relatedUrls = Url::findUrlsBy($skill_id,'skill');
+		$demos = Demo::getDemosBySkillId($skill_id);
 		$skill = $this->getSkills(null, $skill_id);
 		$entities = array('items' => $items,'demos' => $demos, 'skills'=>$skill, 'relatedUrls'=>$relatedUrls,'messages' => $messages);
 		$this->render('items',$entities);
@@ -30,8 +31,8 @@ class ItemController extends AppController{
 	public function search() {
 		$parameters = Check::makeSafeAssociativeArray($_POST);
 		$items = Item::search($parameters);
-		$relatedUrls = $this->getRelatedUrls($items);
-		$demos = $this->getDemos($items);
+		$relatedUrls = Url::search($parameters['search']);
+		$demos = Demo::search($parameters['search']);
 		$skills = $this->getSkills($items);
 		$openaiResponse = array_key_exists("openaiResearch",$parameters) ? $this->getOpenaiResponse($parameters) : '';
 		$googleApiResponse = ''; // array_key_exists("googleResearch",$parameters) ? $this->getGoogleResponse($parameters) : '';
@@ -122,27 +123,16 @@ class ItemController extends AppController{
 		return $relatedUrls;
 	}
 
-	public function getDemos(mixed $items): array{
-		$demos = [];
-		foreach($items as $item){
-			if(!empty($item['dname'])){
-				$demo = array('did' => $item['did'],'dname' => $item['dname'],'ddescription' => $item['ddescription']);
-			  array_push($demos, $demo);
-			}
-		}
-		return $demos;
-	}
-
 	public function getSkills(mixed $items = null, int $skill_id = null): array{
 		$skills = [];
 		if(\is_array($items)){
 			foreach($items as $item){
 				if(!empty($item['skill_id'])){
 					$skill = Entity::find($item['skill_id'],'skill');
+					$skills[$skill->id]['logo']  = $skill->logo;
+					$skills[$skill->id]['name']  = $skill->name;
+					$skills[$skill->id]['id']    = $skill->id;
 				}
-				$skills[$skill->id]['logo']  = $skill->logo;
-				$skills[$skill->id]['name']  = $skill->name;
-				$skills[$skill->id]['id']    = $skill->id;
 			}
 		}elseif($skill_id){
 			$skill = Entity::find($skill_id,'skill');
@@ -178,7 +168,7 @@ class ItemController extends AppController{
 		$this->messages['info'] = $result  === false ? 'Item updated successfully' : '';
 		$this->messages['error'] = $result  !== false ? 'Error: Item not updated' : '';
 		$item = Item::find($item_id,'item');
-		$this->showByskillid($item->skill_id, $this->messages);
+		$this->showBySkillId($item->skill_id, $this->messages);
 	}
 	
 	public function delete(int $item_id){
@@ -189,7 +179,8 @@ class ItemController extends AppController{
 		$result = Item::delete('item',$item_id);
 		$this->messages['info'] = $result  !== false ? 'Item deleted successfully' : '';
 		$this->messages['error'] = $result  === false ? 'Error: Item not deleted' : '';
-		$this->showByskillid($skill_id, $this->messages);
+		$this->showBySkillId($skill_id, $this->messages);
 	}
 	
 }
+

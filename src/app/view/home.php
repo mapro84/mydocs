@@ -1,10 +1,14 @@
 <?php
-$admin = getenv('admin');
-
 use src\Core\Utils\Debug;
+use src\app\Controller\UserController;
 
-$notes = $entities['notes'];
+$notes = $entities['notes']?? null;
 $messages = $entities['messages']?? null;
+
+$admin = false;
+if(UserController::getAdminConnection() === true){
+    $admin = true;
+}
 ?>
 
 <div class="container px-4 py-5" id="featured-3">
@@ -33,24 +37,13 @@ foreach ($notes as $note){
   $editButton = '<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editModal" 
   data-bs-id="' . $note->id . '" data-bs-name="' . $note->name . '" data-bs-description="' . $note->description . '">'.
   '<i class="fa fa-edit"></i></button>';
-  echo $admin === 'true' ? $editButton : '';
-  echo $admin === 'true' ? $deleteButton : '';
+  echo $admin === true ? $editButton : '';
+  echo $admin === true ? $deleteButton : '';
   echo '<span class="text-row" >';
   echo '<span class="subtitle">'.$note->name.': </span>';
   echo $note->description;
   echo '</span></div>';
 }
-
-//scandir(string $directory, int $sorting_order = SCANDIR_SORT_ASCENDING, ?resource $context = null): array|false
-// TESTS
-// echo get_current_user();
-// $administrativeFolders = scandir('public/doc/test/');
-// foreach($administrativeFolders as $folder) {
-//   echo $folder;
-// }
-
-
-
 ?>
 </div>
 </div>

@@ -2,60 +2,87 @@
 namespace src\app\Controller;
 
 use src\app\user\AppUser;
+use src\Core\DB\DB;
 use src\Core\Utils\Check;
 use src\Core\Auth\DBAuth;
 use src\Core\Config\Config;
+use src\Core\Utils\Debug;
 
 class UserController extends AppController {
 	
-	private $user;
+	private static $user;
 	private $id;
 	private $username;
 	private $privilege_id;
 
-	public function login(){
+    public static function getAdminConnection(): ?bool
+    {
+        if(getenv('admin') === 'false') {
+            return false;
+        }
+        $query = "SELECT state from connection WHERE state = ? ;";
+        $result = DB::prepare($query, [1]);
+        return $result ? (bool)$result[0]['state'] : null;
+    }
 
+    private static function setAdminConnection($token = 0): void {
+        $query = "UPDATE connection SET state = ? WHERE id = ? ";
+        DB::prepare($query, [$token, 1]);
+    }
+
+	public function login(){
+        $privilege = 'null';
 		if(isset($_POST['username']) && isset($_POST['password'])){
 			$username = addslashes($_POST['username']);
 			$password = addslashes($_POST['password']);
-			if(Check::is_safe_string($username)  && Check::is_safe_password($password)){
-				$this->providePrivilege($username,$password);
-			}else{
-				array_push($this->messages['errors'], "Seems Malicious Login");
-				$entities = ['messages' => $this->messages];
-				$this->render('user/login',$entities);
-			}
-		}else{
-			$entities = ['messages' => $this->messages];
-        	$this->render('user/login',$entities);
+            $privilege = $this->providePrivilege($username,$password);
+            if($privilege === 'admin'){
+                //$this->providePrivilege($username,$password);
+                if(filter_var(getenv('admin'), FILTER_VALIDATE_BOOL) === false){
+                    $this->messages['errors'][] = 'Administration interface not available';
+                    $entities = ['messages' => $this->messages];
+                    $this->render('user/login',$entities);
+                }else{
+                    self::setAdminConnection(1);
+                    $this->messages['infos'][] = "You are logged as Administrator";
+                    $boController = new BOController($this->messages, true);
+                    $boController->show($this->messages, true);
+                }
+            }elseif($privilege === 'invited') {
+                $this->messages['infos'][] = "You are logged as Invited";
+                $this->messages['infos'][] = "For more privileges ask your Administrator";
+                self::setAdminConnection();
+                $entities = ['messages' => $this->messages];
+                $this->render('user/login',$entities);
+            }elseif($privilege === 'null'){
+                self::setAdminConnection();
+                $this->messages['errors'][] = 'Login or password incorrect';
+            }
 		}
-		
-		return true;
+
+        if($privilege === 'null'){
+            $entities = ['messages' => $this->messages];
+            $this->render('user/login',$entities);
+        }
+
 	}
 	
-	private function providePrivilege($username,$password){
-		$this->user = DBAuth::login($username,$password);
-		if($this->user !== false){
-			if($this->privilege_id == '1'){
-				$this->logUser();
-				$boController = new BOController();
-				$boController->show();
+	private function providePrivilege($username,$password): string
+    {
+		self::$user = DBAuth::login($username,$password);
+		if(!empty(self::$user[0])){
+			if(self::$user[0]['privilege_id'] === 1){
+				//$this->logUser();
+                return 'admin';
 			}else{
-				array_push($this->messages['infos'], "You are loggued as Invited");
-				array_push($this->messages['infos'], "For more privilege ask your Administrator");
-				$entities = ['messages' => $this->messages];
-				$this->render('user/login',$entities);
+                return 'invited';
 			}
-		}else{
-			array_push($this->messages['errors'], "Login incorrect");
-			$entities = ['messages' => $this->messages];
-			$this->render('user/login',$entities);
 		}
-		
-		return true;
+		return 'null';
 	}
 	
-	private function logUser(){
+	private function logUser(): void
+    {
 		//Set the session cookie with SameSite=None
 		$params = session_get_cookie_params();
 		$params['samesite'] = 'None';
@@ -70,10 +97,9 @@ class UserController extends AppController {
 		//Set the session variable
 		$_SESSION['auth'] = $this->id;
 		
-		setcookie('user', $this->username, $cookie_lifetime);
-		
-		return true;
-	}
+		setcookie('user', self::$username, $cookie_lifetime);
+
+    }
 
 	public function disconnect(){
 		if(isset($_SESSION)) { 
@@ -85,7 +111,7 @@ class UserController extends AppController {
 	}
 	
 	public static function islogged(){
-		return isset($_SESSION['auth']) ? $_SESSION['auth'] : NULL;
+		return $_SESSION['auth'] ?? NULL;
 	}
 
 }

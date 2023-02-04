@@ -20,9 +20,10 @@
 		<?php
 		foreach($skills as $skill){
 			echo '<div class="feature col">'
-			.'<a href="index.php?page=skill&skill_id='.$skill->id.'" class="icon-link d-inline-flex align-items-center">'
-			.'<img src="public/img/'.$skill->logo.'" title="'.$skill->name.'"></a>' 
-			.'</a></div>';
+			.'<a href="index.php?page=skill&skill_id='.$skill->id.'" alt="'.$skill->name.'" class="icon-link d-inline-flex align-items-center">';
+			echo file_exists('public/img/'.$skill->logo) ? '<img src="public/img/'.$skill->logo.'" title="'.$skill->name.'">' : strtoupper($skill->name);
+            echo '</a>'
+			.'</div>';
 		}
 		?>
 	</div>

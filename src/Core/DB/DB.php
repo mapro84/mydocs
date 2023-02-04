@@ -93,7 +93,6 @@ class DB{
     	}else{
     		$datas = $statement->fetchAll();
     	}
-        
     	return $datas;
     }
     

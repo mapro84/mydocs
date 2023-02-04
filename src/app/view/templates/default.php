@@ -13,7 +13,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 <script type="text/javascript" src="public/js/javascript-utils.js"></script>
 <script type="text/javascript" src="public/js/main.js"></script>
-<title>My Documents</title>
+<title>Tips&Notes</title>
 </head>
 
 <body class="bg-light">
@@ -21,16 +21,31 @@
     <div class="head-menu navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li>
-        <a class="navbar-brand" href="index.php?page=home" ><img src="public/img/home.png" title="Home page - my notes"></a>
+        <a class="navbar-brand" href="index.php?page=home" ><img src="public/img/tips-logo4.png" title="Home page - my notes"></a>
         </li>
         <li>
-        <a class="navbar-brand" href="index.php?page=skills"><img src="public/img/folder.png" title="Documents"></a>
+        <a class="navbar-brand" href="index.php?page=skills"><img src="public/img/skills.png" title="Skills"></a>
         </li>
-        <?php if(getenv('admin') === 'true') { ?>
+        <li>
+        <a class="navbar-brand" href="index.php?page=skill_name&name=PHP"><img src="public/img/php.png" title="PHP"></a>
+        </li>
+        <li>
+        <a class="navbar-brand" href="index.php?page=skill_name&name=Python"><img src="public/img/python.png" title="Python"></a>
+        </li>
+        <li>
+        <a class="navbar-brand" href="index.php?page=skill_name&name=Linux"><img src="public/img/linux.png" title="Linux"></a>
+        </li>
+        <li>
+        <a class="navbar-brand" href="index.php?page=skill_name&name=MySQL"><img src="public/img/mysql.png" title="Mysql"></a>
+        </li>
+        <li>
+        <a class="navbar-brand" href="index.php?page=skill_name&name=HTML"><img src="public/img/html-logo.svg" title="Html"></a>
+        </li>
+        <?php //if(getenv('admin') === 'true') { ?>
         <li class="back-office-logo">
         <a class="navbar-brand" href="index.php?page=bo&action=add"><img src="public/img/back-office.png" title="Back-office"></a>
         </li>   
-        <?php } ?> 
+        <?php //} ?> 
       </ul>
     </div>
     <form method="post" id="frmSearch" name="frmSearch" role="form" class="was-validated" action="index.php?page=search">

@@ -1,34 +1,37 @@
-<?php 
+<?php
+
+use src\app\Controller\UserController;
 use src\app\user\AppUser;
 use src\Core\Utils\Debug;
 use src\Core\Config\Config;
 
-if(getenv('admin') !== 'true'){
-  echo 'NOT AUTHORIZED';
-} else {
-  // Debug::dump($entities['messages']);
-  $skills = $entities['skills']?? null;
-  $items = $entities['items']?? null;
-  $messages = $entities['messages']?? [];
+$skills = $entities['skills']?? null;
+$items = $entities['items']?? null;
 ?>
 
 <div class="container px-4 py-5" id="featured-2">
-  <?php if(!empty($messages['info'])){ ?>
-  <div class="alert alert-success" role="alert">
-  <?php
-				echo $messages['info'];
-				?>
-  </div>
-  <?php }elseif(!empty($messages['error'])){ ?>
-  <div class="alert alert-danger" role="alert">
-  <?php
-				echo $messages['error'];
-				?>
-  </div>
-  <?php } ?>
+    <?php
+    $errors = $entities['messages']['errors'] ?? [];
+    $infos = $entities['messages']['infos'] ?? [];
+    foreach ($errors as $error)
+    { ?>
+        <div class="alert alert-danger" role="alert">
+            <?php
+            echo $error;
+            ?>
+        </div>
+    <?php }
+    foreach ($infos as $info)
+    {
+        ?>
+        <div class="alert alert-success" role="alert">
+            <?php
+            echo $info;
+            ?>
+        </div>
+    <?php } ?>
+
 <div class="row g-4 py-5 row-cols-1 row-cols-lg-2">
-
-
 
 <div class="col">
   <button type="button" class="collapsible btn btn-primary" id="boAddSkillButton">Add skill</button>
@@ -37,10 +40,6 @@ if(getenv('admin') !== 'true'){
     <div class="form-group">
       <label for="name">Name</label>
       <input type="text" class="form-control" name="name" aria-describedby="name" placeholder="Enter name" minlength="3" required>
-    </div>
-    <div class="form-group">
-      <label for="logo">Logo</label>
-      <input type="text" class="form-control" name="logo" minlength="5" placeholder="logo" required>
     </div>
     <div class="form-check">
     </div>
@@ -98,7 +97,7 @@ if(getenv('admin') !== 'true'){
       <label for="item_id">Item</label>
       <select name="item_id" class="form-control">
           <?php
-          echo "<option></option>";
+          echo "<option value=''></option>";
           foreach($items as $item){
             echo "<option value={$item->id}>{$item->name}</option>";
           }
@@ -178,6 +177,3 @@ boAddNoteButton.dispatchEvent(new Event('click'));
 
 </div>
 </div>
-
-<?php
-}

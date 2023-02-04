@@ -8,4 +8,4 @@ require_once(ROOTDIR."/.env");
 require_once(ROOTDIR."/vendor/autoload.php");
 require_once(ROOTDIR."/src/app/bootstrap.php");
 ?>
-<link rel="shortcut icon" href="/mydocs/public/img/favicon.ico">
+<link rel="shortcut icon" href="/skills/public/img/favicon.ico">

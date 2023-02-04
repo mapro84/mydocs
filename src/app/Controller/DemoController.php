@@ -7,6 +7,7 @@ use src\app\Demo\fluent\Demo as FluentDemo;
 use src\app\Demo\DIC\Demo as DICDemo;
 use src\app\Demo\Hint\Demo as HintDemo;
 use src\app\Demo\Closure\Demo as ClosureDemo;
+use src\Core\Utils\Debug;
 
 class DemoController extends AppController{
 

@@ -11,16 +11,12 @@ use src\Core\Utils\Debug;
 use src\app\Controller\BOController;
 use src\app\Controller\AppController;
 use src\app\Controller\ItemController;
+use src\Core\Image\AppImage;
 
 class SkillController extends AppController{
 
-  private $boController;
-	private $itemController;
-
   public function __construct(){
 		parent::__construct();
-		//$this->boController = new BOController();
-    //$this->itemController = new ItemController();
 	}
 
 	public function list(array $messages = []) {
@@ -36,10 +32,11 @@ class SkillController extends AppController{
 	public function add(){
     $parameters = Check::makeSafeAssociativeArray($_POST);
 		$result = Skill::insert('skill',$parameters);
+        //AppImage::add($parameters['name']);
 		$this->messages['info'] = $result  === false ? 'Skill added successfully' : '';
 		$this->messages['error'] = $result  !== false ? 'Error: Skill not added' : '';
-		$this->boController = new BOController();
-		$this->boController->show($this->messages);
+		$boController = new BOController();
+		$boController->show($this->messages);
 	}
 
 	public function update(){
@@ -48,7 +45,7 @@ class SkillController extends AppController{
 		$this->messages['info'] = $result  === false ? 'Skill added successfully' : '';
 		$this->messages['error'] = $result  !== false ? 'Error: Skill not added' : '';
 		$this->itemController = new ItemController();
-		$this->itemController->showByskillid($parameters['id'], $this->messages); 
+		$this->itemController->showBySkillId($parameters['id'], $this->messages);
 	}
 
 	public function delete(){
@@ -63,16 +60,8 @@ class SkillController extends AppController{
 	public function findByName($skill_name) {
 		$skill = Skill::findByName('skill',$skill_name);
 		$skill_id = $skill->id;
-		$this->itemController = new ItemController();
-		$this->itemController->showByskillid($skill_id);
+		$itemController = new ItemController();
+		$itemController->showBySkillId($skill_id);
 	}
-	
-	// public function itemsListBySkill($skill_id, array $messages=[]) {
-	// 	$skill = Skill::find($skill_id,'skill');
-	// 	$items = Skill::findBy('item',$skill_id,'skill');
-	// 	$entities = array('items' => $items, 'skills' => $skill, 'messages' => $messages);
-	// 	Debug::dump($entities);
-	// 	$this->render('items',$entities);
-	// }
-}
 
+}
