@@ -9,6 +9,7 @@ use src\app\Controller\BOController;
 use src\app\Controller\DemoController;
 use src\app\Controller\NoteController;
 use src\app\Controller\UrlController;
+use src\app\Controller\TestController;
 
 $skillController = new SkillController();
 $itemController = new ItemController();
@@ -18,6 +19,7 @@ $demoController = new DemoController();
 $boController   = new BOController();
 $noteController = new NoteController();
 $urlController  = new UrlController();
+$testController = new TestController();
 
 $page = isset($_GET['page']) ? $_GET['page'] : '';
 switch ($page) {
@@ -100,6 +102,9 @@ switch ($page) {
 	case 'search':
 		$itemController->search();
 		break;
+    case 'test':
+        $testController->test();
+    break;
 	default: $homeController->show();
 }
 ?>
