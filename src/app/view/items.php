@@ -89,7 +89,7 @@ $skills = $entities['skills'] ?? [];
 				echo $admin === true ? $deleteButton : '';
 					if (!is_null($item['further']) && Check::isUrl($item['further'])) {
 							echo '<a class="text-row" href="' . $item['further'] . '" target="_blank">' . $itemName . '</a>';
-					} elseif (!is_null($item['further']) && Check::isPdf($item['further'])) {
+					} elseif (!is_null($item['further']) && (Check::isPdf($item['further']) || Check::isDocx($item['further']))) {
 						echo '<a class="text-row" href="./public/doc/' . $item['further'] . '" target="_blank">' . $itemName . '</a>';
 					} else {
 						echo '<span class="text-row">'.$itemName.'</span>';

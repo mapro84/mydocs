@@ -31,8 +31,8 @@ class Url extends Entity
 
         $query = 'SELECT max(id) FROM url';
         $lastInsertId = DB::prepare($query);
-        $skill_id = $parameters['skill_id'];
-        $item_id = $parameters['item_id'];
+        $skill_id = !empty($parameters['skill_id']) ? $parameters['skill_id'] : null;
+        $item_id = !empty($parameters['item_id']) ? $parameters['item_id'] : null;
 
         $urlSkillItemParameters = array($lastInsertId[0]["max(id)"], $skill_id, $item_id);
         $query = 'INSERT INTO `url_skill_item`(`url_id`, `skill_id`, `item_id`) VALUES (?,?,?)';

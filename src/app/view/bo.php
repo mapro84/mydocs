@@ -1,5 +1,4 @@
 <?php
-
 use src\app\Controller\UserController;
 use src\app\user\AppUser;
 use src\Core\Utils\Debug;
@@ -53,12 +52,12 @@ $items = $entities['items']?? null;
   <div class="content">
     <form class="postform" action="index.php?page=additem" method="post" class="was-validated">
     <div class="form-group">
-      <label for="name">Name</label>
+        <label for="name">Name</label>
       <input type="text" class="form-control" name="name" placeholder="Enter name" aria-describedby="name" minlength="3" required>
     </div>
     <div class="form-group">
-      <label for="description">Description</label>
-      <input type="text" class="form-control" name="description" placeholder="Description" minlength="3"  required>
+        <label for="description">Description</label>
+        <textarea class="form-control" name="description" placeholder="Description" minlength="3"  required rows="3"></textarea>
     </div>
     <div class="form-group">
       <label for="further">Further</label>

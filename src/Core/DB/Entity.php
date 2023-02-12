@@ -19,7 +19,7 @@ class Entity{
 
 
     public static function getAll($table){
-    	$query = 'SELECT * FROM ' . strtolower($table);
+    	$query = 'SELECT * FROM ' . strtolower($table) . ' ORDER BY name;';
         return DB::prepare($query, [], get_called_class());
     }
 
@@ -60,7 +60,7 @@ class Entity{
     	$query .= $interrogationMark;
     	return DB::prepare($query, $parameters, get_called_class(),true);
     }
-    
+
     public static function update($table,$params){
     	$query = "UPDATE ".$table." SET ";
     	$parameters = [];

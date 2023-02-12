@@ -95,7 +95,15 @@ class Check {
 		}
 		return $check;
 	}
-	
+
+    public static function isDocx($str){
+        $check = false;
+        if(preg_match( '/\.docx$/i' ,$str)){
+            $check = true;
+        }
+        return $check;
+    }
+
 	/**
 	 * Summary of is_safe_password
 	 * @param string $password
