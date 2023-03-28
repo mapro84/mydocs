@@ -1,6 +1,10 @@
 <?php
 namespace src\app\Demo\DIC;
 
+use ReflectionClass;
+use ReflectionException;
+use src\app\Controller\SkillController;
+
 class DIC {
 
     /**
@@ -17,12 +21,22 @@ class DIC {
     public $instances = [];
 
     /**
-     * Sauvegarde les dépendances dans le tableau $registry
-     * @param $key string Nom de la classe
-     * @param $resolver callable Fonction
+     * @param string $classname
+     * @param array $parameters
+     * @return void
      */
-    public function set($key, Callable $resolver) {
-        $this->registry[$key] = $resolver;        
+    //public function set($key, Callable $resolver) {
+    //    $this->registry[$key] = $resolver;
+    //}
+    public function set(string $classname, array $parameters = []): void
+    {
+        // TODO install xdebug or Php debug bar
+        if(!isset($this->registry[$classname])) {
+            $this->registry[$classname] = (function() use ($classname, $parameters) {
+                $class = new ReflectionClass($classname);
+                return $class->newInstance();
+            });
+        }
     }
 
     /**
@@ -34,25 +48,27 @@ class DIC {
         $this->factories[$key] = $resolver;
     }
 
-
     /**
      * Sauvegarde les dépendances dans le tableau $instances (Singleton)
+     * @throws ReflectionException
      */
-    public function setInstance($instance) {
-        $reflection = new \ReflectionClass($instance);
+    public function setInstance($instance): void
+    {
+        $reflection = new ReflectionClass($instance);
         $this->instances[$reflection->getName()] = $instance;
     }
 
     /**
      * Permet de récupérer les dépendances pour créer un singleton
+     * @throws ReflectionException
      */
     public function getInstance($key) {
         if(!isset($this->instances[$key])) {
             if(isset($this->registry[$key])) {
                 $this->instances[$key] = $this->registry[$key]();
-            }
-            else {
-                $reflected_class = new \ReflectionClass($key);
+            } else
+            {
+                $reflected_class = new ReflectionClass($key);
                 if($reflected_class->isInstantiable()) {
                     $constructor = $reflected_class->getConstructor();
                     if($constructor) {

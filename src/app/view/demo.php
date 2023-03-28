@@ -6,5 +6,10 @@ echo '<div class="demoTitle row mt-5">'.$demo->name . ': ' . $demo->description.
 
 echo '<br><br>';
 
-echo $demoContent;
+
+if(is_string($demoContent)){
+    echo $demoContent;
+} else {
+    var_dump($demoContent);
+}
 

@@ -8,14 +8,18 @@ use src\app\Entity\Item;
 use src\Core\Utils\Check;
 use src\Core\Utils\Debug;
 use src\app\Controller\BOController;
+use src\Core\DIC\DIC;
 
 class ItemController extends AppController{
 	
 	private $skillController;
+
+    private $dic = null;
 	
 	public function __construct(){
 		parent::__construct();
-		$this->skillController = new SkillController();
+        $this->dic = new DIC();
+        $this->skillController =  $this->dic->getInstance('src\app\Controller\SkillController');
 	}
 
 	public function showBySkillId($skill_id, array $messages = []) {

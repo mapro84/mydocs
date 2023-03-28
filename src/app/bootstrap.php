@@ -1,27 +1,22 @@
 <?php
+
+use src\Core\DIC\DIC;
 use src\Core\Utils\Check;
 use src\Core\Auth\DBAuth;
-use src\app\Controller\SkillController;
-use src\app\Controller\UserController;
-use src\app\Controller\ItemController;
-use src\app\Controller\HomeController;
-use src\app\Controller\BOController;
-use src\app\Controller\DemoController;
-use src\app\Controller\NoteController;
-use src\app\Controller\UrlController;
-use src\app\Controller\TestController;
 
-$skillController = new SkillController();
-$itemController = new ItemController();
-$userController = new UserController();
-$homeController = new HomeController();
-$demoController = new DemoController();
-$boController   = new BOController();
-$noteController = new NoteController();
-$urlController  = new UrlController();
-$testController = new TestController();
+$dic = new DIC();
 
-$page = isset($_GET['page']) ? $_GET['page'] : '';
+$skillController = $dic->getInstance('src\app\Controller\SkillController');
+$itemController = $dic->getInstance('src\app\Controller\ItemController');
+$userController = $dic->getInstance('src\app\Controller\UserController');
+$homeController = $dic->getInstance('src\app\Controller\HomeController');
+$demoController = $dic->getInstance('src\app\Controller\DemoController');
+$boController = $dic->getInstance('src\app\Controller\BOController');
+$noteController = $dic->getInstance('src\app\Controller\NoteController');
+$urlController = $dic->getInstance('src\app\Controller\UrlController');
+$testController = $dic->getInstance('src\app\Controller\TestController');
+
+$page = $_GET['page'] ?? '';
 switch ($page) {
 	case 'home': 
 		$homeController->show();
@@ -107,4 +102,3 @@ switch ($page) {
     break;
 	default: $homeController->show();
 }
-?>

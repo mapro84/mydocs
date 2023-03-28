@@ -15,9 +15,19 @@ use src\Core\Image\AppImage;
 
 class SkillController extends AppController{
 
-  public function __construct(){
+  private static int $use = 0;
+
+  public function __construct($classFrom = null){
+      
 		parent::__construct();
+        self::$use++;
+        echo ' From Class: ' . $classFrom . 'Use : '.self::$use;
 	}
+
+    public function __init(){
+        self::$use++;
+        echo 'In Init Use : '.self::$use;
+    }
 
 	public function list(array $messages = []) {
 		$skills = Skill::getAll('skill');

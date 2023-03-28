@@ -19,9 +19,6 @@ class Test
         for ($i=0; $i < $count; $i++) {
             foreach ($mathFunctions as $function) {
                 $r = call_user_func_array($function, array($i));
-                var_dump($function);
-                var_dump( array($i));
-                var_dump( $r);
             }
         }
 
