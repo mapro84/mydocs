@@ -16,7 +16,7 @@ class Demo {
      */
     public static function demo(): mixed
     {
-        $dic = new DIC();
+        $dic = DIC::getDicInstance();
         return $dic->getInstance('src\app\Controller\SkillController');
     }
 }

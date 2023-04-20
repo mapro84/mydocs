@@ -7,6 +7,18 @@ use src\app\Controller\SkillController;
 
 class DIC {
 
+    private static $instance = null;
+
+    private function __construct(){}
+
+    public static function getDicInstance() {
+        if (!isset(self::$instance)) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
+    }
+
     /**
      * @var $registry array - Tableau sauvegardant les dépendances
      */

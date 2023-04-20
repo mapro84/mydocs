@@ -8,10 +8,29 @@ use src\app\Controller\SkillController;
 
 class DIC {
 
+    private static $instance = null;
+    private static int $use = 0;
     /**
      * @var $instances array - Tableau sauvegardant les dépendances (Singleton)
      */
     public array $instances = [];
+
+    private function __construct(){
+    }
+
+    function myfi(): string
+    {
+        $container = new DI\Container();
+        return 'toyo';
+    }
+
+    public static function getDicInstance() {
+        if (!isset(self::$instance)) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
+    }
 
     /**
      * @throws ReflectionException
@@ -41,7 +60,6 @@ class DIC {
      */
     public function getInstance($key) {
         if(!isset($this->instances[$key])) {
-            echo '<br>  no isset instances[key]  ';
             $reflected_class = new ReflectionClass($key);
             if($reflected_class->isInstantiable()) {
                 $constructor = $reflected_class->getConstructor();
@@ -67,7 +85,7 @@ class DIC {
             }
         }
 
-        var_dump($this->instances[$key]);
+        //var_dump($this->instances[$key]);
 
         return $this->instances[$key];
     }

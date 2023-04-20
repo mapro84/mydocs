@@ -3,8 +3,9 @@
 use src\Core\DIC\DIC;
 use src\Core\Utils\Check;
 use src\Core\Auth\DBAuth;
+use src\Core\User\User;
 
-$dic = new DIC();
+$dic = DIC::getDicInstance();
 
 $skillController = $dic->getInstance('src\app\Controller\SkillController');
 $itemController = $dic->getInstance('src\app\Controller\ItemController');

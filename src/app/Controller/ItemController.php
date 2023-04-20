@@ -18,7 +18,7 @@ class ItemController extends AppController{
 	
 	public function __construct(){
 		parent::__construct();
-        $this->dic = new DIC();
+        $this->dic = DIC::getDicInstance();
         $this->skillController =  $this->dic->getInstance('src\app\Controller\SkillController');
 	}
 

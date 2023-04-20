@@ -21,12 +21,13 @@ class SkillController extends AppController{
       
 		parent::__construct();
         self::$use++;
-        echo ' From Class: ' . $classFrom . 'Use : '.self::$use;
+//        echo ' From Class: ' . $classFrom . 'Use : '.self::$use;
+//        echo '<script>alert("Hourra")</script>';
 	}
 
     public function __init(){
         self::$use++;
-        echo 'In Init Use : '.self::$use;
+        //echo 'In Init Use : '.self::$use;
     }
 
 	public function list(array $messages = []) {

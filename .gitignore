@@ -8,3 +8,4 @@ composer.phar
 .idea
 confidential.json
 composer.lock
+.env_dist

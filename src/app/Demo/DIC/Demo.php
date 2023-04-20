@@ -14,7 +14,7 @@ class Demo {
     public static function demo(): string
     {
 
-        $dic = new DIC();
+        $dic = DIC::getDicInstance();
         $connection = new Connection('dbname', 'root', 'root');
         // return always the same instance
         $dic->set('Connection', function () use ($connection) {
@@ -53,7 +53,7 @@ class Demo {
 
         $bootstrapHtml->addTitle('Usage Code:');
         $bootstrapHtml->addDiv();
-        $bootstrapHtml->addData('$dic = new DIC();
+        $bootstrapHtml->addData('$dic = DIC::getDicInstance();
         $connection = new Connection("dbname", "root", "root");
 
         // return always the same instance
